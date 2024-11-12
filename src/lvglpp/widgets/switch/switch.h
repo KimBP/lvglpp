@@ -14,10 +14,20 @@ namespace lvgl::widgets {
 
     using namespace lvgl::core;
     
-    /** \typedef Switch
+    /** \class Switch
      *  \brief Wraps a lv_switch_t object.
      */
-    using Switch = Widget<lv_switch_create>;
+    class Switch : Widget<lv_switch_create> {
+    public:
+        using Widget::Widget;
+
+        Switch();
+        Switch(Object & parent);
+
+        void initialize() override;
+        void initialize(Object & parent) override;
+    };
 
 }
+
 #endif // LV_USE_SWITCH
