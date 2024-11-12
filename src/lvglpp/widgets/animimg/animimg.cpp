@@ -16,7 +16,7 @@ namespace lvgl::widgets {
             // requires non-const
             this->dsc[n] = const_cast<lv_img_dsc_t*>(imgs[n].raw_ptr());
         }
-        lv_animimg_set_src(this->raw_ptr(), this->dsc.get(), imgs.size());
+        lv_animimg_set_src(this->raw_ptr(), (const void**)this->dsc.get(), imgs.size());
     }
 
     void AnimatedImage::start() {
