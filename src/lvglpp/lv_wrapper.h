@@ -7,6 +7,7 @@
 #pragma once
 #include <memory>
 #include <functional>
+#include <utility>
 #include "lvgl.h"
 
 /** \namespace lvgl
