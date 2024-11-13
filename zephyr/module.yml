@@ -1,0 +1,5 @@
+name: lvglpp
+build:
+  cmake-ext: True
+  kconfig: Kconfig
+
