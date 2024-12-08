@@ -4,6 +4,7 @@
  *  Author: Vincent Paeder
  *  License: MIT
  */
+#pragma once
 
 #include "../lv_wrapper.h"
 #include "../misc/anim.h"
