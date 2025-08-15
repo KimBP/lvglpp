@@ -13,7 +13,7 @@ namespace lvgl::widgets {
 
     Span::Span(lv_span_t* span) {
         this->owns_ptr = false;
-        this->lv_obj = LvPointer<lv_span_t, lv_mem_free>(span);
+        this->lv_obj = LvPointer<lv_span_t, free>(span);
     }
 
     void Span::set_text(const std::string & text) {

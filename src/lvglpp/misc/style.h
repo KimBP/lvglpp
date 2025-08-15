@@ -25,7 +25,7 @@ namespace lvgl::misc {
      *  \brief Wraps a lv_style_transition_dsc_t object. This is a base class
      *  to define style transition.
      */
-    class StyleTransition : public PointerWrapper<lv_style_transition_dsc_t, lv_mem_free> {
+    class StyleTransition : public PointerWrapper<lv_style_transition_dsc_t, free> {
     protected:
         /** \fn void initialize(const std::vector<lv_style_prop_t> & props, uint32_t time, uint32_t delay)
          *  \brief Initializes style transition.
@@ -208,7 +208,7 @@ namespace lvgl::misc {
     /** \class Style
      *  \brief Wraps a lv_style_t object.
      */
-    class Style : public PointerWrapper<lv_style_t, lv_mem_free> {
+    class Style : public PointerWrapper<lv_style_t, free> {
     public:
         using PointerWrapper::PointerWrapper;
         

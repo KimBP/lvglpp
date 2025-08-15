@@ -14,7 +14,7 @@ namespace lvgl::core {
     /** \class Theme
      *  \brief Wraps a lv_theme_t object.
      */
-    class Theme : public PointerWrapper<lv_theme_t, lv_mem_free> {
+    class Theme : public PointerWrapper<lv_theme_t, free> {
     public:
         using PointerWrapper::PointerWrapper;
 

@@ -12,7 +12,7 @@ namespace lvgl::misc {
     /** \class Area
      *  \brief Wraps a lv_area_t object. This represents a surface area.
      */
-    class Area : public PointerWrapper<lv_area_t, lv_mem_free> {
+    class Area : public PointerWrapper<lv_area_t, free> {
     public:
         using PointerWrapper::PointerWrapper;
 

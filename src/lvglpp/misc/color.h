@@ -184,7 +184,7 @@ namespace lvgl::misc {
      *  \brief Wraps a lv_color_filter_dsc_t object. This is a base class
      *  used to define color filters.
      */
-    class ColorFilter : public PointerWrapper<lv_color_filter_dsc_t, lv_mem_free> {
+    class ColorFilter : public PointerWrapper<lv_color_filter_dsc_t, free> {
     protected:
         /** \fn virtual lv_color_t callback(lv_color_t color, lv_opa_t opa)
          *  \brief Color filter callback.

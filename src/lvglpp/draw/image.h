@@ -129,7 +129,7 @@ namespace lvgl::draw {
     /** \class ImageHeader
      *  \brief Wraps a lv_img_header_t object.
      */
-    class ImageHeader : public PointerWrapper<lv_img_header_t, lv_mem_free> {
+    class ImageHeader : public PointerWrapper<lv_img_header_t, free> {
     private:
         /** \fn bool valid
          *  \brief True if header contains valid data, false otherwise.

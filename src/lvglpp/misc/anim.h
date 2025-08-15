@@ -15,7 +15,7 @@ namespace lvgl::misc {
     /** \class Animation
      *  \brief Wraps a lv_anim_t object.
      */
-    class Animation : public PointerWrapper<lv_anim_t, lv_mem_free> {
+    class Animation : public PointerWrapper<lv_anim_t, free> {
     public:
         using PointerWrapper::PointerWrapper;
 
