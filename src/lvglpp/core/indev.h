@@ -191,6 +191,7 @@ namespace lvgl::core {
          */
         KeypadInputDevice();
 
+	//KeypadInputDevice(lv_indev_t*);
         /** \fn void set_group(const Group & group)
          *  \brief Sets the destination group of keypad events.
          *  \param group: group instance.

@@ -111,6 +111,14 @@ namespace lvgl::core {
         this->set_type(LV_INDEV_TYPE_KEYPAD);
     }
 
+/*
+    KeypadInputDevice::KeypadInputDevice(lv_indev_t* indev) {
+	this->set_type(LV_INDEV_TYPE_KEYPAD);
+        lv_indev_reset(this->raw_ptr(), const_cast<lv_obj_t*>(indev));
+        
+    }
+*/
+
     void KeypadInputDevice::set_group(const Group & group) {
          lv_indev_set_group(this->raw_ptr(), const_cast<lv_group_t*>(group.raw_ptr()));
    }
