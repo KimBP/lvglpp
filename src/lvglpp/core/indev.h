@@ -217,6 +217,12 @@ namespace lvgl::core {
          *  \brief Default constructor.
          */
         EncoderInputDevice();
+
+        /** \fn void set_group(const Group & group)
+         *  \brief Sets the destination group of keypad events.
+         *  \param group: group instance.
+         */
+        void set_group(const Group & group);
     };
 
 }

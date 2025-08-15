@@ -127,10 +127,13 @@ namespace lvgl::core {
         return lv_indev_get_key(this->raw_ptr());
     }
 
-
     EncoderInputDevice::EncoderInputDevice() {
         this->set_type(LV_INDEV_TYPE_ENCODER);
     }
+
+    void EncoderInputDevice::set_group(const Group & group) {
+         lv_indev_set_group(this->raw_ptr(), const_cast<lv_group_t*>(group.raw_ptr()));
+   }
 
 }
 #endif // LV_USE_USER_DATA
