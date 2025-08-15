@@ -6,6 +6,7 @@
  */
 #pragma once
 #include "lvgl.h"
+#include <assert.h>
 
 /** \namespace lvgl
  *  \brief LVGL C++ wrappers.
