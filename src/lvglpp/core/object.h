@@ -1197,13 +1197,6 @@ namespace lvgl::core {
          */
         void set_style_bg_grad(const lv_grad_dsc_t * value, lv_style_selector_t selector);
 
-        /** \fn void set_style_bg_dither_mode(lv_dither_mode_t value, lv_style_selector_t selector)
-         *  \brief Sets background dither mode.
-         *  \param value: property value.
-         *  \param selector: OR-ed combination of parts and states to apply the style to.
-         */
-        void set_style_bg_dither_mode(lv_dither_mode_t value, lv_style_selector_t selector);
-
         /** \fn void set_style_bg_img_src(const void * value, lv_style_selector_t selector)
          *  \brief Sets background image.
          *  \param value: property value.
@@ -1833,13 +1826,6 @@ namespace lvgl::core {
          *  \returns property value.
          */
         const lv_grad_dsc_t * get_style_bg_grad(uint32_t part) const;
-
-        /** \fn lv_dither_mode_t get_style_bg_dither_mode(uint32_t part) const
-         *  \brief Gets background dithering mode.
-         *  \param part: OR-ed combination of parts and states to get style from.
-         *  \returns property value.
-         */
-        lv_dither_mode_t get_style_bg_dither_mode(uint32_t part) const;
 
         /** \fn const void * get_style_bg_img_src(uint32_t part) const
          *  \brief Gets background image source.

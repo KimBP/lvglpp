@@ -673,9 +673,6 @@ namespace lvgl::core {
     void Object::set_style_bg_grad(const lv_grad_dsc_t * value, lv_style_selector_t selector) {
       lv_obj_set_style_bg_grad(this->raw_ptr(), value, selector);
     }
-    void Object::set_style_bg_dither_mode(lv_dither_mode_t value, lv_style_selector_t selector) {
-      lv_obj_set_style_bg_dither_mode(this->raw_ptr(), value, selector);
-    }
     void Object::set_style_bg_img_src(const void * value, lv_style_selector_t selector) {
       lv_obj_set_style_bg_img_src(this->raw_ptr(), value, selector);
     }
@@ -953,9 +950,6 @@ namespace lvgl::core {
     }
     const lv_grad_dsc_t * Object::get_style_bg_grad(uint32_t part) const {
         return lv_obj_get_style_bg_grad(const_cast<lv_cls_ptr>(this->raw_ptr()), part);
-    }
-    lv_dither_mode_t Object::get_style_bg_dither_mode(uint32_t part) const {
-        return lv_obj_get_style_bg_dither_mode(const_cast<lv_cls_ptr>(this->raw_ptr()), part);
     }
     const void * Object::get_style_bg_img_src(uint32_t part) const {
         return lv_obj_get_style_bg_img_src(const_cast<lv_cls_ptr>(this->raw_ptr()), part);
