@@ -8,7 +8,7 @@
 #include <memory>
 #include <functional>
 #include <string>
-
+#include <cstring>
 #include "lvgl.h"
 
 /** \namespace lvgl
@@ -54,7 +54,7 @@ namespace lvgl {
         auto raw_arr = make_double_array<char>(arr.size());
         for (size_t n=0; n<arr.size(); n++) {
             raw_arr.get()[n] = static_cast<char*>(calloc(arr[n].size()+1, sizeof(char)));
-            memset(raw_arr.get()[n], 0, arr[n].size()+1);
+            std::memset(raw_arr.get()[n], 0, arr[n].size()+1);
             std::copy(arr[n].begin(), arr[n].end(), raw_arr.get()[n]);
         }
         return raw_arr;
