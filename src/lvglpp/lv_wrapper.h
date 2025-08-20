@@ -8,6 +8,8 @@
 #include <memory>
 #include <functional>
 #include <utility>
+#include <string>
+
 #include "lvgl.h"
 
 /** \namespace lvgl
