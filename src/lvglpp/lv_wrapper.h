@@ -11,6 +11,8 @@
 #include <string>
 #include <utility>
 #include <cstring>
+#include <assert.h>
+
 #include "lvgl.h"
 
 /** \namespace lvgl
