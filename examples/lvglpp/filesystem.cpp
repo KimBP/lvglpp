@@ -2,6 +2,7 @@
 #include "lvglpp/lvglpp.h"
 #include "lvglpp/misc/fs.h"
 
+#ifdef ENABLE_CUSTOM_FILESYSTEM
 
 class CustomFileSystem : public lvgl::misc::FileSystem {
 private:
@@ -168,3 +169,5 @@ void main() {
     // create filesystem object associated with letter A
     static auto fs = CustomFileSystem("A");
 }
+
+#endif // ENABLE_CUSTOM_FILESYSTEM
