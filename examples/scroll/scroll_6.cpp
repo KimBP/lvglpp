@@ -62,7 +62,7 @@ namespace lvgl::examples {
             auto btn = Button(cont);
             btn.set_width(lv_pct(100));
             auto label = Label(btn);
-            labelset_text_fmt("Button %" LV_PRIu32, i);
+            label.set_text_fmt("Button %" LV_PRIu32, i);
             btn.release_ptr();
             label.release_ptr();
         }

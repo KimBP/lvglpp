@@ -23,7 +23,7 @@ namespace lvgl::examples {
         static auto child2 = Container(panel);
         child2.set_pos(160, 80);
         child2.set_size(80, 80);
-        static auto btn = Button(child);
+        static auto btn = Button(child2);
         static auto label2 = Label(btn);
         label2.set_text("Right");
         label2.center();

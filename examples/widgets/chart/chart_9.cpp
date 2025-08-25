@@ -9,6 +9,8 @@ namespace lvgl::examples {
     using namespace lvgl::widgets;
     using namespace lvgl::misc;
 
+    using ChartPtr = std::shared_ptr<Chart>;
+
     class ChartTimer : public Timer {
     private:
         ChartPtr chart;

@@ -13,7 +13,7 @@ namespace lvgl::examples {
         /*Set a background color and a radius*/
         style.set_radius(5);
         style.set_bg_opa(LV_OPA_COVER);
-        style.set_bg_color(palette::lighten(Color::Grey, 1));
+        style.set_bg_color(palette::light(Color::Grey, 1));
 
         /*Add outline*/
         style.set_outline_width(2);

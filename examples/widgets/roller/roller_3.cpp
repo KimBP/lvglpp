@@ -52,7 +52,6 @@ namespace lvgl::examples {
         style.set_text_color(palette::white());
         style.set_border_width(0);
         style.set_pad_all(0);
-        root.add_style(style, LV_PART_MAIN);
 
         static auto roller = Roller(scr_act());
         roller.add_style(style, LV_PART_MAIN);

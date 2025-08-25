@@ -13,7 +13,7 @@ namespace lvgl::examples {
         /*Set a background color and a radius*/
         style.set_radius(10);
         style.set_bg_opa(LV_OPA_COVER);
-        style.set_bg_color(palette::lighten(Color::Grey, 1));
+        style.set_bg_color(palette::light(Color::Grey, 1));
 
         /*Add border to the bottom+right*/
         style.set_border_color(palette::main(Color::Blue));
