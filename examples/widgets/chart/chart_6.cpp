@@ -35,9 +35,9 @@ namespace lvgl::examples {
 
             Area a;
             a->y2 = dsc->p1->y - 5;
-            a->y1 = a.y2 - size.y - 10;
+            a->y1 = a->y2 - size.y - 10;
             a->x1 = dsc->p1->x + 10;
-            a->x2 = a.x1 + size.x + 10;
+            a->x2 = a->x1 + size.x + 10;
 
             RectangleDrawDescriptor draw_rect_dsc;
             draw_rect_dsc->bg_color = palette::main(Color::Blue);

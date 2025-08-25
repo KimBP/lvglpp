@@ -22,7 +22,7 @@ namespace lvgl::examples {
             auto txt = "Track " + std::to_string(btn_cnt);
             auto list_btn = list->add_btn(LV_SYMBOL_AUDIO, txt);
             btn_cnt++;
-            float_btn.move_foreground();
+            float_btn.to_foreground();
             list_btn.scroll_to_view(LV_ANIM_ON);
             list_btn.release_ptr();
         }

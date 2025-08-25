@@ -31,12 +31,12 @@ namespace lvgl::examples {
             sw_area->y2 = sw_area->y1 + 20;
             rect_dsc.draw(dsc->draw_ctx, sw_area);
 
-            rect_dsc.bg_color = palette::white();
+            rect_dsc->bg_color = palette::white();
             if(chk) {
                 sw_area->x2 -= 2;
                 sw_area->x1 = sw_area->x2 - 16;
             } else {
-                sw_area.x1 += 2;
+                sw_area->x1 += 2;
                 sw_area->x2 = sw_area->x1 + 16;
             }
             sw_area->y1 += 2;

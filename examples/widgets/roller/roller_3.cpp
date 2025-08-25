@@ -28,16 +28,16 @@ namespace lvgl::examples {
             auto roller_coords = obj.get_coords();
 
             Area rect_area;
-            rect_area->x1 = roller_coords.x1;
-            rect_area->x2 = roller_coords.x2;
-            rect_area->y1 = roller_coords.y1;
-            rect_area->y2 = roller_coords.y1 + (obj.get_height() - font_h - line_space) / 2;
-            fade_mask_top = std::make_unique<FadeMask>(rect_area, LV_OPA_TRANSP, rect_area.y1, LV_OPA_COVER, rect_area.y2);
+            rect_area->x1 = roller_coords->x1;
+            rect_area->x2 = roller_coords->x2;
+            rect_area->y1 = roller_coords->y1;
+            rect_area->y2 = roller_coords->y1 + (obj.get_height() - font_h - line_space) / 2;
+            fade_mask_top = std::make_unique<FadeMask>(rect_area, LV_OPA_TRANSP, rect_area->y1, LV_OPA_COVER, rect_area->y2);
             fade_mask_top->add();
 
             rect_area->y1 = rect_area->y2 + font_h + line_space - 1;
-            rect_area->y2 = roller_coords.y2;
-            fade_mask_bottom = std::make_unique<FadeMask>(rect_area, LV_OPA_COVER, rect_area.y1, LV_OPA_TRANSP, rect_area.y2);
+            rect_area->y2 = roller_coords->y2;
+            fade_mask_bottom = std::make_unique<FadeMask>(rect_area, LV_OPA_COVER, rect_area->y1, LV_OPA_TRANSP, rect_area->y2);
             fade_mask_bottom->add();
         }
         else if(code == LV_EVENT_DRAW_POST_END) {

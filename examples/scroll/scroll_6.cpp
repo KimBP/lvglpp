@@ -67,7 +67,7 @@ namespace lvgl::examples {
             label.release_ptr();
         }
         /*Update the buttons position manually for first*/
-        cont.send_event(cont, LV_EVENT_SCROLL);
+        cont.send_event(LV_EVENT_SCROLL);
         /*Be sure the fist button is in the middle*/
         cont.get_child<Object>(0).scroll_to_view(LV_ANIM_OFF);
     }

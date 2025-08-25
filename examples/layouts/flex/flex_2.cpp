@@ -22,7 +22,7 @@ namespace lvgl::examples {
         cont.add_style(style, LV_PART_MAIN);
 
         for(uint32_t i = 0; i < 8; i++) {
-            auto obj = obj.create(cont);
+            auto obj = Container(cont);
             obj.set_size(70, LV_SIZE_CONTENT);
             obj.add_flag(LV_OBJ_FLAG_CHECKABLE);
             auto label = Label(obj);
