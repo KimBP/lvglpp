@@ -13,10 +13,10 @@ namespace lvgl::examples {
         static auto win = Window(root, 40);
         win.add_title("A title");
 
-        auto event_handler(Event & e) {
+        auto event_handler = [](Event & e) {
             auto obj = e.get_target<Object>();
             LV_LOG_USER("Button %d clicked", static_cast<int>(obj.get_index()));
-        }
+        };
 
         auto btn1 = win.add_btn(LV_SYMBOL_LEFT, 40);
         btn1.add_event_cb(event_handler, LV_EVENT_CLICKED);

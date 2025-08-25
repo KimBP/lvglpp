@@ -27,7 +27,7 @@ namespace lvgl::examples {
         auto new_theme_apply_cb = [](Theme & th, Object & obj) {
             if (obj.check_type(lv_btn_class))
                 obj.add_style(style_btn, LV_STATE_DEFAULT);
-        }
+        };
         th_new.set_apply_cb(new_theme_apply_cb);
 
         /*Assign the new theme to the current display*/

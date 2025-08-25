@@ -30,7 +30,7 @@ namespace lvgl::examples {
 
     void scroll_3() {
         auto root = scr_act();
-        list = std::unique_ptr<List>(root);
+        list = std::make_unique<List>(root);
         list->set_size(280, 220);
         list->center();
 

@@ -30,7 +30,7 @@ namespace lvgl::examples {
             if (*currentButton == obj) {
                 currentButton = nullptr;
             } else {
-                currentButton = obj.get_shared();
+                currentButton = obj.get_shared<Button>();
                 obj.add_state(LV_STATE_CHECKED);
             }
         }

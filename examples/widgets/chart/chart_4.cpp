@@ -31,7 +31,7 @@ namespace lvgl::examples {
             while(ser) {
                 auto p = chart.get_point_pos_by_id(ser, id);
                 auto y_array = chart.get_y_array(ser);
-                std::string txt = LV_SYMBOL_DUMMY + "$" + std::to_string(y_array[id]);
+                std::string txt = LV_SYMBOL_DUMMY + std::string("$") + std::to_string(y_array[id]);
 
                 RectangleDrawDescriptor draw_rect_dsc;
                 draw_rect_dsc->bg_color = palette::black();

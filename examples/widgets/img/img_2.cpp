@@ -30,11 +30,11 @@ namespace lvgl::examples {
 
     static SliderPtr create_slider(Object & parent, lv_color_t color) {
         auto slider = std::make_unique<Slider>(parent);
-        slider.set_range(0, 255);
-        slider.set_size(10, 200);
-        slider.set_style_bg_color(color, LV_PART_KNOB);
-        slider.set_style_bg_color(lv_color_darken(color, LV_OPA_40), LV_PART_INDICATOR);
-        slider.add_event_cb(slider_event_cb, LV_EVENT_VALUE_CHANGED);
+        slider->set_range(0, 255);
+        slider->set_size(10, 200);
+        slider->set_style_bg_color(color, LV_PART_KNOB);
+        slider->set_style_bg_color(lv_color_darken(color, LV_OPA_40), LV_PART_INDICATOR);
+        slider->add_event_cb(slider_event_cb, LV_EVENT_VALUE_CHANGED);
         return slider;
     }
 

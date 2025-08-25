@@ -41,10 +41,11 @@ namespace lvgl::examples {
 
         /*Test the rotation. It requires another buffer where the original image is stored.
         *So copy the current image to buffer and rotate it to the canvas*/
-        static std::vector<lv_color_t> cbuf_tmp[CANVAS_WIDTH * CANVAS_HEIGHT];
+        static std::vector<lv_color_t> cbuf_tmp(CANVAS_WIDTH * CANVAS_HEIGHT);
         std::copy(cbuf.begin(), cbuf.end(), std::back_inserter(cbuf_tmp));
         ImageDescriptor img;
-        img.set_src(cbuf_tmp, CANVAS_WIDTH, CANVAS_HEIGHT, LV_IMG_CF_TRUE_COLOR);
+        const uint8_t* cbuf_tmp_ptr = reinterpret_cast<const uint8_t*>(cbuf_tmp.data());
+        img.set_src(cbuf_tmp_ptr, CANVAS_WIDTH, CANVAS_HEIGHT, LV_IMG_CF_TRUE_COLOR);
 
         canvas.fill_bg(palette::light(Color::Grey, 3), LV_OPA_COVER);
         canvas.set_buffer(img);
