@@ -9,7 +9,8 @@ namespace lvgl::examples {
     using namespace lvgl::widgets;
 
     void win_1() {
-        static auto win = Window(scr_act(), 40);
+        static auto root = scr_act();
+        static auto win = Window(root, 40);
         win.add_title("A title");
 
         auto event_handler(Event & e) {

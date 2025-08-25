@@ -12,6 +12,7 @@ namespace lvgl::examples {
                                         "Orange\n"
                                         "Melon";
 
+        static auto root = scr_act();
         static auto dd1 = Dropdown(root);
         dd1.set_options_static(opts);
         dd1.align(LV_ALIGN_TOP_MID, 0, 10);
