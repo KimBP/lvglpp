@@ -17,7 +17,7 @@ namespace lvgl::widgets {
     /** \class Switch
      *  \brief Wraps a lv_switch_t object.
      */
-    class Switch : Widget<lv_switch_create> {
+    class Switch : public Widget<lv_switch_create> {
     public:
         using Widget::Widget;
 
