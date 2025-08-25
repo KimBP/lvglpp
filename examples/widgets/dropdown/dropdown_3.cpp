@@ -3,6 +3,9 @@
 #include "lvglpp/core/event.h" // for Event
 #include "lvglpp/draw/image.h" // for ImageDescriptor
 
+// Map file coming from lvgl example assets
+extern uint8_t img_caret_down_map[];
+
 namespace lvgl::examples {
     
     using namespace lvgl::core;

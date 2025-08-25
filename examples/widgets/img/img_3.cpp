@@ -4,6 +4,8 @@
 #include "lvglpp/misc/anim.h" // for Animation
 #include "lvglpp/draw/image.h" // for Image descriptor
 
+extern uint8_t img_cogwheel_argb_map[];
+
 namespace lvgl::examples {
     
     using namespace lvgl::core;

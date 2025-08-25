@@ -2,6 +2,8 @@
 #include "lvglpp/widgets/image/image.h" // for Image
 #include "lvglpp/draw/image.h" // for Image descriptor
 
+extern uint8_t img_cogwheel_argb_map[];
+
 namespace lvgl::examples {
     
     using namespace lvgl::core;

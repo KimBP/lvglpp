@@ -7,6 +7,8 @@
 #include <vector>
 #include <string>
 
+extern uint8_t img_star_map[];
+
 namespace lvgl::examples {
     
     using namespace lvgl::core;

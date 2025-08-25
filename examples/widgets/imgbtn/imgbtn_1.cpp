@@ -5,6 +5,11 @@
 #include "lvglpp/misc/color.h" // for colors
 #include <vector>
 
+// Map file coming from lvgl example assets
+extern uint8_t imgbtn_left_map[];
+extern uint8_t imgbtn_mid_map[];
+extern uint8_t imgbtn_right_map[];
+
 namespace lvgl::examples {
     
     using namespace lvgl::core;

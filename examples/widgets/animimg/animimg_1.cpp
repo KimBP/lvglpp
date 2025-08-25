@@ -2,6 +2,10 @@
 #include "lvglpp/widgets/animimg/animimg.h" // for AnimatedImage
 #include "lvglpp/draw/image.h" // for ImageDescriptor
 
+extern uint8_t animimg001_map[];
+extern uint8_t animimg002_map[];
+extern uint8_t animimg003_map[];
+
 namespace lvgl::examples {
     
     using namespace lvgl::core;

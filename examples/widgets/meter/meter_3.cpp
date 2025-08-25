@@ -4,6 +4,9 @@
 #include "lvglpp/misc/color.h" // for colors
 #include "lvglpp/draw/image.h" // for ImageDescriptor
 
+// Map file coming from lvgl example assets
+extern uint8_t img_hand_map[];
+
 namespace lvgl::examples {
     
     using namespace lvgl::core;

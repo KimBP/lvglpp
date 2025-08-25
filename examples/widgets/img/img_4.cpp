@@ -5,6 +5,8 @@
 #include "lvglpp/misc/style.h" // for Style
 #include "lvglpp/misc/color.h" // for colors
 
+extern uint8_t img_skew_strip_map[];
+
 namespace lvgl::examples {
     
     using namespace lvgl::core;
