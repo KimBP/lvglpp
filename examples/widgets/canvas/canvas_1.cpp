@@ -1,6 +1,7 @@
 #include "lvglpp/core/display.h" // for scr_act()
 #include "lvglpp/widgets/canvas/canvas.h" // for Canvas
 #include "lvglpp/misc/color.h" // for colors
+#include "lvglpp/draw/desc.h" // for Draw descriptor
 
 #define CANVAS_WIDTH  200
 #define CANVAS_HEIGHT  150

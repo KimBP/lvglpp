@@ -2,6 +2,7 @@
 #include "lvglpp/widgets/image/image.h" // for Image
 #include "lvglpp/core/event.h" // for Event
 #include "lvglpp/misc/anim.h" // for Animation
+#include "lvglpp/draw/image.h" // for Image descriptor
 
 namespace lvgl::examples {
     

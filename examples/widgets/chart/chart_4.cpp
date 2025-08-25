@@ -2,6 +2,7 @@
 #include "lvglpp/widgets/chart/chart.h" // for Chart
 #include "lvglpp/core/event.h" // for Event
 #include "lvglpp/misc/color.h" // for colors
+#include "lvglpp/draw/desc.h" // For Draw descriptor
 
 namespace lvgl::examples {
     

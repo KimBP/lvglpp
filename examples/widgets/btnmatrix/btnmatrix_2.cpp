@@ -3,6 +3,7 @@
 #include "lvglpp/core/event.h" // for Event
 #include "lvglpp/misc/style.h" // for Style
 #include "lvglpp/misc/color.h" // for colors
+#include "lvglpp/draw/desc.h" // for Draw descriptor
 #include <vector>
 #include <string>
 

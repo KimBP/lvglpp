@@ -3,6 +3,7 @@
 #include "lvglpp/widgets/slider/slider.h" // for Slider
 #include "lvglpp/core/event.h" // for Event
 #include "lvglpp/misc/color.h" // for colors
+#include "lvglpp/draw/image.h" // for Image descriptor
 
 namespace lvgl::examples {
     

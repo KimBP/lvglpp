@@ -3,6 +3,7 @@
 #include "lvglpp/widgets/label/label.h" // for Label
 #include "lvglpp/widgets/button/button.h" // for Button
 #include "lvglpp/misc/area.h" // for Area
+#include "lvglpp/core/event.h" // for Event
 
 namespace lvgl::examples {
     

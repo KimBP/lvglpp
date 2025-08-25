@@ -4,6 +4,7 @@
 #include "lvglpp/misc/color.h" // for colors
 #include "lvglpp/core/event.h" // for Event
 #include "lvglpp/draw/mask.h" // for mask functions
+#include "lvglpp/draw/desc.h" // for Draw descriptor
 
 namespace lvgl::examples {
     

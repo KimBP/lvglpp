@@ -2,6 +2,7 @@
 #include "lvglpp/core/event.h" // for Event
 #include "lvglpp/widgets/label/label.h" // for Label
 #include "lvglpp/widgets/button/button.h" // for Button
+#include "lvglpp/misc/color.h" // for Color
 
 namespace lvgl::examples {
     

@@ -1,5 +1,6 @@
 #include "lvglpp/core/display.h" // for scr_act()
 #include "lvglpp/core/object.h" // for Container
+#include "lvglpp/core/indev.h" // for InputDevice
 #include "lvglpp/widgets/label/label.h" // for Label
 #include "lvglpp/misc/style.h" // for Style
 #include "lvglpp/core/event.h" // for Event

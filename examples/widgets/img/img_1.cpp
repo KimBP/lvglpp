@@ -1,5 +1,6 @@
 #include "lvglpp/core/display.h" // for scr_act()
 #include "lvglpp/widgets/image/image.h" // for Image
+#include "lvglpp/draw/image.h" // for Image descriptor
 
 namespace lvgl::examples {
     

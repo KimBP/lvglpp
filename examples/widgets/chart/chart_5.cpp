@@ -1,6 +1,6 @@
 #include "lvglpp/core/display.h" // for scr_act()
 #include "lvglpp/widgets/chart/chart.h" // for Chart
-#include "lvglpp/widgets/slider.h" // for Slider
+#include "lvglpp/widgets/slider/slider.h" // for Slider
 #include "lvglpp/core/event.h" // for Event
 #include "lvglpp/misc/color.h" // for colors
 

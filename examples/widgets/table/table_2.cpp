@@ -3,6 +3,7 @@
 #include "lvglpp/widgets/label/label.h" // for Label
 #include "lvglpp/core/event.h" // for Event
 #include "lvglpp/misc/color.h" // for colors
+#include "lvglpp/draw/desc.h" // For Draw descriptor
 
 namespace lvgl::examples {
     

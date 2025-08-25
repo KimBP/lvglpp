@@ -4,6 +4,7 @@
 #include "lvglpp/misc/anim.h" // for Animation
 #include "lvglpp/misc/txt.h" // for text functions
 #include "lvglpp/core/event.h" // for Event
+#include "lvglpp/draw/desc.h" // for Draw descriptor
 #include <string>
 
 namespace lvgl::examples {

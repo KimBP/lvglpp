@@ -1,6 +1,7 @@
 #include "lvglpp/core/display.h" // for scr_act()
 #include "lvglpp/widgets/checkbox/checkbox.h" // for Checkbox
 #include "lvglpp/core/event.h" // for Event
+#include "lvglpp/misc/style.h" // for Style
 
 namespace lvgl::examples {
     
