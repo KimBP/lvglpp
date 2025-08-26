@@ -10,7 +10,7 @@ namespace lvgl::examples {
     using namespace lvgl::core;
     using namespace lvgl::widgets;
 
-    std::unique_ptr<List> list;
+    static std::unique_ptr<List> list;
 
     static uint32_t btn_cnt = 1;
 

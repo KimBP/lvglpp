@@ -8,7 +8,7 @@ namespace lvgl::examples {
     using namespace lvgl::core;
     using namespace lvgl::widgets;
 
-    std::unique_ptr<Label> label;
+    static std::unique_ptr<Label> label;
 
     void get_started_3() {
         /*Create a slider in the center of the display*/
