@@ -17,7 +17,7 @@ namespace lvgl::widgets {
         lv_calendar_set_showed_date(this->raw_ptr(), year, month);
     }
 
-    void Calendar::set_highlighted_dates(std::vector<lv_calendar_date_t> highlighted) {
+    void Calendar::set_highlighted_dates(std::vector<lv_calendar_date_t> &highlighted) {
         lv_calendar_set_highlighted_dates(this->raw_ptr(), highlighted.data(), highlighted.size());
     }
 
