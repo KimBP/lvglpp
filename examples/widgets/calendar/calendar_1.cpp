@@ -20,8 +20,8 @@ namespace lvgl::examples {
     }
 
     void calendar_1() {
-        auto root = scr_act();
-        static auto calendar = Calendar(scr_act());
+        auto calendar = Calendar(scr_act());
+
         calendar.set_size(185, 185);
         calendar.align(LV_ALIGN_CENTER, 0, 27);
         calendar.add_event_cb(event_handler, LV_EVENT_ALL);
@@ -46,10 +46,13 @@ namespace lvgl::examples {
         calendar.set_highlighted_dates(highlighted_days);
 
     #if LV_USE_CALENDAR_HEADER_DROPDOWN
-        auto dropdown = calendar.header_dropdown_create();
+        auto header = calendar.header_dropdown_create();
     #elif LV_USE_CALENDAR_HEADER_ARROW
         auto header = calendar.header_arrow_create();
     #endif
+
         calendar.set_displayed_month(2021, 10);
+        header.release_ptr();
+        calendar.release_ptr();
     }
 }
