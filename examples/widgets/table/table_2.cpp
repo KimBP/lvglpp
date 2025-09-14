@@ -27,7 +27,7 @@ namespace lvgl::examples {
             Area sw_area;
             sw_area->x1 = dsc->draw_area->x2 - 50;
             sw_area->x2 = sw_area->x1 + 40;
-            sw_area->y1 = dsc->draw_area->y1 + Area(dsc->draw_area).get_height() / 2 - 10;
+            sw_area->y1 = dsc->draw_area->y1 + Area(*dsc->draw_area).get_height() / 2 - 10;
             sw_area->y2 = sw_area->y1 + 20;
             rect_dsc.draw(dsc->draw_ctx, sw_area);
 
@@ -48,7 +48,7 @@ namespace lvgl::examples {
     static void change_event_cb(Event & e)
     {
         auto obj = e.get_target<Table>();
-        auto row = std::get<1>(obj.get_selected_cell());
+        auto row = std::get<0>(obj.get_selected_cell());
         bool chk = obj.has_cell_ctrl(row, 0, LV_TABLE_CELL_CTRL_CUSTOM_1);
         if(chk) obj.clear_cell_ctrl(row, 0, LV_TABLE_CELL_CTRL_CUSTOM_1);
         else obj.add_cell_ctrl(row, 0, LV_TABLE_CELL_CTRL_CUSTOM_1);
