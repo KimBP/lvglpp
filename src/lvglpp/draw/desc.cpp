@@ -39,7 +39,7 @@ namespace lvgl::draw {
     }
 
     void ImageDrawDescriptor::draw(lv_draw_ctx_t * ctx, const Area & coords, const ImageDescriptor & img) {
-        lv_draw_img(ctx, this->raw_ptr(), coords.raw_ptr(), img.raw_ptr()->data);
+        lv_draw_img(ctx, this->raw_ptr(), coords.raw_ptr(), img.raw_ptr());
     }
 
 
