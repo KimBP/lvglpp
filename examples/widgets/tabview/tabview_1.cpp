@@ -41,5 +41,13 @@ namespace lvgl::examples {
         label3.set_text("Third tab");
 
         label3.scroll_to_view_recursive(LV_ANIM_ON);
+
+        // label3.release_ptr();
+        // label2.release_ptr();
+        // label1.release_ptr();
+
+        tab3.release_ptr();
+        tab2.release_ptr();
+        tab1.release_ptr();
     }
 }
