@@ -4,10 +4,9 @@
 #include "lvglpp/misc/style.h" // for Style
 #include "lvglpp/misc/color.h" // for colors
 #include "lvglpp/draw/desc.h" // for Draw descriptor
-#include <vector>
 #include <string>
 
-extern uint8_t img_star_map[];
+LV_IMG_DECLARE(img_star);
 
 namespace lvgl::examples {
     
@@ -51,23 +50,27 @@ namespace lvgl::examples {
 
             /*Add custom content to the 4th button when the button itself was drawn*/
             if(dsc->id == 3) {
-                auto img = ImageDescriptor();
-                img.set_src(img_star_map, 30, 29, LV_IMG_PX_SIZE_ALPHA_BYTE);
+
+                auto img = ImageDescriptor(&img_star);
                 auto hdr = ImageDecoder::get_info(img);
-                if(hdr.is_valid()) return;
 
-                Area a;
-                a->x1 = dsc->draw_area->x1 + (Area(dsc->draw_area).get_width() - hdr->w) / 2;
-                a->x2 = a->x1 + hdr->w - 1;
-                a->y1 = dsc->draw_area->y1 + (Area(dsc->draw_area).get_height() - hdr->h) / 2;
-                a->y2 = a->y1 + hdr->h - 1;
+                if( hdr.is_valid())
+                {
+                    Area a;
 
-                ImageDrawDescriptor img_draw_dsc;
-                img_draw_dsc->recolor = palette::black();
-                if (obj.get_selected_btn() == dsc->id)
-                    img_draw_dsc->recolor_opa = LV_OPA_30;
-                
-                img_draw_dsc.draw(dsc->draw_ctx, a, img);
+                    a->x1 = dsc->draw_area->x1 + (Area(*dsc->draw_area).get_width() - hdr->w) / 2;
+                    a->x2 = a->x1 + hdr->w - 1;
+                    a->y1 = dsc->draw_area->y1 + (Area(*dsc->draw_area).get_height() - hdr->h) / 2;
+                    a->y2 = a->y1 + hdr->h - 1;
+
+                    ImageDrawDescriptor img_draw_dsc;
+                    img_draw_dsc->recolor = palette::black();
+                    if (obj.get_selected_btn() == dsc->id)
+                        img_draw_dsc->recolor_opa = LV_OPA_30;
+
+                    img_draw_dsc.draw(dsc->draw_ctx, a, img);
+                }
+                img.release_ptr(); // TODO: Figure out why is this required
             }
         }
     }
