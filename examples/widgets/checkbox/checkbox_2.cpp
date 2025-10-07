@@ -42,7 +42,6 @@ namespace lvgl::examples {
         auto root = scr_act();
 
         style_radio.set_radius(LV_RADIUS_CIRCLE);
-        style_radio_chk.set_bg_img_src(nullptr);
 
         uint32_t i;
 
