@@ -170,6 +170,12 @@ namespace lvgl::draw {
          */
         ImageDescriptor(lv_coord_t w, lv_coord_t h, lv_img_cf_t cf);
 
+        /** \fn ImageDescriptor(const lv_img_dsc_t * dsc)
+         *  \brief Construction with lv_img_dsc_t
+         *  \param dsc: pointer to lv_img_dsc_t
+         */
+        ImageDescriptor(const lv_img_dsc_t * dsc);
+
         /** \fn lv_color_t get_px_color(lv_coord_t x, lv_coord_t y, lv_color_t bg_color) const
          *  \brief Gets pixel color.
          *  \param x: horizontal coordinate.

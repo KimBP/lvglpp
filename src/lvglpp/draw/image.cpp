@@ -57,6 +57,11 @@ namespace lvgl::draw {
         this->lv_obj = LvPointer<lv_img_dsc_t, lv_img_buf_free>(lv_img_buf_alloc(w, h, cf));
     }
 
+    ImageDescriptor::ImageDescriptor(const lv_img_dsc_t * dsc) {
+        this->lv_obj = LvPointer<lv_img_dsc_t, lv_img_buf_free>(lv_cls_alloc<lv_img_dsc_t>());
+        lv_memcpy(this->raw_ptr(), dsc, sizeof(lv_img_dsc_t));
+    }
+
     lv_color_t ImageDescriptor::get_px_color(lv_coord_t x, lv_coord_t y, lv_color_t bg_color) const {
         return lv_img_buf_get_px_color(const_cast<lv_cls_ptr>(this->raw_ptr()), x, y, bg_color);
     }
