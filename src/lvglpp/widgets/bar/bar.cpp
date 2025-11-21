@@ -21,7 +21,7 @@ namespace lvgl::widgets {
         lv_bar_set_range(this->raw_ptr(), min, max);
     }
 
-    void Bar::set_mode(mode_t mode) {
+    void Bar::set_mode(lv_bar_mode_t mode) {
         lv_bar_set_mode(this->raw_ptr(), mode);
     }
 
@@ -41,7 +41,7 @@ namespace lvgl::widgets {
         return lv_bar_get_max_value(this->raw_ptr());
     }
 
-    mode_t Bar::get_mode() const {
+    lv_bar_mode_t Bar::get_mode() const {
         return lv_bar_get_mode(const_cast<lv_obj_t*>(this->raw_ptr()));
     }
 
