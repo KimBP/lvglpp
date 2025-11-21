@@ -42,11 +42,11 @@ namespace lvgl::widgets {
          */
         void set_range(int32_t min, int32_t max);
 
-        /** \fn void set_mode(mode_t mode)
+        /** \fn void set_mode(lv_slider_mode_t mode)
          *  \brief Sets slider mode: LV_SLIDER_MODE_NORMAL/SYMMETRICAL/RANGE
          *  \param mode: slider mode.
          */
-        void set_mode(mode_t mode);
+        void set_mode(lv_slider_mode_t mode);
 
         /** \fn int32_t get_value() const
          *  \brief Gets slider value.
@@ -78,11 +78,11 @@ namespace lvgl::widgets {
          */
         bool is_dragged() const;
 
-        /** \fn mode_t get_mode() const
+        /** \fn lv_slider_mode_t get_mode() const
          *  \brief Gets slider mode: LV_SLIDER_MODE_NORMAL/SYMMETRICAL/RANGE
          *  \returns code for slider mode.
          */
-        mode_t get_mode() const;
+        lv_slider_mode_t get_mode() const;
     };
 
 }

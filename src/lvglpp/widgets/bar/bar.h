@@ -42,11 +42,11 @@ namespace lvgl::widgets {
          */
         void set_range(int32_t min, int32_t max);
 
-        /** \fn void set_mode(mode_t mode)
+        /** \fn void set_mode(lv_bar_mode_t mode)
          *  \brief Sets the bar mode.
          *  \param mode: bar mode.
          */
-        void set_mode(mode_t mode);
+        void set_mode(lv_bar_mode_t mode);
 
         /** \fn int32_t get_value() const
          *  \brief Gets the bar value.
@@ -72,11 +72,11 @@ namespace lvgl::widgets {
          */
         int32_t get_max_value() const;
 
-        /** \fn mode_t get_mode() const
+        /** \fn lv_bar_mode_t get_mode() const
          *  \brief Gets the bar mode.
          *  \returns bar mode.
          */
-        mode_t get_mode() const;
+        lv_bar_mode_t get_mode() const;
 
     };
 
