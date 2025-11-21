@@ -21,7 +21,7 @@ namespace lvgl::widgets {
         lv_slider_set_range(this->raw_ptr(), min, max);
     }
 
-    void Slider::set_mode(mode_t mode) {
+    void Slider::set_mode(lv_slider_mode_t mode) {
         lv_slider_set_mode(this->raw_ptr(), mode);
     }
 
@@ -45,7 +45,7 @@ namespace lvgl::widgets {
         return lv_slider_is_dragged(this->raw_ptr());
     }
 
-    mode_t Slider::get_mode() const {
+    lv_slider_mode_t Slider::get_mode() const {
         return lv_slider_get_mode(const_cast<lv_cls_ptr>(this->raw_ptr()));
     }
 
