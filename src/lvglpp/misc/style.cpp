@@ -11,10 +11,6 @@
 
 namespace lvgl::misc {
     
-    // we need user_data to store pointer to C++ object, otherwise we cannot
-    // access callbacks defined as class members.
-    #if LV_USE_USER_DATA
-
     StyleTransition::StyleTransition() {
         this->initialize({}, 0, 0);
     }
@@ -74,7 +70,7 @@ namespace lvgl::misc {
     }
 
     int32_t BlinkStyleTransition::callback(const struct _lv_anim_t * anim) {
-        int32_t step = lv_map(anim->act_time, 0, anim->time, 0, LV_ANIM_RESOLUTION);
+        int32_t step = lv_map(anim->act_time, 0, anim->duration, 0, LV_ANIM_RESOLUTION);
         step = LV_ANIM_RESOLUTION - 2*std::abs(step - LV_ANIM_RESOLUTION/2);
         int32_t new_value;
         new_value = step * (anim->end_value - anim->start_value);
@@ -83,8 +79,6 @@ namespace lvgl::misc {
 
         return new_value;
     }
-
-    #endif // LV_USE_USER_DATA
 
     Style::Style() {
         this->lv_obj = LvPointerType(lv_cls_alloc<lv_cls>());
@@ -115,9 +109,11 @@ namespace lvgl::misc {
         lv_style_set_prop(this->raw_ptr(), prop, value);
     }
 
+#ifdef MISSING_PORT
     void Style::set_prop_meta(lv_style_prop_t prop, uint16_t meta) {
         lv_style_set_prop_meta(this->raw_ptr(), prop, meta);
     }
+#endif
 
     lv_style_value_t Style::get_prop(lv_style_prop_t prop) const {
         lv_style_value_t value;
@@ -140,7 +136,11 @@ namespace lvgl::misc {
     }
 
     void Style::set_size(lv_coord_t value) {
-        lv_style_set_size(this->raw_ptr(), value);
+        set_size(value, value);
+    }
+
+    void Style::set_size(int32_t width, int32_t height) {
+        lv_style_set_size(this->raw_ptr(), width, height);
     }
 
     void Style::set_pad_all(lv_coord_t value) {
@@ -276,7 +276,7 @@ namespace lvgl::misc {
     }
 
     void Style::set_bg_img_opa(lv_opa_t value) {
-        lv_style_set_bg_img_opa(this->raw_ptr(), value);
+        lv_style_set_bg_image_opa(this->raw_ptr(), value);
     }
 
     void Style::set_bg_img_recolor(lv_color_t value) {
@@ -288,7 +288,7 @@ namespace lvgl::misc {
     }
 
     void Style::set_bg_img_tiled(bool value) {
-        lv_style_set_bg_img_tiled(this->raw_ptr(), value);
+        lv_style_set_bg_image_tiled(this->raw_ptr(), value);
     }
 
     void Style::set_border_color(lv_color_t value) {
@@ -404,7 +404,7 @@ namespace lvgl::misc {
     }
 
     void Style::set_arc_img_src(const ImageDescriptor & img) {
-        lv_style_set_arc_img_src(this->raw_ptr(), static_cast<const void*>(img.raw_ptr()));
+        lv_style_set_arc_image_src(this->raw_ptr(), static_cast<const void*>(img.raw_ptr()));
     }
 
     void Style::set_text_color(lv_color_t value) {
@@ -451,11 +451,9 @@ namespace lvgl::misc {
         lv_style_set_opa(this->raw_ptr(), value);
     }
 
-#if LV_USE_USER_DATA
     void Style::set_color_filter_dsc(const ColorFilter & value) {
         lv_style_set_color_filter_dsc(this->raw_ptr(), value.raw_ptr());
     }
-#endif // LV_USE_USER_DATA
 
     void Style::set_color_filter_dsc(const lv_color_filter_dsc_t * value) {
         lv_style_set_color_filter_dsc(this->raw_ptr(), value);
@@ -473,15 +471,9 @@ namespace lvgl::misc {
         lv_style_set_anim_time(this->raw_ptr(), value);
     }
 
-    void Style::set_anim_speed(uint32_t value) {
-        lv_style_set_anim_speed(this->raw_ptr(), value);
-    }
-
-#if LV_USE_USER_DATA
     void Style::set_transition(const StyleTransition & value) {
         lv_style_set_transition(this->raw_ptr(), value.raw_ptr());
     }
-#endif // LV_USE_USER_DATA
 
     void Style::set_transition(const lv_style_transition_dsc_t * value) {
         lv_style_set_transition(this->raw_ptr(), value);
@@ -546,10 +538,10 @@ namespace lvgl::misc {
     void Style::set_grid_cell_row_span(lv_coord_t value) {
         lv_style_set_grid_cell_row_span(this->raw_ptr(), value);
     }
-    void Style::set_grid_cell_x_align(lv_coord_t value) {
+    void Style::set_grid_cell_x_align(lv_grid_align_t value) {
         lv_style_set_grid_cell_x_align(this->raw_ptr(), value);
     }
-    void Style::set_grid_cell_y_align(lv_coord_t value) {
+    void Style::set_grid_cell_y_align(lv_grid_align_t value) {
         lv_style_set_grid_cell_y_align(this->raw_ptr(), value);
     }
 #endif // LV_USE_GRID
