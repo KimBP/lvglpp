@@ -77,11 +77,11 @@ namespace lvgl::widgets {
          */
         void set_mode_header(lv_menu_mode_header_t mode_header);
 
-        /** \fn void set_mode_root_back_btn(lv_menu_mode_root_back_btn_t mode_root_back_btn)
+        /** \fn void set_mode_root_back_btn(lv_menu_mode_root_back_button_t mode_root_back_btn)
          *  \brief Enables/disables back button.
          *  \param mode_root_back_btn: LV_MENU_ROOT_BACK_BTN_DISABLED/ENABLED
          */
-        void set_mode_root_back_btn(lv_menu_mode_root_back_btn_t mode_root_back_btn);
+        void set_mode_root_back_btn(lv_menu_mode_root_back_button_t mode_root_back_btn);
 
         /** \fn void set_load_page_event(const Object & obj, const Object & page)
          *  \brief Assigns a page to an menu item's event. This makes that the page
