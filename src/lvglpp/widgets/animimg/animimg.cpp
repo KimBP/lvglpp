@@ -27,7 +27,7 @@ namespace lvgl::widgets {
         lv_animimg_set_duration(this->raw_ptr(), duration);
     }
 
-    void AnimatedImage::set_repeat_count(uint16_t count) {
+    void AnimatedImage::set_repeat_count(uint32_t count) {
         lv_animimg_set_repeat_count(this->raw_ptr(), count);
     }
 }
