@@ -14,6 +14,7 @@
 #include <assert.h>
 
 #include "lvgl.h"
+#include "src/misc/lv_types.h"
 
 /** \namespace lvgl
  *  \brief LVGL C++ wrappers.
@@ -91,7 +92,7 @@ namespace lvgl {
      *  \returns pointer to allocated memory.
      */
     template <typename LvClass> LvClass* lv_cls_alloc() {
-        return static_cast<LvClass*>(lv_mem_alloc(sizeof(LvClass)));
+        return static_cast<LvClass*>(lv_malloc(sizeof(LvClass)));
     }
 
 
