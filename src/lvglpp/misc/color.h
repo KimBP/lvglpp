@@ -63,6 +63,7 @@ namespace lvgl::misc {
              */
             lv_color_t from_hsv(lv_color_hsv_t color_hsv);
 
+#ifdef MISSING_PORT
             /** \fn inline uint8_t to1(lv_color_t color)
              *  \brief Converts color to 1bit (111) representation.
              *  \param color: source color.
@@ -76,20 +77,29 @@ namespace lvgl::misc {
              *  \returns 8bit color.
              */
             inline uint8_t to8(lv_color_t color);
+#endif
 
-            /** \fn inline uint16_t to16(lv_color_t color)
+            /** \fn inline lv_color32_t to_32(lv_color_t color, lv_opa_t opa)
+             *  \brief Join color and opa in an 32 bit RGBA representation.
+             *  \param color: source color.
+             *  \param opa: amount of opaqueness.
+             *  \returns 32bit color.
+             */
+            inline lv_color32_t to_32(lv_color_t color, lv_opa_t opa);
+
+            /** \fn inline uint16_t to_u16(lv_color_t color)
              *  \brief Converts color to 16bit (565) representation.
              *  \param color: source color.
              *  \returns 16bit color.
              */
-            inline uint16_t to16(lv_color_t color);
+            inline uint16_t to_u16(lv_color_t color);
 
-            /** \fn inline uint32_t to32(lv_color_t color)
+            /** \fn inline uint32_t to_u32(lv_color_t color)
              *  \brief Converts color to 32bit representation.
              *  \param color: source color.
              *  \returns 32bit color.
              */
-            inline uint32_t to32(lv_color_t color);
+            inline uint32_t to_u32(lv_color_t color);
 
             /** \fn uint8_t brightness(lv_color_t color)
              *  \brief Gets color brightness.
@@ -179,12 +189,11 @@ namespace lvgl::misc {
         lv_color_t black();
     }
 
-#if LV_USE_USER_DATA
     /** \class ColorFilter
      *  \brief Wraps a lv_color_filter_dsc_t object. This is a base class
      *  used to define color filters.
      */
-    class ColorFilter : public PointerWrapper<lv_color_filter_dsc_t, lv_mem_free> {
+    class ColorFilter : public PointerWrapper<lv_color_filter_dsc_t, lv_free> {
     protected:
         /** \fn virtual lv_color_t callback(lv_color_t color, lv_opa_t opa)
          *  \brief Color filter callback.
@@ -201,5 +210,4 @@ namespace lvgl::misc {
         ColorFilter();
 
     };
-#endif // LV_USE_USER_DATA
 }

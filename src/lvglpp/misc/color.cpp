@@ -29,6 +29,7 @@ namespace lvgl::misc {
                 return lv_color_hsv_to_rgb(color_hsv.h, color_hsv.s, color_hsv.v);
             }
 
+#ifdef MISSING_PORT
             inline uint8_t to1(lv_color_t color) {
                 return lv_color_to1(color);
             }
@@ -36,13 +37,18 @@ namespace lvgl::misc {
             inline uint8_t to8(lv_color_t color) {
                 return lv_color_to8(color);
             }
+#endif
 
-            inline uint16_t to16(lv_color_t color) {
-                return lv_color_to16(color);
+            inline lv_color32_t to_32(lv_color_t color, lv_opa_t opa) {
+                return lv_color_to_32(color, opa);
             }
 
-            inline uint32_t to32(lv_color_t color) {
-                return lv_color_to32(color);
+            inline uint16_t to_u16(lv_color_t color) {
+                return lv_color_to_u16(color);
+            }
+
+            inline uint32_t to_u32(lv_color_t color) {
+                return lv_color_to_u32(color);
             }
 
             uint8_t brightness(lv_color_t color) {
@@ -66,7 +72,7 @@ namespace lvgl::misc {
             }
 
             lv_color_t change_lightness(lv_color_t color, lv_opa_t lvl) {
-                return lv_color_change_lightness(color, lvl);
+                return lv_color_filter_shade.filter_cb(nullptr, color, lvl);
             }
         }
 
