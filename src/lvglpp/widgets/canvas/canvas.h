@@ -30,7 +30,7 @@ namespace lvgl::widgets {
          *  \param h: canvas height.
          *  \param cf: color format.
          */
-        template <class T> void set_buffer(std::vector<T> & buf, lv_coord_t w, lv_coord_t h, lv_img_cf_t cf) {
+        template <class T> void set_buffer(std::vector<T> & buf, lv_coord_t w, lv_coord_t h, lv_color_format_t cf) {
             lv_canvas_set_buffer(this->raw_ptr(), &buf[0], w, h, cf);
         }
 
@@ -39,22 +39,25 @@ namespace lvgl::widgets {
          *  \param dsc: image descriptor serving as buffer.
          */
         void set_buffer(ImageDescriptor & dsc) {
-            lv_canvas_set_buffer(this->raw_ptr(), const_cast<void*>(static_cast<const void*>(dsc->data)), dsc->header.w, dsc->header.h, dsc->header.cf);
+            lv_canvas_set_buffer(this->raw_ptr(), const_cast<void*>(static_cast<const void*>(dsc->data)), dsc->header.w, dsc->header.h, static_cast<lv_color_format_t>(dsc->header.cf));
         }
 
-        /** \fn void set_px_color(lv_coord_t x, lv_coord_t y, lv_color_t c)
+        /** \fn void set_px(lv_coord_t x, lv_coord_t y, lv_color_t c, lv_opa_t opa)
          *  \brief Sets pixel color.
          *  \param x: pixel x coordinate.
          *  \param y: pixel y coordinate.
          *  \param c: color.
+         *  \param opa: pixel opacity (0=transparent, 255=opaque).
          */
-        void set_px_color(lv_coord_t x, lv_coord_t y, lv_color_t c);
+        void set_px(lv_coord_t x, lv_coord_t y, lv_color_t c, lv_opa_t opa);
 
         /** \fn void set_px_opa(lv_coord_t x, lv_coord_t y, lv_opa_t opa)
          *  \brief Sets pixel opacity.
          *  \param x: pixel x coordinate.
          *  \param y: pixel y coordinate.
          *  \param opa: pixel opacity (0=transparent, 255=opaque).
+         *
+         *  Deprecated - use set_px
          */
         void set_px_opa(lv_coord_t x, lv_coord_t y, lv_opa_t opa);
 
@@ -63,15 +66,15 @@ namespace lvgl::widgets {
          *  \param id: color index.
          *  \param c: color.
          */
-        void set_palette(uint8_t id, lv_color_t c);
+        void set_palette(uint8_t id, lv_color32_t c);
 
-        /** \fn lv_color_t get_px(lv_coord_t x, lv_coord_t y) const
+        /** \fn lv_color32_t get_px(lv_coord_t x, lv_coord_t y) const
          *  \brief Gets pixel color.
          *  \param x: pixel x coordinate.
          *  \param y: pixel y coordinate.
          *  \returns pixel color.
          */
-        lv_color_t get_px(lv_coord_t x, lv_coord_t y) const;
+        lv_color32_t get_px(lv_coord_t x, lv_coord_t y) const;
 
         /** \fn std::shared_ptr<lv_img_dsc_t> get_img() const
          *  \brief Gets canvas content as an image descriptor.
@@ -79,16 +82,23 @@ namespace lvgl::widgets {
          */
         std::shared_ptr<lv_img_dsc_t> get_img() const;
 
-        /** \fn void copy_buf(const std::shared_ptr<void> to_copy, lv_coord_t x, lv_coord_t y, lv_coord_t w, lv_coord_t h)
+        /** \fn void copy_buf(const lv_area_t * src_area, lv_draw_buf_t * dest_buf, const lv_area_t * dest_area)
          *  \brief Copies an area of the canvas buffer.
-         *  \param to_copy: target buffer.
-         *  \param x: left coordinate of the area.
-         *  \param y: top coordinate of the area.
-         *  \param w: width of the area.
-         *  \param h: height of the area.
+         *  \param src_area: buffer to copy from
+         *  \param dest_buf: buffer to copy to
+         *  \param dest_area: coordinates of area
          */
-        void copy_buf(const std::shared_ptr<void> to_copy, lv_coord_t x, lv_coord_t y, lv_coord_t w, lv_coord_t h);
+        void copy_buf(const lv_area_t * src_area, lv_draw_buf_t * dest_buf, const lv_area_t * dest_area);
 
+        /** \fn void copy_buf(const Area & src_area, lv_draw_buf_t * dest_buf, const lv_area_t * dest_area)
+         *  \brief Copies an area of the canvas buffer.
+         *  \param src_area: buffer to copy from
+         *  \param dest_buf: buffer to copy to
+         *  \param dest_area: coordinates of area
+         */
+        void copy_buf(const Area & src_area, lv_draw_buf_t & dest_buf, const Area & dest_area);
+
+#ifdef MISSING_PORT
         /** \fn void transform(int16_t angle, uint16_t zoom, lv_coord_t offset_x, lv_coord_t offset_y, int32_t pivot_x, int32_t pivot_y, bool antialias)
          *  \brief Transforms canvas content with given parameters.
          *  \param angle: rotation angle.
@@ -124,6 +134,7 @@ namespace lvgl::widgets {
          *  \param r: blur radius.
          */
         void blur_ver(const Area & area, uint16_t r);
+#endif
 
         /** \fn void fill_bg(const lv_color_t & color, lv_opa_t opa)
          *  \brief Fill canvas with given color.
@@ -132,6 +143,7 @@ namespace lvgl::widgets {
          */
         void fill_bg(const lv_color_t & color, lv_opa_t opa);
 
+#ifdef MISSING_PORT
         /** \fn void draw_rect(lv_coord_t x, lv_coord_t y, lv_coord_t w, lv_coord_t h, const RectangleDrawDescriptor & draw_dsc)
          *  \brief Draws a rectangle on the canvas.
          *  \param x: left coordinate of the rectangle.
@@ -187,6 +199,7 @@ namespace lvgl::widgets {
          *  \param draw_dsc: arc descriptor.
          */
         void draw_arc(lv_coord_t x, lv_coord_t y, lv_coord_t r, int32_t start_angle, int32_t end_angle, const ArcDrawDescriptor & draw_dsc);
+#endif
 
     };
 
