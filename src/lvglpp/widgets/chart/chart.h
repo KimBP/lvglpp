@@ -38,8 +38,20 @@ namespace lvgl::widgets {
          *  \param axis: chart axis (LV_CHART_AXIS_PRIMARY_X/PRIMARY_Y/SECONDARY_X/SECONDARY_Y).
          *  \param min: minimum value.
          *  \param max: maximum value.
+         *
+         *  Deprecated - use set_axis_range()
          */
-        void set_range(lv_chart_axis_t axis, lv_coord_t min, lv_coord_t max);
+        void set_range(lv_chart_axis_t axis, lv_coord_t min, lv_coord_t max) {
+            set_axis_range(axis, min, max);
+        }
+
+        /** \fn void set_axis_range(lv_chart_axis_t axis, lv_coord_t min, lv_coord_t max)
+         *  \brief Sets axis range.
+         *  \param axis: chart axis (LV_CHART_AXIS_PRIMARY_X/PRIMARY_Y/SECONDARY_X/SECONDARY_Y).
+         *  \param min: minimum value.
+         *  \param max: maximum value.
+         */
+        void set_axis_range(lv_chart_axis_t axis, lv_coord_t min, lv_coord_t max);
 
         /** \fn void set_update_mode(lv_chart_update_mode_t update_mode)
          *  \brief Sets update mode.
@@ -54,6 +66,7 @@ namespace lvgl::widgets {
          */
         void set_div_line_count(uint8_t hdiv, uint8_t vdiv);
 
+#ifdef MISSING_PORT
         /** \fn void set_zoom_x(uint16_t zoom_x)
          *  \brief Sets zoom factor for x direction.
          *  \param zoom_x: zoom factor (256 = no zoom, 512 = double, 128 = half, ...).
@@ -93,6 +106,7 @@ namespace lvgl::widgets {
          *  \returns zoom factor.
          */
         uint16_t get_zoom_y() const;
+#endif
 
         /** \fn lv_chart_type_t get_type() const
          *  \brief Gets chart type.
