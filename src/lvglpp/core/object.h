@@ -107,7 +107,6 @@ namespace lvgl::core {
          */
         bool has_state(lv_state_t state) const;
 
-#if LV_USE_USER_DATA
         /** \fn template<class T> void set_user_data(const T & arg)
          *  \brief Sets user data.
          *  \tparam T: class of user data object.
@@ -134,7 +133,6 @@ namespace lvgl::core {
          *  \returns a pointer to user data.
          */
         void * get_user_data() const;
-#endif // LV_USE_USER_DATA
 
         /** \fn Group get_group() const
          *  \brief Gets object group.
@@ -309,7 +307,7 @@ namespace lvgl::core {
          *  \param user_data: custom user data.
          *  \returns true if the event callback could be removed, false otherwise.
          */
-        bool remove_event_cb(lv_event_cb_t event_cb, const void * user_data);
+        bool remove_event_cb(lv_event_cb_t event_cb, void * user_data);
 
         /** \fn bool remove_event_cb(EventCb event_cb)
          *  \brief Removes an event callback.
@@ -332,7 +330,7 @@ namespace lvgl::core {
          *  \returns LV_RES_INV if object was deleted, LV_RES_OK otherwise.
          */
         template <class T> lv_res_t send_event(lv_event_code_t event_code, const T & param) {
-            return lv_event_send(this->raw_ptr(), event_code, static_cast<void*>(&param));
+            return lv_obj_send_event(this->raw_ptr(), event_code, static_cast<void*>(&param));
         }
         /** \fn lv_res_t send_event(lv_event_code_t event_code, void * param)
          *  \brief Sends an event to the object.
@@ -348,6 +346,7 @@ namespace lvgl::core {
          */
         lv_res_t send_event(lv_event_code_t event_code);
 
+#ifdef MISSING_PORT
         /** \fn template <class T> T get_event_user_data(lv_event_cb_t event_cb)
          *  \brief Gets user data associated with event callback.
          *  \tparam T: user data class.
@@ -363,6 +362,7 @@ namespace lvgl::core {
          *  \returns pointer to user data associated with callback function.
          */
         void * get_event_user_data(lv_event_cb_t event_cb);
+#endif
 
         /** \fn void set_pos(lv_coord_t x, lv_coord_t y)
          *  \brief Sets object position.
@@ -584,15 +584,31 @@ namespace lvgl::core {
          *  \param p: point to transform (will be overwritten)
          *  \param recursive: if true, apply transforms of parent objects as well
          *  \param inv: if true, execute inverse transform (-angle and 1/zoom)
+         *
+         *   Beware - this is the lvgl8.3 api. Will be deprecated
          */
         void transform_point(lv_point_t & p, bool recursive, bool inv);
+
+        /** \brief Transform a point using the angle and zoom style properties of an object.
+         *  \param p: point to transform (will be overwritten)
+         *  \param flag: flags defining how to transform, i.e recursive, inverted, both or none
+         */
+        void transform_point(lv_point_t & p, lv_obj_point_transform_flag_t flag);
 
         /** \brief Transform an area using the angle and zoom style properties of an object.
          *  \param area: area to transform (will be overwritten)
          *  \param recursive: if true, apply transforms of parent objects as well
          *  \param inv: if true, execute inverse transform (-angle and 1/zoom)
+         *
+         *   Beware - this is the lvgl8.3 api. Will be deprecated
          */
         void get_transformed_area(Area & area, bool recursive, bool inv);
+
+        /** \brief Transform an area using the angle and zoom style properties of an object.
+         *  \param area: area to transform (will be overwritten)
+         *  \param flag: flags defining how to transform, i.e recursive, inverted, both or none
+         */
+        void get_transformed_area(Area & area, lv_obj_point_transform_flag_t flag);
 
         /** \fn void invalidate_area(const Area & area)
          *  \brief Marks given area to be redrawn.
@@ -685,12 +701,14 @@ namespace lvgl::core {
          */
         void set_local_style_prop(lv_style_prop_t prop, lv_style_value_t value, lv_style_selector_t selector);
 
+#ifdef MISSING_PORT
         /** \brief Sets the value of a local style meta state.
          *  \param prop: style property.
          *  \param meta: meta value.
          *  \param selector: OR-ed combination of parts and states to apply the style to.
          */
         void set_local_style_prop_meta(lv_style_prop_t prop, uint16_t meta, lv_style_selector_t selector);
+#endif
 
         /** \fn lv_style_value_t get_local_style_prop(lv_style_prop_t prop, lv_style_selector_t selector) const
          *  \brief Gets the value of a local style property.
@@ -1042,8 +1060,20 @@ namespace lvgl::core {
         /** \brief Sets size.
          *  \param value: property value.
          *  \param selector: OR-ed combination of parts and states to apply the style to.
+         *
+         *  WARNING: Old lvgl8.3 API. To be deprecated
          */
         void set_style_size(lv_coord_t value, lv_style_selector_t selector);
+
+
+        /** \brief Sets size.
+         *  \param width: width value.
+         *  \param height: height value
+         *  \param selector: OR-ed combination of parts and states to apply the style to.
+         *
+         *  WARNING: Old lvgl8.3 API. To be deprecated
+         */
+        void set_style_size(int32_t width, int32_t height, lv_style_selector_t selector);
 
         /** \brief Sets width.
          *  \param width: property value.
@@ -1197,13 +1227,14 @@ namespace lvgl::core {
          */
         void set_style_bg_grad(const lv_grad_dsc_t * value, lv_style_selector_t selector);
 
+#ifdef MISSING_ORT
         /** \fn void set_style_bg_dither_mode(lv_dither_mode_t value, lv_style_selector_t selector)
          *  \brief Sets background dither mode.
          *  \param value: property value.
          *  \param selector: OR-ed combination of parts and states to apply the style to.
          */
         void set_style_bg_dither_mode(lv_dither_mode_t value, lv_style_selector_t selector);
-
+#endif
         /** \fn void set_style_bg_img_src(const void * value, lv_style_selector_t selector)
          *  \brief Sets background image.
          *  \param value: property value.
@@ -1582,12 +1613,14 @@ namespace lvgl::core {
          */
         void set_style_anim_time(uint32_t value, lv_style_selector_t selector);
 
+#ifdef MISSING_PORT
         /** \fn void set_style_anim_speed(uint32_t value, lv_style_selector_t selector)
          *  \brief Sets animation speed.
          *  \param value: property value.
          *  \param selector: OR-ed combination of parts and states to apply the style to.
          */
         void set_style_anim_speed(uint32_t value, lv_style_selector_t selector);
+#endif
 
         /** \fn void set_style_transition(const lv_style_transition_dsc_t * value, lv_style_selector_t selector)
          *  \brief Sets transition descriptor.
@@ -1596,14 +1629,12 @@ namespace lvgl::core {
          */
         void set_style_transition(const lv_style_transition_dsc_t * value, lv_style_selector_t selector);
 
-#if LV_USE_USER_DATA
         /** \fn void set_style_transition(const StyleTransition & value, lv_style_selector_t selector)
          *  \brief Sets transition descriptor.
          *  \param value: property value.
          *  \param selector: OR-ed combination of parts and states to apply the style to.
          */
         void set_style_transition(const StyleTransition & value, lv_style_selector_t selector);
-#endif // LV_USE_USER_DATA
 
         /** \fn void set_style_blend_mode(lv_blend_mode_t value, lv_style_selector_t selector);
          *  \brief Sets blending mode.
@@ -1717,12 +1748,19 @@ namespace lvgl::core {
          */
         lv_coord_t get_style_translate_y(uint32_t part) const;
 
-        /** \fn lv_coord_t get_style_transform_zoom(uint32_t part) const
-         *  \brief Gets transform zoom factor.
+        /** \fn lv_coord_t get_style_transform_scale_x(uint32_t part) const
+         *  \brief Gets scale factor.
          *  \param part: OR-ed combination of parts and states to get style from.
          *  \returns property value.
          */
-        lv_coord_t get_style_transform_zoom(uint32_t part) const;
+        lv_coord_t get_style_transform_scale_x(uint32_t part) const;
+
+        /** \fn lv_coord_t get_style_transform_scale_y(uint32_t part) const
+         *  \brief Gets scale factor.
+         *  \param part: OR-ed combination of parts and states to get style from.
+         *  \returns property value.
+         */
+        lv_coord_t get_style_transform_scale_y(uint32_t part) const;
 
         /** \fn lv_coord_t get_style_transform_angle(uint32_t part) const
          *  \brief Gets transform angle.
@@ -1834,12 +1872,14 @@ namespace lvgl::core {
          */
         const lv_grad_dsc_t * get_style_bg_grad(uint32_t part) const;
 
+#ifdef MISSING_PORT
         /** \fn lv_dither_mode_t get_style_bg_dither_mode(uint32_t part) const
          *  \brief Gets background dithering mode.
          *  \param part: OR-ed combination of parts and states to get style from.
          *  \returns property value.
          */
         lv_dither_mode_t get_style_bg_dither_mode(uint32_t part) const;
+#endif
 
         /** \fn const void * get_style_bg_img_src(uint32_t part) const
          *  \brief Gets background image source.
@@ -2177,12 +2217,14 @@ namespace lvgl::core {
          */
         uint32_t get_style_anim_time(uint32_t part) const;
 
+#ifdef MISSING_PORT
         /** \fn uint32_t get_style_anim_speed(uint32_t part) const
          *  \brief Gets animation speed.
          *  \param part: OR-ed combination of parts and states to get style from.
          *  \returns property value.
          */
         uint32_t get_style_anim_speed(uint32_t part) const;
+#endif
 
         /** \fn const lv_style_transition_dsc_t * get_style_transition(uint32_t part) const
          *  \brief Gets transition descriptor.
@@ -2395,14 +2437,14 @@ namespace lvgl::core {
          *  \param value: property value.
          *  \param selector: OR-ed combination of parts and states to apply the style to.
          */
-        void set_style_grid_cell_x_align(lv_coord_t value, lv_style_selector_t selector);
+        void set_style_grid_cell_x_align(lv_grid_align_t value, lv_style_selector_t selector);
 
         /** \fn void set_style_grid_cell_y_align(lv_coord_t value, lv_style_selector_t selector)
          *  \brief Sets content's vertical alignment.
          *  \param value: property value.
          *  \param selector: OR-ed combination of parts and states to apply the style to.
          */
-        void set_style_grid_cell_y_align(lv_coord_t value, lv_style_selector_t selector);
+        void set_style_grid_cell_y_align(lv_grid_align_t value, lv_style_selector_t selector);
 
         /** \fn const lv_coord_t * get_style_grid_row_dsc_array(uint32_t part) const
          *  \brief Gets row heights.
@@ -2624,6 +2666,7 @@ namespace lvgl::core {
     };
 
 
+#ifdef MISSING_PORT
     /** \namespace lvgl::core::obj
      *  \brief General functions involving objects.
      */
@@ -2641,5 +2684,6 @@ namespace lvgl::core {
         }
         
     }
+#endif
 
 }
