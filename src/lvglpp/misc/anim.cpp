@@ -26,7 +26,7 @@ namespace lvgl::misc {
     }
 
     void Animation::set_time(uint32_t duration) {
-        lv_anim_set_time(this->raw_ptr(), duration);
+        lv_anim_set_duration(this->raw_ptr(), duration);
     }
 
     void Animation::set_delay(uint32_t delay) {
@@ -153,23 +153,23 @@ namespace lvgl::misc {
         lv_anim_set_deleted_cb(this->raw_ptr(), f);
     }
 
-    void Animation::set_playback_time(uint32_t time) {
-        lv_anim_set_playback_time(this->raw_ptr(), time);
+    void Animation::set_playback_duration(uint32_t time) {
+        lv_anim_set_playback_duration(this->raw_ptr(), time);
     }
 
     void Animation::set_playback_delay(uint32_t delay) {
         lv_anim_set_playback_delay(this->raw_ptr(), delay);
     }
 
-    void Animation::set_reverse_time(uint32_t time) {
-        lv_anim_set_playback_time(this->raw_ptr(), time);
+    void Animation::set_reverse_duration(uint32_t time) {
+        lv_anim_set_reverse_duration(this->raw_ptr(), time);
     }
 
     void Animation::set_reverse_delay(uint32_t delay) {
         lv_anim_set_playback_delay(this->raw_ptr(), delay);
     }
 
-    void Animation::set_repeat_count(uint16_t cnt) {
+    void Animation::set_repeat_count(uint32_t cnt) {
         lv_anim_set_repeat_count(this->raw_ptr(), cnt);
     }
 
@@ -181,7 +181,6 @@ namespace lvgl::misc {
         lv_anim_set_early_apply(this->raw_ptr(), en);
     }
 
-#if LV_USE_USER_DATA
     void Animation::set_user_data(void * user_data) {
         lv_anim_set_user_data(this->raw_ptr(), user_data);
     }
@@ -189,7 +188,6 @@ namespace lvgl::misc {
     void * Animation::get_user_data() const {
         return lv_anim_get_user_data(const_cast<lv_cls_ptr>(this->raw_ptr()));
     }
-#endif // LV_USE_USER_DATA
 
     void Animation::start() {
         lv_anim_start(this->raw_ptr());
@@ -216,7 +214,11 @@ namespace lvgl::misc {
     }
 
     void AnimationTimeline::stop() {
-        lv_anim_timeline_stop(this->raw_ptr());
+        pause();
+    }
+
+    void AnimationTimeline::pause() {
+        lv_anim_timeline_pause(this->raw_ptr());
     }
 
     void AnimationTimeline::set_reverse(bool reverse) {
