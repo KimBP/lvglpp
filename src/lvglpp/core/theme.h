@@ -6,6 +6,7 @@
  */
 
 #include "../lv_wrapper.h"
+#include "src/themes/lv_theme_private.h"
 
 namespace lvgl::core {
 
@@ -14,7 +15,7 @@ namespace lvgl::core {
     /** \class Theme
      *  \brief Wraps a lv_theme_t object.
      */
-    class Theme : public PointerWrapper<lv_theme_t, lv_mem_free> {
+    class Theme : public PointerWrapper<lv_theme_t, lv_free> {
     public:
         using PointerWrapper::PointerWrapper;
 
@@ -34,13 +35,11 @@ namespace lvgl::core {
          */
         void set_parent(Theme & parent);
 
-#if LV_USE_USER_DATA
         /** \fn void set_apply_cb(ThemeApplyCb apply_cb)
          *  \brief Sets the function called when the theme is applied to an object.
          *  \param apply_cb: callback function pointer.
          */
         void set_apply_cb(ThemeApplyCb apply_cb);
-#endif // LV_USE_USER_DATA
 
         /** \fn void set_apply_cb(lv_theme_apply_cb_t apply_cb)
          *  \brief Sets the function called when the theme is applied to an object.

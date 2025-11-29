@@ -18,7 +18,6 @@ namespace lvgl::core {
         lv_theme_set_parent(this->raw_ptr(), parent.raw_ptr());
     }
 
-#if LV_USE_USER_DATA
     void Theme::set_apply_cb(ThemeApplyCb apply_cb) {
         auto f = [](lv_theme_t* lv_thm, lv_obj_t* lv_obj) {
             auto cb = reinterpret_cast<ThemeApplyCb>(lv_thm->user_data);
@@ -29,7 +28,6 @@ namespace lvgl::core {
         this->raw_ptr()->user_data = reinterpret_cast<void*>(apply_cb);
         lv_theme_set_apply_cb(this->raw_ptr(), f);
     }
-#endif // LV_USE_USER_DATA
 
     void Theme::set_apply_cb(lv_theme_apply_cb_t apply_cb) {
         lv_theme_set_apply_cb(this->raw_ptr(), apply_cb);
