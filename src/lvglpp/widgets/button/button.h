@@ -8,7 +8,7 @@
 
 #include "../../core/object.h"
 
-#if LV_USE_BTN != 0
+#if LV_USE_BUTTON != 0
 
 namespace lvgl::widgets {
 
@@ -17,10 +17,10 @@ namespace lvgl::widgets {
     /** \class Button
      *  \brief Wraps a lv_btn_t object.
      */
-    class Button : public Widget<lv_btn_create> {
+    class Button : public Widget<lv_button_create> {
     public:
         using Widget::Widget;
     };
 
 }
-#endif // LV_USE_BTN
+#endif // LV_USE_BUTTON
