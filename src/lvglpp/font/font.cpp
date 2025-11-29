@@ -9,11 +9,16 @@
 namespace lvgl::font {
     
     Font::Font(std::string & font_name) {
-        this->lv_obj = LvPointerType(lv_font_load(font_name.c_str()));
+        this->lv_obj = LvPointerType(lv_binfont_create(font_name.c_str()));
     }
 
-    const uint8_t* Font::get_glyph_bitmap(uint32_t letter) const {
-        return lv_font_get_glyph_bitmap(this->raw_ptr(), letter);
+    const void* Font::get_glyph_bitmap(uint32_t letter) const {
+        lv_font_glyph_dsc_t dsc = get_glyph_descriptor(letter, static_cast<uint32_t>('I')); // letter_next just given a value
+        return lv_font_get_glyph_bitmap(&dsc, nullptr);
+    }
+
+    const void* Font::get_glyph_bitmap(lv_font_glyph_dsc_t& dsc) const {
+        return lv_font_get_glyph_bitmap(&dsc, nullptr);
     }
 
     lv_font_glyph_dsc_t Font::get_glyph_descriptor(uint32_t letter, uint32_t letter_next) const {

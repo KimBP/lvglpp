@@ -15,7 +15,7 @@ namespace lvgl::font {
     /** \class Font
      *  \brief Wraps a lv_font_t object.
      */
-    class Font : public PointerWrapper<lv_font_t, lv_font_free> {
+    class Font : public PointerWrapper<_lv_font_t, lv_free> {
     public:
         /** \fn Font(std::string & font_name)
          *  \brief Constructor with font name.
@@ -23,12 +23,20 @@ namespace lvgl::font {
          */
         Font(std::string & font_name);
 
-        /** \fn const uint8_t* get_glyph_bitmap(uint32_t letter) const
+        /** \fn const void* get_glyph_bitmap(uint32_t letter) const
          *  \brief Gets glyph bitmap.
          *  \param letter: glyph index.
          *  \returns pointer to the glyph bitmap.
          */
-        const uint8_t* get_glyph_bitmap(uint32_t letter) const;
+        const void* get_glyph_bitmap(uint32_t letter) const;
+
+       /** \fn const void* get_glyph_bitmap(lv_font_glyph_dsc_t& dsc) const
+         *  \brief Gets glyph bitmap.
+         *  \param dsc: descriptor for a glyph
+         *  \returns pointer to the glyph bitmap.
+         */
+        const void* get_glyph_bitmap(lv_font_glyph_dsc_t& dsc) const;
+
 
         /** \fn lv_font_glyph_dsc_t get_glyph_descriptor(uint32_t letter, uint32_t letter_next) const
          *  \brief Gets glyph descriptor.
