@@ -50,7 +50,7 @@ namespace lvgl::widgets {
     }
 
     bool Keyboard::get_popovers() const {
-        return lv_btnmatrix_get_popovers(this->raw_ptr());
+        return lv_keyboard_get_popovers(this->raw_ptr());
     }
 
     RawDblArray<char> & Keyboard::get_map_array() {
