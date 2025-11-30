@@ -7,6 +7,9 @@
 #include "lvglpp/draw/desc.h" // for Draw descriptor
 #include <string>
 
+#define MAX_VALUE 100
+#define MIN_VALUE 0
+
 namespace lvgl::examples {
     
     using namespace lvgl::core;
@@ -14,8 +17,6 @@ namespace lvgl::examples {
     using namespace lvgl::misc;
     
     static void event_cb(Event & e) {
-        auto dsc = e.get_param<lv_obj_draw_part_dsc_t>();
-        if(dsc->part != LV_PART_INDICATOR) return;
         auto obj = e.get_target<Bar>();
 
         LabelDrawDescriptor label_dsc;
@@ -26,27 +27,32 @@ namespace lvgl::examples {
                                       label_dsc->line_space, LV_COORD_MAX, label_dsc->flag);
 
         Area txt_area;
+        txt_area->x1 = 0;
+        txt_area->x2 = txt_size.x - 1;
+        txt_area->y1 = 0;
+        txt_area->y2 = txt_size.y - 1;
+
+        Area indic_area(obj.get_coords());
+        indic_area.set_width(indic_area.get_width() * obj.get_value() / MAX_VALUE);
+
         /*If the indicator is long enough put the text inside on the right*/
-        if(Area(dsc->draw_area).get_width() > txt_size.x + 20) {
-            txt_area->x2 = dsc->draw_area->x2 - 5;
-            txt_area->x1 = txt_area->x2 - txt_size.x + 1;
+        if(indic_area.get_width() > txt_size.x + 20) {
+            indic_area.align_to(txt_area, LV_ALIGN_RIGHT_MID, -10, 0);
             label_dsc->color = palette::white();
         }
         /*If the indicator is too short put the text out of it on the right*/
         else {
-            txt_area->x1 = dsc->draw_area->x2 + 5;
-            txt_area->x2 = txt_area->x1 + txt_size.x - 1;
+            indic_area.align_to(txt_area, LV_ALIGN_OUT_RIGHT_MID, 10, 0);
             label_dsc->color = palette::black();
         }
-        txt_area->y1 = dsc->draw_area->y1 + (Area(dsc->draw_area).get_height() - txt_size.y) / 2;
-        txt_area->y2 = txt_area->y1 + txt_size.y - 1;
 
-        label_dsc.draw(dsc->draw_ctx, txt_area, txt, nullptr);
+        label_dsc.draw(e.get_layer(), txt_area);
     }
 
     void bar_6() {
         static auto bar = Bar(scr_act());
-        bar.add_event_cb(event_cb, LV_EVENT_DRAW_PART_END);
+        bar.add_event_cb(event_cb, LV_EVENT_DRAW_MAIN_END);
+        bar.set_range(MIN_VALUE, MAX_VALUE);
         bar.set_size(200, 20);
         bar.center();
 
@@ -58,7 +64,8 @@ namespace lvgl::examples {
         };
         a.set_exec_cb<Bar>(set_value);
         a.set_time(2000);
-        a.set_playback_time(2000);
+        a.set_playback_duration(4000);
+        a.set_reverse_duration(4000);
         a.set_repeat_count(LV_ANIM_REPEAT_INFINITE);
         a.start();
    }
