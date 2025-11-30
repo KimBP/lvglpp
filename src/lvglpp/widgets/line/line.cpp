@@ -9,7 +9,7 @@
 
 namespace lvgl::widgets {
 
-    void Line::set_points(const std::vector<lv_point_t> & points) {
+    void Line::set_points(const std::vector<lv_point_precise_t> & points) {
         lv_line_set_points(this->raw_ptr(), points.data(), points.size());
     }
 
