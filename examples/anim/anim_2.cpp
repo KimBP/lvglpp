@@ -21,7 +21,7 @@ namespace lvgl::examples {
         a1.set_values(10, 50);
         a1.set_time(1000);
         a1.set_playback_delay(100);
-        a1.set_playback_time(300);
+        a1.set_playback_duration(300);
         a1.set_repeat_delay(500);
         a1.set_repeat_count(LV_ANIM_REPEAT_INFINITE);
         a1.set_path_cb(lv_anim_path_ease_in_out);
@@ -35,7 +35,7 @@ namespace lvgl::examples {
         a2.set_values(10, 50);
         a2.set_time(1000);
         a2.set_playback_delay(100);
-        a2.set_playback_time(300);
+        a2.set_playback_duration(300);
         a2.set_repeat_delay(500);
         a2.set_repeat_count(LV_ANIM_REPEAT_INFINITE);
         a2.set_path_cb(lv_anim_path_ease_in_out);
