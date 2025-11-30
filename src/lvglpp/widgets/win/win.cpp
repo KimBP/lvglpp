@@ -11,19 +11,19 @@
 
 namespace lvgl::widgets {
 
-    Window::Window(lv_coord_t header_height) {
-        this->initialize(header_height);
+    Window::Window() {
+        this->initialize();
     }
 
-    Window::Window(Object & parent, lv_coord_t header_height) {
-        this->initialize(parent, header_height);
+    Window::Window(Object & parent) {
+        this->initialize(parent);
     }
 
-    void Window::initialize(lv_coord_t header_height) {
-        this->lv_obj = LvPointer<lv_obj_t, lv_obj_del>(lv_win_create(nullptr, header_height));
+    void Window::initialize() {
+        this->lv_obj = LvPointer<lv_obj_t, lv_obj_del>(lv_win_create(nullptr));
     }
-    void Window::initialize(Object & parent, lv_coord_t header_height) {
-        this->lv_obj = LvPointer<lv_obj_t, lv_obj_del>(lv_win_create(parent.raw_ptr(), header_height));
+    void Window::initialize(Object & parent) {
+        this->lv_obj = LvPointer<lv_obj_t, lv_obj_del>(lv_win_create(parent.raw_ptr()));
     }
 
     Object Window::add_title(const std::string & txt) {
@@ -31,11 +31,11 @@ namespace lvgl::widgets {
     }
 
     Object Window::add_btn(const ImageDescriptor & icon, lv_coord_t btn_w) {
-        return Object(lv_win_add_btn(this->raw_ptr(), icon.raw_ptr(), btn_w));
+        return Object(lv_win_add_button(this->raw_ptr(), icon.raw_ptr(), btn_w));
     }
 
     Object Window::add_btn(const std::string & icon, lv_coord_t btn_w) {
-        return Object(lv_win_add_btn(this->raw_ptr(), icon.c_str(), btn_w));
+        return Object(lv_win_add_button(this->raw_ptr(), icon.c_str(), btn_w));
     }
 
     Object Window::get_header() const {
