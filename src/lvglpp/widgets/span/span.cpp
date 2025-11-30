@@ -5,6 +5,7 @@
  *  License: MIT
  */
 #include "span.h"
+#include "src/widgets/span/lv_span_private.h"
 #if LV_USE_SPAN != 0
 
 #include "../../misc/style.h"
@@ -13,7 +14,7 @@ namespace lvgl::widgets {
 
     Span::Span(lv_span_t* span) {
         this->owns_ptr = false;
-        this->lv_obj = LvPointer<lv_span_t, lv_mem_free>(span);
+        this->lv_obj = LvPointer<lv_span_t, lv_free>(span);
     }
 
     void Span::set_text(const std::string & text) {
@@ -38,7 +39,7 @@ namespace lvgl::widgets {
     }
 
     void SpanGroup::del_span(Span & span) {
-        lv_spangroup_del_span(this->raw_ptr(), span.raw_ptr());
+        lv_spangroup_delete_span(this->raw_ptr(), span.raw_ptr());
     }
 
     void SpanGroup::set_align(lv_text_align_t align) {
@@ -57,16 +58,16 @@ namespace lvgl::widgets {
         lv_spangroup_set_mode(this->raw_ptr(), mode);
     }
 
-    void SpanGroup::set_lines(int32_t lines) {
-        lv_spangroup_set_lines(this->raw_ptr(), lines);
+    void SpanGroup::set_max_lines(int32_t lines) {
+        lv_spangroup_set_max_lines(this->raw_ptr(), lines);
     }
 
     Span SpanGroup::get_child(int32_t id) const {
         return Span(lv_spangroup_get_child(this->raw_ptr(), id));
     }
 
-    uint32_t SpanGroup::get_child_cnt() const {
-        return lv_spangroup_get_child_cnt(this->raw_ptr());
+    uint32_t SpanGroup::get_span_count() const {
+        return lv_spangroup_get_span_count(this->raw_ptr());
     }
 
     lv_text_align_t SpanGroup::get_align() const {
@@ -85,12 +86,12 @@ namespace lvgl::widgets {
         return lv_spangroup_get_mode(const_cast<lv_cls_ptr>(this->raw_ptr()));
     }
 
-    int32_t SpanGroup::get_lines() const {
-        return lv_spangroup_get_lines(const_cast<lv_cls_ptr>(this->raw_ptr()));
+    int32_t SpanGroup::get_max_lines() const {
+        return lv_spangroup_get_max_lines(const_cast<lv_cls_ptr>(this->raw_ptr()));
     }
 
-    lv_coord_t SpanGroup::get_max_line_h() const {
-        return lv_spangroup_get_max_line_h(const_cast<lv_cls_ptr>(this->raw_ptr()));
+    lv_coord_t SpanGroup::get_max_line_height() const {
+        return lv_spangroup_get_max_line_height(const_cast<lv_cls_ptr>(this->raw_ptr()));
     }
     
     uint32_t SpanGroup::get_expand_width(uint32_t max_width) const {

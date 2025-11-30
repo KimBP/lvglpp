@@ -19,7 +19,7 @@ namespace lvgl::widgets {
     /** \class Span
      *  \brief Wraps a lv_spangroup_t object.
      */
-    class Span : public PointerWrapper<lv_span_t, lv_mem_free> {
+    class Span : public PointerWrapper<lv_span_t, lv_free> {
     public:
         /** \fn Span(lv_span_t* span)
          *  \brief Constructor with C object.
@@ -98,8 +98,16 @@ namespace lvgl::widgets {
 
         /** \brief Sets number of lines that can be displayed.
          *  \param lines: number of lines (<0 to disable limit)
+         *
+         *  Deprecated - use set_max_lines()
          */
-        void set_lines(int32_t lines);
+
+        void set_lines(int32_t lines) { set_max_lines(lines); }
+
+        /** \brief Sets number of lines that can be displayed.
+         *  \param lines: number of lines (<0 to disable limit)
+         */
+        void set_max_lines(int32_t lines);
 
         /** \fn Span get_child(int32_t id) const
          *  \brief Gets span with given index.
@@ -111,8 +119,16 @@ namespace lvgl::widgets {
         /** \fn uint32_t get_child_cnt() const
          *  \brief Gets number of spans.
          *  \returns number of spans.
+         *
+         *  Deprecated - use get_span_count()
          */
-        uint32_t get_child_cnt() const;
+        uint32_t get_child_cnt() const { return get_span_count(); }
+
+        /** \fn uint32_t get_span_count() const
+         *  \brief Gets number of spans.
+         *  \returns number of spans.
+         */
+        uint32_t get_span_count() const;
 
         /** \fn lv_text_align_t get_align() const
          *  \brief Gets text alignment.
@@ -140,14 +156,29 @@ namespace lvgl::widgets {
 
         /** \brief Gets number of lines that can be displayed.
          *  \returns number of lines (<0 to disable limit).
+         *
+         *  Deprecated - use get_max_lines()
          */
-        int32_t get_lines() const;
+        int32_t get_lines() const {return get_max_lines(); }
+
+        /** \brief Gets number of lines that can be displayed.
+         *  \returns number of lines (<0 to disable limit).
+         */
+        int32_t get_max_lines() const;
 
         /** \fn lv_coord_t get_max_line_h() const
          *  \brief Gets maximum line height of all spans.
          *  \returns maximum line height.
+         *
+         *  Deprecated - use get_max_line_height()
          */
-        lv_coord_t get_max_line_h() const;
+        lv_coord_t get_max_line_h() const { return get_max_line_height(); }
+
+        /** \fn lv_coord_t get_max_line_height() const
+         *  \brief Gets maximum line height of all spans.
+         *  \returns maximum line height.
+         */
+        lv_coord_t get_max_line_height() const;
         
         /** \fn uint32_t get_expand_width(uint32_t max_width) const
          *  \brief Gets aggregate width of spans. If larger than max_width,
