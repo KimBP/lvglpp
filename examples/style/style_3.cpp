@@ -19,7 +19,7 @@ namespace lvgl::examples {
         style.set_border_color(palette::main(Color::Blue));
         style.set_border_width(5);
         style.set_border_opa(LV_OPA_50);
-        style.set_border_side(LV_BORDER_SIDE_BOTTOM | LV_BORDER_SIDE_RIGHT);
+        style.set_border_side(static_cast<lv_border_side_t>(LV_BORDER_SIDE_BOTTOM | LV_BORDER_SIDE_RIGHT));
 
         /*Create an object with the new style*/
         static auto obj = Container(scr_act());
