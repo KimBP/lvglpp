@@ -25,17 +25,19 @@ namespace lvgl::widgets {
          *  \param tab_size: tab size.
          */
         void initialize(lv_dir_t tab_pos, lv_coord_t tab_size);
-        /** \fn void initialize(Object & parent, lv_dir_t tab_pos, lv_coord_t tab_size);
-         *  \brief Initialize object with parameters and parent object.
-         *  \param parent: parent LVGL object.
-         *  \param tab_pos: orientation of tabs (LV_DIR_TOP/BOTTOM/LEFT/RIGHT).
-         *  \param tab_size: tab size.
-         */
-        void initialize(Object & parent, lv_dir_t tab_pos, lv_coord_t tab_size);
     
     public:
-        Tabview() = delete;
-        Tabview(Object & parent) = delete;
+        /** \fn Tabview()
+         *  \brief Default constructor.
+         */
+        Tabview();
+
+        /** \fn Tabview(Object & parent)
+         *  \brief Constructor with parent object.
+         *  \param parent: parent LVGL object.
+         */
+        Tabview(Object & parent);
+
         /** \fn Tabview(lv_dir_t tab_pos, lv_coord_t tab_size);
          *  \brief Constructor with parameters.
          *  \param tab_pos: orientation of tabs (LV_DIR_TOP/BOTTOM/LEFT/RIGHT).
@@ -49,6 +51,20 @@ namespace lvgl::widgets {
          *  \param tab_size: tab size.
          */
         Tabview(Object & parent, lv_dir_t tab_pos, lv_coord_t tab_size);
+
+
+        /** \fn void set_tab_bar_position(lv_dir_t tab_pos)
+         *  \brief Sets tab bar position
+         *  \param tab_pos: Position of tab.
+         */
+        void set_tab_bar_position(lv_dir_t tab_pos);
+
+        /** \fn void set_tab_bar_size(lv_coord_t tab_size)
+         *  \brief Set tab bar size.
+         *  \param tab_size: size of tab.
+         *  \returns object for new tab.
+         */
+        void set_tab_bar_size(lv_coord_t tab_size);
 
         /** \fn Object add_tab(const std::string & name)
          *  \brief Adds a tab with given name.

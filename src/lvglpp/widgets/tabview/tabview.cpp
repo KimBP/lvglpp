@@ -9,19 +9,35 @@
 
 namespace lvgl::widgets {
 
+    Tabview::Tabview() {
+        this->lv_obj = LvPointer<lv_obj_t, lv_obj_del>(lv_tabview_create(nullptr));
+    }
+
+    Tabview::Tabview(Object & parent) {
+        this->lv_obj = LvPointer<lv_obj_t, lv_obj_del>(lv_tabview_create(parent.raw_ptr()));
+    }
+
     Tabview::Tabview(lv_dir_t tab_pos, lv_coord_t tab_size) {
+        this->lv_obj = LvPointer<lv_obj_t, lv_obj_del>(lv_tabview_create(nullptr));
         this->initialize(tab_pos, tab_size);
     }
 
     Tabview::Tabview(Object & parent, lv_dir_t tab_pos, lv_coord_t tab_size) {
-        this->initialize(parent, tab_pos, tab_size);
+        this->lv_obj = LvPointer<lv_obj_t, lv_obj_del>(lv_tabview_create(parent.raw_ptr()));
+        this->initialize(tab_pos, tab_size);
     }
 
     void Tabview::initialize(lv_dir_t tab_pos, lv_coord_t tab_size) {
-        this->lv_obj = LvPointer<lv_obj_t, lv_obj_del>(lv_tabview_create(nullptr, tab_pos, tab_size));
+        set_tab_bar_position(tab_pos);
+        set_tab_bar_size(tab_size);
     }
-    void Tabview::initialize(Object & parent, lv_dir_t tab_pos, lv_coord_t tab_size) {
-        this->lv_obj = LvPointer<lv_obj_t, lv_obj_del>(lv_tabview_create(parent.raw_ptr(), tab_pos, tab_size));
+
+    void Tabview::set_tab_bar_position(lv_dir_t tab_pos) {
+        lv_tabview_set_tab_bar_position(this->raw_ptr(), tab_pos);
+    }
+
+    void Tabview::set_tab_bar_size(lv_coord_t tab_size) {
+        lv_tabview_set_tab_bar_size(this->raw_ptr(), tab_size);
     }
 
     Object Tabview::add_tab(const std::string & name) {
