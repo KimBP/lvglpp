@@ -6,9 +6,9 @@
 #include <vector>
 
 // Map file coming from lvgl example assets
-extern uint8_t imgbtn_left_map[];
-extern uint8_t imgbtn_mid_map[];
-extern uint8_t imgbtn_right_map[];
+LV_IMAGE_DECLARE(imgbtn_left);
+LV_IMAGE_DECLARE(imgbtn_mid);
+LV_IMAGE_DECLARE(imgbtn_right);
 
 namespace lvgl::examples {
     
@@ -18,9 +18,9 @@ namespace lvgl::examples {
 
     void imgbtn_1() {
         static std::vector<ImageDescriptor> btn_imgs(3);
-        btn_imgs[0].set_src(imgbtn_left_map, 8, 50, LV_IMG_CF_TRUE_COLOR_ALPHA);
-        btn_imgs[1].set_src(imgbtn_mid_map, 5, 49, LV_IMG_CF_TRUE_COLOR_ALPHA);
-        btn_imgs[2].set_src(imgbtn_right_map, 8, 50, LV_IMG_CF_TRUE_COLOR_ALPHA);
+        btn_imgs[0].set_src(imgbtn_left);
+        btn_imgs[1].set_src(imgbtn_mid);
+        btn_imgs[2].set_src(imgbtn_right);
 
         /*Create a transition animation on width transformation and recolor.*/
         std::vector<lv_style_prop_t> tr_prop = {LV_STYLE_TRANSFORM_WIDTH, LV_STYLE_IMG_RECOLOR_OPA, LV_STYLE_PROP_INV};

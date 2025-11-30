@@ -4,7 +4,7 @@
 #include "lvglpp/draw/image.h" // for ImageDescriptor
 
 // Map file coming from lvgl example assets
-extern uint8_t img_caret_down_map[];
+LV_IMAGE_DECLARE(img_caret_down);
 
 namespace lvgl::examples {
     
@@ -38,8 +38,7 @@ namespace lvgl::examples {
         dd.set_text("Menu");
 
         /*Use a custom image as down icon and flip it when the list is opened*/
-        static auto img = ImageDescriptor();
-        img.set_src(img_caret_down_map, 13, 8, LV_IMG_CF_TRUE_COLOR_ALPHA);
+        static auto img = ImageDescriptor(&img_caret_down);
         dd.set_symbol(img);
         dd.set_style_transform_angle(1800, LV_PART_INDICATOR | LV_STATE_CHECKED);
 

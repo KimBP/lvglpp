@@ -2,9 +2,9 @@
 #include "lvglpp/widgets/animimg/animimg.h" // for AnimatedImage
 #include "lvglpp/draw/image.h" // for ImageDescriptor
 
-extern uint8_t animimg001_map[];
-extern uint8_t animimg002_map[];
-extern uint8_t animimg003_map[];
+LV_IMG_DECLARE(animimg001);
+LV_IMG_DECLARE(animimg002);
+LV_IMG_DECLARE(animimg003);
 
 namespace lvgl::examples {
     
@@ -14,9 +14,9 @@ namespace lvgl::examples {
     void animimg_1() {
         static std::vector<ImageDescriptor> anim_imgs(3);
 
-        anim_imgs[0].set_src(animimg001_map, 130, 170, LV_IMG_CF_TRUE_COLOR_ALPHA);
-        anim_imgs[1].set_src(animimg002_map, 130, 170, LV_IMG_CF_TRUE_COLOR_ALPHA);
-        anim_imgs[2].set_src(animimg003_map, 130, 170, LV_IMG_CF_TRUE_COLOR_ALPHA);
+        anim_imgs[0].set_src(animimg001);
+        anim_imgs[1].set_src(animimg002);
+        anim_imgs[2].set_src(animimg003);
 
         static auto animimg = AnimatedImage(scr_act());
         animimg.center();

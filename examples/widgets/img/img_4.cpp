@@ -5,7 +5,7 @@
 #include "lvglpp/misc/style.h" // for Style
 #include "lvglpp/misc/color.h" // for colors
 
-extern uint8_t img_skew_strip_map[];
+LV_IMAGE_DECLARE(img_skew_strip);
 
 namespace lvgl::examples {
     
@@ -14,8 +14,7 @@ namespace lvgl::examples {
     using namespace lvgl::misc;
 
     void image_4() {
-        static auto img_src = ImageDescriptor();
-        img_src.set_src(img_skew_strip_map, 80, 20, LV_IMG_CF_TRUE_COLOR_ALPHA);
+        static auto img_src = ImageDescriptor(&img_skew_strip);
 
         static Style style;
         style.set_bg_color(palette::main(Color::Yellow));
@@ -38,7 +37,7 @@ namespace lvgl::examples {
         a.set_exec_cb<Image>(ofs_y_anim);
         a.set_values(0, 100);
         a.set_time(3000);
-        a.set_playback_time(500);
+        a.set_playback_duration(500);
         a.set_repeat_count(LV_ANIM_REPEAT_INFINITE);
         a.start();
     }

@@ -2,7 +2,7 @@
 #include "lvglpp/widgets/image/image.h" // for Image
 #include "lvglpp/draw/image.h" // for Image descriptor
 
-extern uint8_t img_cogwheel_argb_map[];
+LV_IMAGE_DECLARE(img_cogwheel_argb);
 
 namespace lvgl::examples {
     
@@ -12,8 +12,7 @@ namespace lvgl::examples {
     void image_1() {
         auto root = scr_act();
         
-        static auto img = ImageDescriptor();
-        img.set_src(img_cogwheel_argb_map, 100, 100, LV_IMG_CF_TRUE_COLOR_ALPHA);
+        static auto img = ImageDescriptor(&img_cogwheel_argb);
 
         static auto img1 = Image(root);
         img1.set_src(img);
