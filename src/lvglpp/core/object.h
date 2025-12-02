@@ -127,7 +127,8 @@ namespace lvgl::core {
          *  \returns user data.
          */
         template <class T> T & get_user_data() const {
-            return *reinterpret_cast<T*>(lv_obj_get_user_data(this->raw_ptr()));
+            return *reinterpret_cast<T*>(lv_obj_get_user_data(
+				    const_cast<lv_obj_t*>(this->raw_ptr())));
         }
         /** \fn void * get_user_data() const
          *  \brief Gets user data.
@@ -355,7 +356,7 @@ namespace lvgl::core {
          *  \returns user data associated with callback function.
          */
         template <class T> T get_event_user_data(lv_event_cb_t event_cb) {
-            return reinterpret_cast<T>(*lv_obj_get_event_user_data(this->raw_ptr(), event_cb));
+            return *reinterpret_cast<T*>(lv_obj_get_event_user_data(this->raw_ptr(), event_cb));
         }
 
         /** \brief Gets user data associated with event callback.

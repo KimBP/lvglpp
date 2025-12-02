@@ -341,7 +341,8 @@ namespace lvgl::misc {
          *  \returns user data.
          */
         template <class T> T get_user_data() const {
-            return *reinterpret_cast<T*>(lv_anim_get_user_data(this->raw_ptr()));
+            return *reinterpret_cast<T*>(lv_anim_get_user_data(
+				    const_cast<lv_anim_t*>(this->raw_ptr())));
         }
 
         /** \brief Gets user data.

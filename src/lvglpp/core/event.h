@@ -102,7 +102,7 @@ namespace lvgl::core {
          *  \returns pointer to user data.
          */
         template <class T> T & get_user_data() const {
-            return reinterpret_cast<T>(*lv_event_get_user_data(const_cast<lv_event_t*>(this->raw_ptr())));
+            return *reinterpret_cast<T*>(lv_event_get_user_data(const_cast<lv_event_t*>(this->raw_ptr())));
         }
         /** \brief Gets user data passed when event was registered with the object.
          *  \returns pointer to user data.
