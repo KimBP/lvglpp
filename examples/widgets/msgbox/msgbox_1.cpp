@@ -12,8 +12,7 @@ namespace lvgl::examples {
     using namespace lvgl::widgets;
 
     void msgbox_1() {
-        std::vector<std::string> btns = {"Apply", "Close", ""};
-        static auto mbox = MessageBox("Hello", "This is a message box with two buttons.", btns, true);
+        static auto mbox = MessageBox("Hello", "This is a message box with two buttons.");
 
         mbox.add_close_button();
 
@@ -24,7 +23,7 @@ namespace lvgl::examples {
             LV_LOG_USER("Button %s clicked", label.get_text());
         };
 
-        mbox.add_event_cb(event_cb, LV_EVENT_VALUE_CHANGED);
-        mbox.center();
-    }
+        mbox.add_footer_button("Apply").add_event_cb(event_cb, LV_EVENT_CLICKED);
+        mbox.add_footer_button("Close").add_event_cb(event_cb, LV_EVENT_CLICKED);
+   }
 }
