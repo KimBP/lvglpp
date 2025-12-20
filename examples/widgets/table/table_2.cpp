@@ -15,33 +15,36 @@ namespace lvgl::examples {
 
     static void draw_event_cb(Event & e) {
         auto obj = e.get_target<Table>();
-        auto dsc = e.get_draw_part_dsc();
+        auto draw_task = e.get_draw_task();
+        auto dsc = draw_task.getBaseDescriptor();
         /*If the cells are drawn...*/
-        if(dsc->part == LV_PART_ITEMS) {
-            bool chk = obj.has_cell_ctrl(dsc->id, 0, LV_TABLE_CELL_CTRL_CUSTOM_1);
-            
+        if(dsc->part() == LV_PART_ITEMS && draw_task.get_type() == LV_DRAW_TASK_TYPE_FILL) {
+            // Draw background
+            bool chk = obj.has_cell_ctrl(dsc->id1(), 0, LV_TABLE_CELL_CTRL_CUSTOM_1);
+            auto layer = dsc->layer();
+
             RectangleDrawDescriptor rect_dsc;
             rect_dsc->bg_color = chk ? obj.get_color_primary() : palette::light(Color::Grey, 2);
             rect_dsc->radius = LV_RADIUS_CIRCLE;
 
             Area sw_area;
-            sw_area->x1 = dsc->draw_area->x2 - 50;
-            sw_area->x2 = sw_area->x1 + 40;
-            sw_area->y1 = dsc->draw_area->y1 + Area(*dsc->draw_area).get_height() / 2 - 10;
-            sw_area->y2 = sw_area->y1 + 20;
-            rect_dsc.draw(dsc->draw_ctx, sw_area);
+            sw_area.set(0,0,40,24);
 
+            auto draw_task_area = draw_task.get_area();
+            sw_area.align_to(draw_task_area, LV_ALIGN_RIGHT_MID, -15, 0);
+            rect_dsc.draw(layer, sw_area);
+
+            // Draw the knob
             rect_dsc->bg_color = palette::white();
-            if(chk) {
-                sw_area->x2 -= 2;
-                sw_area->x1 = sw_area->x2 - 16;
+            Area knob_area;
+            knob_area.set(0,0, 18, 18);
+            if (chk) {
+                knob_area.align_to(sw_area, LV_ALIGN_RIGHT_MID, -3, 0);
             } else {
-                sw_area->x1 += 2;
-                sw_area->x2 = sw_area->x1 + 16;
+                knob_area.align_to(sw_area, LV_ALIGN_LEFT_MID, 3, 0);
             }
-            sw_area->y1 += 2;
-            sw_area->y2 -= 2;
-            rect_dsc.draw(dsc->draw_ctx, sw_area);
+
+            rect_dsc.draw(layer, knob_area);
         }
     }
 
@@ -82,8 +85,9 @@ namespace lvgl::examples {
         table.align(LV_ALIGN_CENTER, 0, -20);
 
         /*Add an event callback to to apply some custom drawing*/
-        table.add_event_cb(draw_event_cb, LV_EVENT_DRAW_PART_END);
+        table.add_event_cb(draw_event_cb, LV_EVENT_DRAW_TASK_ADDED);
         table.add_event_cb(change_event_cb, LV_EVENT_VALUE_CHANGED);
+        table.add_flag(LV_OBJ_FLAG_SEND_DRAW_TASK_EVENTS);
 
         lv_mem_monitor_t mon2;
         lv_mem_monitor(&mon2);
