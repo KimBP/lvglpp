@@ -49,6 +49,10 @@ namespace lvgl::widgets {
         lv_dropdown_set_symbol(this->raw_ptr(), symbol.raw_ptr());
     }
 
+    void Dropdown::set_symbol(const char * symbol) {
+        lv_dropdown_set_symbol(this->raw_ptr(), symbol);
+    }
+
     void Dropdown::set_selected_highlight(bool en) {
         lv_dropdown_set_selected_highlight(this->raw_ptr(), en);
     }
