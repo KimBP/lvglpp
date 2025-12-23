@@ -145,6 +145,8 @@ namespace lvgl::draw {
          *  \param valid: true if header contains valid data, false otherwise.
          */
         void is_valid(bool valid);
+
+        Area area() const;
     };
 
 

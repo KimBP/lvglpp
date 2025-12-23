@@ -46,6 +46,13 @@ namespace lvgl::draw {
         this->valid = valid;
     }
 
+    Area ImageHeader::area() const {
+        if ( this->valid) {
+            return Area(0,0,this->raw_ptr()->w, this->raw_ptr()->h);
+        } else {
+            return Area();
+        }
+    }
 
     ImageDescriptor::ImageDescriptor() {
         this->lv_obj = LvPointer<lv_image_dsc_t, lv_image_buf_free>(lv_cls_alloc<lv_image_dsc_t>());
