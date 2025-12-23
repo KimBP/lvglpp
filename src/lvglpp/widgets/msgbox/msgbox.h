@@ -46,13 +46,20 @@ namespace lvgl::widgets {
         /** \fn MessageBox()
          *  \brief Default constructor
          */
-        MessageBox() : MessageBox(nullptr) {};
+        MessageBox();
 
         /** \fn MessageBox(Object & parent)
          *  \brief Consructor with parent object.
          *  \param parent: parent LVGL object.
          */
         MessageBox(Object & parent);
+
+        /** \fn MessageBox(const std::string & title, const std::string & txt)
+         *  \brief Constructor with parameters.
+         *  \param title: message box title.
+         *  \param txt: message box text.
+         */
+        MessageBox(const std::string & title, const std::string & txt);
 
         /** \fn MessageBox(const std::string & title, const std::string & txt,
          *                 const std::vector<std::string> & btn_txts,
@@ -65,7 +72,7 @@ namespace lvgl::widgets {
          */
         MessageBox(const std::string & title, const std::string & txt,
                    const std::vector<std::string> & btn_txts,
-                   bool add_close_btn);
+                   bool add_close_btn = false);
 
         /** \fn MessageBox(Object & parent, const std::string & title,
          *                 const std::string & txt, const std::vector<std::string> & btn_txts,
@@ -79,7 +86,7 @@ namespace lvgl::widgets {
          */
         MessageBox(Object & parent, const std::string & title, const std::string & txt,
                    const std::vector<std::string> & btn_txts,
-                   bool add_close_btn);
+                   bool add_close_btn = false);
 
         /** \fn Object add_title(const std::string & title)
          *  \brief Add title to messagebox
@@ -121,20 +128,6 @@ namespace lvgl::widgets {
          */
         Object get_title() const;
 
-#ifdef MISSING_PORT
-        /** \fn Object get_close_btn() const
-         *  \brief Gets object for close button.
-         *  \returns object for close button.
-         */
-        Object get_close_btn() const;
-
-        /** \fn Object get_text() const
-         *  \brief Gets object for text.
-         *  \returns object for text.
-         */
-        Object get_text() const;
-#endif
-
         /** \fn Object get_content() const
          *  \brief Gets object for content.
          *  \returns object for content.
@@ -158,20 +151,6 @@ namespace lvgl::widgets {
          *  Function deprecated
          */
         Object get_btns() const { return get_footer(); };
-
- #ifdef MISSING_PORT
-        /** \fn uint16_t get_active_btn() const
-         *  \brief Gets active button.
-         *  \returns active button index.
-         */
-        uint16_t get_active_btn() const;
-
-        /** \fn std::string get_active_btn_text() const
-         *  \brief Gets active button text.
-         *  \returns active button text string.
-         */
-        std::string get_active_btn_text() const;
-#endif
 
         /** \fn void close()
          *  \brief Closes message box.
