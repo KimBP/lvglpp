@@ -11,10 +11,12 @@
 #include "../misc/anim.h"
 #include "../misc/area.h"
 #include "src/misc/lv_event_private.h"
+#include "../draw/layer.h"
 
 namespace lvgl::core {
 
     using namespace lvgl::misc;
+    using namespace lvgl::draw;
 
     class Object;
     class InputDevice;
@@ -65,7 +67,7 @@ namespace lvgl::core {
          *  \brief Get current layer
          *  \returns pointer to current layer
          */
-        lv_layer_t * get_layer() const;
+        Layer get_layer() const;
 
         /** \fn template <class T> T get_target() const
          *  \brief Gets event target.
@@ -90,12 +92,6 @@ namespace lvgl::core {
          */
         lv_event_code_t get_code() const;
 
-        /** \fn template <class T> T & get_param() const
-         *  \brief Gets parameter passed when event was sent.
-         *  \tparam T: parameter class.
-         *  \returns pointer to the event parameter.
-         */
-        //template <class T> T* get_param() const;
         /** \brief Gets parameter passed when event was sent.
          *  \returns pointer to the event parameter.
          */
@@ -107,7 +103,7 @@ namespace lvgl::core {
          *  \brief Gets current draw task
          *  \returns pointer to current draw task
          */
-        lv_draw_task_t * get_draw_task() const;
+        DrawTask get_draw_task() const;
 
         /** \fn template <class T> T & get_user_data() const;
          *  \brief Gets user data passed when event was registered with the object.

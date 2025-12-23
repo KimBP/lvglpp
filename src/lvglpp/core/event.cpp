@@ -31,12 +31,12 @@ namespace lvgl::core {
         return lv_event_register_id();
     }
 
-    lv_layer_t * Event::get_layer() const {
-        return lv_event_get_layer(const_cast<lv_event_t*>(this->raw_ptr()));
+    Layer Event::get_layer() const {
+        return Layer(lv_event_get_layer(const_cast<lv_event_t*>(this->raw_ptr())));
     }
 
-    lv_draw_task_t * Event::get_draw_task() const {
-        return lv_event_get_draw_task(this->raw_ptr());
+    DrawTask Event::get_draw_task() const {
+        return DrawTask(lv_event_get_draw_task(this->raw_ptr()));
     }
 
     InputDevice Event::get_indev() const {
