@@ -8,6 +8,8 @@
 
 #include "../../core/object.h"
 #include "../../draw/image.h"
+#include "../../draw/layer.h"
+#include "../../draw/draw_buf.h"
 
 #if LV_USE_CANVAS != 0
 
@@ -31,8 +33,14 @@ namespace lvgl::widgets {
          *  \param cf: color format.
          */
         template <class T> void set_buffer(std::vector<T> & buf, lv_coord_t w, lv_coord_t h, lv_color_format_t cf) {
-            lv_canvas_set_buffer(this->raw_ptr(), &buf[0], w, h, cf);
+            lv_canvas_set_buffer(this->raw_ptr(), buf.data(), w, h, cf);
         }
+
+        /** \fn void set_buffer(DrawBuf & draw_buf)
+         *  \brief Associates DrawBuf object to canvas
+         *  \param draw_buf: The DrawBuf object to associate
+         */
+        void set_buffer(DrawBuf & draw_buf);
 
         /** \fn void set_buffer(ImageDescriptor & dsc)
          *  \brief Sets buffer in which canvas data will be stored.
@@ -98,44 +106,6 @@ namespace lvgl::widgets {
          */
         void copy_buf(const Area & src_area, lv_draw_buf_t & dest_buf, const Area & dest_area);
 
-#ifdef MISSING_PORT
-        /** \fn void transform(int16_t angle, uint16_t zoom, lv_coord_t offset_x, lv_coord_t offset_y, int32_t pivot_x, int32_t pivot_y, bool antialias)
-         *  \brief Transforms canvas content with given parameters.
-         *  \param angle: rotation angle.
-         *  \param zoom: zoom factor.
-         *  \param offset_x: translation offset in x direction.
-         *  \param offset_y: translation offset in y direction.
-         *  \param pivot_x: x coordinate of centre of rotation.
-         *  \param pivot_y: y coordinate of centre of rotation.
-         *  \param antialias: if true, enables antialias.
-         */
-        void transform(int16_t angle, uint16_t zoom, lv_coord_t offset_x, lv_coord_t offset_y, int32_t pivot_x, int32_t pivot_y, bool antialias);
-
-        /** \fn void blur_hor(uint16_t r)
-         *  \brief Applies horizontal blur on the whole canvas.
-         *  \param r: blur radius.
-         */
-        void blur_hor(uint16_t r);
-        /** \fn void blur_hor(const Area & area, uint16_t r)
-         *  \brief Applies horizontal blur on an area of the canvas.
-         *  \param area: canvas area.
-         *  \param r: blur radius.
-         */
-        void blur_hor(const Area & area, uint16_t r);
-
-        /** \fn void blur_ver(uint16_t r)
-         *  \brief Applies vertical blur on the whole canvas.
-         *  \param r: blur radius.
-         */
-        void blur_ver(uint16_t r);
-        /** \fn void blur_ver(const Area & area, uint16_t r)
-         *  \brief Applies vertical blur on an area of the canvas.
-         *  \param area: canvas area.
-         *  \param r: blur radius.
-         */
-        void blur_ver(const Area & area, uint16_t r);
-#endif
-
         /** \fn void fill_bg(const lv_color_t & color, lv_opa_t opa)
          *  \brief Fill canvas with given color.
          *  \param color: color.
@@ -143,63 +113,17 @@ namespace lvgl::widgets {
          */
         void fill_bg(const lv_color_t & color, lv_opa_t opa);
 
-#ifdef MISSING_PORT
-        /** \fn void draw_rect(lv_coord_t x, lv_coord_t y, lv_coord_t w, lv_coord_t h, const RectangleDrawDescriptor & draw_dsc)
-         *  \brief Draws a rectangle on the canvas.
-         *  \param x: left coordinate of the rectangle.
-         *  \param y: top coordinate of the rectangle.
-         *  \param w: width of the rectangle.
-         *  \param h: height of the rectangle.
-         *  \param draw_dsc: rectangle descriptor.
+        /** \fn void init_layer(Layer & layer)
+         *  \brief Configures empty layer object
+         *  \param layer: The layer being initiated
          */
-        void draw_rect(lv_coord_t x, lv_coord_t y, lv_coord_t w, lv_coord_t h, const RectangleDrawDescriptor & draw_dsc);
+        void init_layer(Layer & layer);
 
-        /** \fn void draw_text(lv_coord_t x, lv_coord_t y, lv_coord_t max_w, LabelDrawDescriptor & draw_dsc, const std::string & txt)
-         *  \brief Draws some text on the canvas.
-         *  \param x: left coordinate of the text.
-         *  \param y: top coordinate of the text.
-         *  \param max_w: maximum width of the text (the text will be wrapped to fit within this width).
-         *  \param draw_dsc: text descriptor.
-         *  \param txt: text string.
+        /** \fn void finish_layer(Layer & layer)
+         *  \brief Finishes what was initiated with init_layer()
+         *  \param layer: Layer to finish
          */
-        void draw_text(lv_coord_t x, lv_coord_t y, lv_coord_t max_w, LabelDrawDescriptor & draw_dsc, const std::string & txt);
-
-        /** \fn void draw_img(lv_coord_t x, lv_coord_t y, const void * src, const ImageDrawDescriptor & draw_dsc)
-         *  \brief Draws an image on the canvas.
-         *  \param x: left coordinate of the image.
-         *  \param y: top coordinate of the image.
-         *  \param src: image buffer.
-         *  \param draw_dsc: image descriptor.
-         */
-        void draw_img(lv_coord_t x, lv_coord_t y, const void * src, const ImageDrawDescriptor & draw_dsc);
-
-        /** \fn void draw_line(const std::vector<lv_point_t> & points, uint32_t point_cnt, const LineDrawDescriptor & draw_dsc)
-         *  \brief Draws a line on the canvas.
-         *  \param points: an array of points describing the line.
-         *  \param point_cnt: number of points.
-         *  \param draw_dsc: line descriptor.
-         */
-        void draw_line(const std::vector<lv_point_t> & points, uint32_t point_cnt, const LineDrawDescriptor & draw_dsc);
-
-        /** \fn void draw_polygon(const std::vector<lv_point_t> & points, uint32_t point_cnt, const RectangleDrawDescriptor & draw_dsc)
-         *  \brief Draws a polygon on the canvas.
-         *  \param points: an array of points describing the polygon.
-         *  \param point_cnt: number of points.
-         *  \param draw_dsc: polygon descriptor.
-         */
-        void draw_polygon(const std::vector<lv_point_t> & points, uint32_t point_cnt, const RectangleDrawDescriptor & draw_dsc);
-
-        /** \fn void draw_arc(lv_coord_t x, lv_coord_t y, lv_coord_t r, int32_t start_angle, int32_t end_angle, const ArcDrawDescriptor & draw_dsc)
-         *  \brief Draws an arc on the canvas.
-         *  \param x: left coordinate of the arc.
-         *  \param y: top coordinate of the arc.
-         *  \param r: arc radius.
-         *  \param start_angle: start angle.
-         *  \param end_angle: end angle.
-         *  \param draw_dsc: arc descriptor.
-         */
-        void draw_arc(lv_coord_t x, lv_coord_t y, lv_coord_t r, int32_t start_angle, int32_t end_angle, const ArcDrawDescriptor & draw_dsc);
-#endif
+        void finish_layer(Layer & layer);
 
     };
 
