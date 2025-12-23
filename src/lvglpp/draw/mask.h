@@ -7,6 +7,7 @@
 #pragma once
 #include "../lv_wrapper.h"
 #include <vector>
+#include "src/draw/sw/lv_draw_sw_mask_private.h"
 
 namespace lvgl::misc {
     class Area;
@@ -17,7 +18,7 @@ namespace lvgl::draw {
     /** \brief Base class for mask parts.
      *  \tparam LvClass: LVGL class of mask part.
      */
-    template <typename LvClass> class Mask : public PointerWrapper<LvClass, lv_mem_buf_release> {
+    template <typename LvClass> class Mask : public PointerWrapper<LvClass, lv_free> {
     protected:
         /** \property int16_t id
          *  \brief Mask part index (-1 if not active, >=0 if active).
@@ -30,7 +31,7 @@ namespace lvgl::draw {
         void * custom_id;
     
     public:
-        using PointerWrapper<LvClass,lv_mem_buf_release>::PointerWrapper;
+        using PointerWrapper<LvClass,lv_free>::PointerWrapper;
 
         /** \property Mask()
          *  \brief Default constructor.
@@ -40,9 +41,7 @@ namespace lvgl::draw {
         /** \property ~Mask()
          *  \brief Destructor.
          */
-        ~Mask() {
-            this->remove();
-        }
+        ~Mask() = default;
 
         /** \fn void set_id(int16_t id)
          *  \brief Sets mask part index.
@@ -55,61 +54,23 @@ namespace lvgl::draw {
          *  \returns index value.
          */
         int16_t get_id() const;
-
-        /** \fn void add()
-         *  \brief Makes mask part active.
-         */
-        void add() {
-            this->add(nullptr);
-        }
-
-        /** \fn void add(void * custom_id)
-         *  \brief Makes mask part active assigning custom ID.
-         *  \param custom_id: a pointer to a custom ID.
-         */
-        void add(void * custom_id) {
-            this->custom_id = custom_id;
-            this->id = lv_draw_mask_add(static_cast<void*>(this->lv_obj.get()), custom_id);
-        }
-
-        /** \fn void remove()
-         *  \brief Removes mask part from the list of active masks.
-         */
-        void remove() {
-            if (this->id>=0) {
-                lv_draw_mask_remove_id(this->id);
-                lv_draw_mask_free_param(this->raw_ptr());
-                this->id = -1;
-            }
-        }
-
-        /** \fn void remove_custom()
-         *  \brief Removes mask part from the list of active masks using custom ID.
-         */
-        void remove_custom() {
-            if (this->custom_id != nullptr) {
-                lv_draw_mask_remove_custom(this->custom_id);
-                this->custom_id = nullptr;
-                this->id = -1;
-            }
-        }
     };
 
 
     /** \class LineMask
-     *  \brief Wraps a lv_draw_mask_line_param_t object.
+     *  \brief Wraps a lv_draw_sw_mask_line_param_t object.
      */
-    class LineMask : public Mask<lv_draw_mask_line_param_t> {
+    class LineMask : public Mask<lv_draw_sw_mask_line_param_t> {
     public:
         using Mask::Mask;
 
         /** \typedef LvClass
          *  \brief A shorthand for LVGL mask part type.
          */
-        using LvClass = lv_draw_mask_line_param_t;
+        using LvClass = lv_draw_sw_mask_line_param_t;
 
         /** \fn LineMask(lv_coord_t p1x, lv_coord_t p1y, lv_coord_t p2x,
-         *                  lv_coord_t p2y, lv_draw_mask_line_side_t side)
+         *                  lv_coord_t p2y, lv_draw_sw_mask_line_side_t side)
          *  \brief Constructor with two points.
          *  
          *  Defines a line by two points. The area on the specified side
@@ -122,10 +83,10 @@ namespace lvgl::draw {
          *  \param side: code for mask side.
          */
         LineMask(lv_coord_t p1x, lv_coord_t p1y, lv_coord_t p2x,
-                 lv_coord_t p2y, lv_draw_mask_line_side_t side);
+                 lv_coord_t p2y, lv_draw_sw_mask_line_side_t side);
 
         /** \fn LineMask(lv_coord_t px, lv_coord_t py, int16_t angle,
-         *                  lv_draw_mask_line_side_t side)
+         *                  lv_draw_sw_mask_line_side_t side)
          *  \brief Constructor with pivot point and angle.
          *  
          *  Defines a line by point and angle. The area on the specified side
@@ -137,21 +98,21 @@ namespace lvgl::draw {
          *  \param side: code for mask side.
          */
         LineMask(lv_coord_t px, lv_coord_t py, int16_t angle,
-                 lv_draw_mask_line_side_t side);
+                 lv_draw_sw_mask_line_side_t side);
     };
 
 
     /** \class AngleMask
-     *  \brief Wraps a lv_draw_mask_angle_param_t object.
+     *  \brief Wraps a lv_draw_sw_mask_angle_param_t object.
      */
-    class AngleMask : public Mask<lv_draw_mask_angle_param_t> {
+    class AngleMask : public Mask<lv_draw_sw_mask_angle_param_t> {
     public:
         using Mask::Mask;
 
         /** \typedef LvClass
          *  \brief A shorthand for LVGL mask part type.
          */
-        using LvClass = lv_draw_mask_angle_param_t;
+        using LvClass = lv_draw_sw_mask_angle_param_t;
 
         /** \fn AngleMask(lv_coord_t vertex_x, lv_coord_t vertex_y,
          *                   lv_coord_t start_angle, lv_coord_t end_angle)
@@ -170,16 +131,16 @@ namespace lvgl::draw {
 
 
     /** \class RadiusMask
-     *  \brief Wraps a lv_draw_mask_radius_param_t object.
+     *  \brief Wraps a lv_draw_sw_mask_radius_param_t object.
      */
-    class RadiusMask : public Mask<lv_draw_mask_radius_param_t> {
+    class RadiusMask : public Mask<lv_draw_sw_mask_radius_param_t> {
     public:
         using Mask::Mask;
 
         /** \typedef LvClass
          *  \brief A shorthand for LVGL mask part type.
          */
-        using LvClass = lv_draw_mask_radius_param_t;
+        using LvClass = lv_draw_sw_mask_radius_param_t;
 
         /** \fn RadiusMask(const misc::Area & rect, lv_coord_t radius, bool inv)
          *  \brief Constructor.
@@ -208,16 +169,16 @@ namespace lvgl::draw {
 
 
     /** \class FadeMask
-     *  \brief Wraps a lv_draw_mask_fade_param_t object.
+     *  \brief Wraps a lv_draw_sw_mask_fade_param_t object.
      */
-    class FadeMask : public Mask<lv_draw_mask_fade_param_t> {
+    class FadeMask : public Mask<lv_draw_sw_mask_fade_param_t> {
     public:
         using Mask::Mask;
 
         /** \typedef LvClass
          *  \brief A shorthand for LVGL mask part type.
          */
-        using LvClass = lv_draw_mask_fade_param_t;
+        using LvClass = lv_draw_sw_mask_fade_param_t;
 
         /** \fn FadeMask(const misc::Area & coords, lv_opa_t opa_top, lv_coord_t y_top,
          *                  lv_opa_t opa_bottom, lv_coord_t y_bottom);
@@ -252,16 +213,16 @@ namespace lvgl::draw {
 
 
     /** \class MapMask
-     *  \brief Wraps a lv_draw_mask_map_param_t object.
+     *  \brief Wraps a lv_draw_sw_mask_map_param_t object.
      */
-    class MapMask : public Mask<lv_draw_mask_map_param_t> {
+    class MapMask : public Mask<lv_draw_sw_mask_map_param_t> {
     public:
         using Mask::Mask;
 
         /** \typedef LvClass
          *  \brief A shorthand for LVGL mask part type.
          */
-        using LvClass = lv_draw_mask_map_param_t;
+        using LvClass = lv_draw_sw_mask_map_param_t;
 
         /** \fn MapMask(const misc::Area & coords, const std::vector<lv_opa_t> & map)
          *  \brief Constructor.
@@ -283,55 +244,4 @@ namespace lvgl::draw {
          */
         MapMask(const lv_area_t & coords, const std::vector<lv_opa_t> & map);
     };
-
-
-    /** \class PolygonMask
-     *  \brief Wraps a lv_draw_mask_polygon_param_t object.
-     */
-    class PolygonMask : public Mask<lv_draw_mask_polygon_param_t> {
-    public:
-        using Mask::Mask;
-
-        /** \typedef LvClass
-         *  \brief A shorthand for LVGL mask part type.
-         */
-        using LvClass = lv_draw_mask_polygon_param_t;
-
-        /** \fn PolygonMask(const std::vector<lv_point_t> & points)
-         *  \brief Constructor.
-         *  
-         *  Defines a masked area from a polygon.
-         * 
-         *  \param points: polygon vertices.
-         */
-        PolygonMask(const std::vector<lv_point_t> & points);
-    };
-
-
-    /** \namespace lvgl::draw::mask
-     *  \brief Contains general mask functions.
-     */
-    namespace mask {
-
-        /** \fn uint8_t get_count()
-         *  \brief Gets the number of active mask parts.
-         */
-        uint8_t get_count();
-
-        /** \fn bool has_any(const misc::Area & a)
-         *  \brief Tells if given area is covered by any mask.
-         *  \param a: area to test.
-         *  \returns true if area is covered by at least one mask, false otherwise.
-         */
-        bool has_any(const misc::Area & a);
-
-        /** \fn bool has_any(const lv_area_t & a)
-         *  \brief Tells if given area is covered by any mask.
-         *  \param a: area to test.
-         *  \returns true if area is covered by at least one mask, false otherwise.
-         */
-        bool has_any(const lv_area_t & a);
-
-    }
-
 }
