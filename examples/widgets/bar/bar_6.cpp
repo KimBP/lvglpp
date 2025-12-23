@@ -46,7 +46,8 @@ namespace lvgl::examples {
             label_dsc->color = palette::black();
         }
 
-        label_dsc.draw(e.get_layer(), txt_area);
+        auto layer = e.get_layer();
+        label_dsc.draw(layer, txt_area);
     }
 
     void bar_6() {
