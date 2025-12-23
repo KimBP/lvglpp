@@ -10,6 +10,7 @@
 namespace lvgl::misc {
     Area::Area() {
         this->lv_obj = LvPointerType(lv_cls_alloc<lv_cls>());
+        set(0,0,0,0);
     }
 
     Area::Area(lv_coord_t x, lv_coord_t y, lv_coord_t w, lv_coord_t h)
