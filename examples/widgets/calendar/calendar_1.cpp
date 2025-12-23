@@ -51,7 +51,6 @@ namespace lvgl::examples {
         auto header = calendar.header_arrow_create();
     #endif
 
-        calendar.set_displayed_month(2021, 10);
         header.release_ptr();
         calendar.release_ptr();
     }
