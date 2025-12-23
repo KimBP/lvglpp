@@ -8,16 +8,12 @@
 #include "group.h"
 #include "object.h"
 
-// we need user_data to store pointer to C++ object, otherwise we cannot
-// access callbacks defined as class members.
-#if LV_USE_USER_DATA
-
 namespace lvgl::core {
 
     InputDevice::InputDevice() {
         lv_indev_drv_init(&(this->indev_drv));
         this->indev_drv.user_data = static_cast<void*>(this);
-        this->indev_drv.read_cb = [](lv_indev_drv_t * indev_drv, lv_indev_data_t * data) {
+        this->indev_drv.read_cb = [](lv_indev_t * indev_drv, lv_indev_data_t * data) {
             auto obj = reinterpret_cast<InputDevice*>(indev_drv->user_data);
             obj->read(data);
         };
@@ -125,4 +121,3 @@ namespace lvgl::core {
     }
 
 }
-#endif // LV_USE_USER_DATA

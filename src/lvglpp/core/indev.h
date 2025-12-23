@@ -6,12 +6,9 @@
  */
 #pragma once
 #include "display.h"
+#include "src/indev/lv_indev_private.h"
 #include "../misc/timer.h"
 #include "../lv_wrapper.h"
-
-// we need user_data to store pointer to C++ object, otherwise we cannot
-// access callbacks defined as class members.
-#if LV_USE_USER_DATA
 
 namespace lvgl::core {
 
@@ -24,10 +21,10 @@ namespace lvgl::core {
      */
     class InputDevice : public PointerWrapper<lv_indev_t, lv_indev_delete> {
     protected:
-        /** \property lv_indev_drv_t indev_drv
+        /** \property lv_indev_t indev_drv
          *  \brief Input device driver instance.
          */
-        lv_indev_drv_t indev_drv;
+        lv_indev_t indev_drv;
 
         /** \property virtual void read(lv_indev_data_t * data)
          *  \brief Callback to read touchpad data.
@@ -219,4 +216,3 @@ namespace lvgl::core {
     };
 
 }
-#endif // LV_USE_USER_DATA
