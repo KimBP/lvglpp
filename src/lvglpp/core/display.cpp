@@ -117,6 +117,10 @@ namespace lvgl::core {
         return Object(lv_screen_active(), false);
     }
 
+    Object scr_act() {
+        return screen_active(); 
+    }
+
     Object layer_top() {
         return Object(lv_layer_top(), false);
     }

@@ -231,7 +231,7 @@ namespace lvgl::core {
      *
      *   Deprecated - use screen_load()
      */
-    void load_scr(Object & scr) { screen_load(scr); }
+    inline void load_scr(Object & scr) { screen_load(scr); }
 
     /** \fn Object screen_active()
      *  \brief Gets the currently active screen.
@@ -245,7 +245,7 @@ namespace lvgl::core {
      *
      *  Deprecated - use screen_active
      */
-    Object scr_act() { return screen_active(); }
+    Object scr_act();
 
     /** \fn Object layer_top()
      *  \brief Gets the currently active top layer.
