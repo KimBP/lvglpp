@@ -22,6 +22,7 @@ namespace lvgl::draw {
     class LineDrawDescriptor;
     class ArcDrawDescriptor;
     class ImageDescriptor;
+    class DrawBuf;
 }
 
 namespace lvgl::font {
@@ -1656,6 +1657,8 @@ namespace lvgl::core {
          *  \param selector: OR-ed combination of parts and states to apply the style to.
          */
         void set_style_base_dir(lv_base_dir_t value, lv_style_selector_t selector);
+
+        void set_style_bitmap_mask_src(const DrawBuf & mask, lv_style_selector_t selector);
 
         /** \fn lv_coord_t get_style_width(uint32_t part) const
          *  \brief Gets width.

@@ -14,6 +14,7 @@
 #include "../misc/color.h"
 #include "../draw/desc.h"
 #include "../draw/image.h"
+#include "../draw/draw_buf.h"
 #include "../font/font.h"
 
 namespace lvgl::core {
@@ -590,11 +591,9 @@ namespace lvgl::core {
         return lv_obj_get_index(this->raw_ptr());
     }
 
-#if LV_USE_USER_DATA
     void Object::tree_walk(lv_obj_tree_walk_cb_t cb, void * user_data) const {
         lv_obj_tree_walk(const_cast<lv_cls_ptr>(this->raw_ptr()), cb, user_data);
     }
-#endif // LV_USE_USER_DATA
 
     void Object::tree_walk(lv_obj_tree_walk_cb_t cb) const {
         this->tree_walk(cb, nullptr);
@@ -891,6 +890,9 @@ namespace lvgl::core {
     }
     void Object::set_style_base_dir(lv_base_dir_t value, lv_style_selector_t selector) {
       lv_obj_set_style_base_dir(this->raw_ptr(), value, selector);
+    }
+    void Object::set_style_bitmap_mask_src(const DrawBuf & mask, lv_style_selector_t selector) {
+        lv_obj_set_style_bitmap_mask_src(this->raw_ptr(), mask.raw_ptr(), selector);
     }
 
     lv_coord_t Object::get_style_width(uint32_t part) const {
