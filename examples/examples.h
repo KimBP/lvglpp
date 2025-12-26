@@ -14,3 +14,4 @@
 #include "widgets/table/table.h"
 #include "widgets/tabview/tabview.h"
 #include "widgets/textarea/textarea.h"
+#include "widgets/canvas/canvas.h"
