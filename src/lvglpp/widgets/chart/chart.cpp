@@ -173,5 +173,9 @@ namespace lvgl::widgets {
         return lv_chart_get_series_next(this->raw_ptr(), ser);
     }
 
+    int32_t Chart::get_first_point_center_offset() {
+        return lv_chart_get_first_point_center_offset(this->raw_ptr());
+    }
+
 }
 #endif // LV_USE_CHART

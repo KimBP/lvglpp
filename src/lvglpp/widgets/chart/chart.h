@@ -310,6 +310,12 @@ namespace lvgl::widgets {
          */
         lv_chart_series_t * get_series_next(lv_chart_series_t * ser) const;
 
+        /** \fn int32_t get_first_point_center_offset()
+         *  \brief offset from side to center
+         *  \returns offset to center
+         */
+        int32_t get_first_point_center_offset();
+
     };
 
 }
