@@ -5,10 +5,18 @@
  *  License: MIT
  */
 #include "area.h"
+#include "src/misc/lv_area_private.h"
 
 namespace lvgl::misc {
     Area::Area() {
         this->lv_obj = LvPointerType(lv_cls_alloc<lv_cls>());
+        set(0,0,0,0);
+    }
+
+    Area::Area(lv_coord_t x, lv_coord_t y, lv_coord_t w, lv_coord_t h)
+    : Area()
+    {
+        set(x, y, x + w, y + h);
     }
 
     Area::Area(const lv_area_t & obj) : LvWrapperType() {
@@ -19,6 +27,13 @@ namespace lvgl::misc {
     Area::Area(const Area & obj) : LvWrapperType() {
         this->lv_obj = LvPointerType(lv_cls_alloc<lv_cls>());
         lv_area_copy(this->raw_ptr(), obj.raw_ptr());
+    }
+
+    void Area::set(lv_coord_t x1, lv_coord_t y1, lv_coord_t x2, lv_coord_t y2)
+    {
+        set_pos(x1, y1);
+        set_width(x2 - x1);
+        set_height(y2 - y1);
     }
 
     lv_coord_t Area::get_width() const {
@@ -46,7 +61,7 @@ namespace lvgl::misc {
     }
 
     void Area::set_pos(lv_coord_t x, lv_coord_t y) {
-        _lv_area_set_pos(this->raw_ptr(), x, y);
+        lv_area_set_pos(this->raw_ptr(), x, y);
     }
 
     uint32_t Area::get_size() {
@@ -63,34 +78,34 @@ namespace lvgl::misc {
 
     Area Area::intersect_with(const Area & ar) {
         Area res;
-        _lv_area_intersect(res.raw_ptr(), this->raw_ptr(), ar.raw_ptr());
+        lv_area_intersect(res.raw_ptr(), this->raw_ptr(), ar.raw_ptr());
         return res;
     }
 
     Area Area::join_with(const Area & ar) {
         Area res;
-        _lv_area_join(res.raw_ptr(), this->raw_ptr(), ar.raw_ptr());
+        lv_area_join(res.raw_ptr(), this->raw_ptr(), ar.raw_ptr());
         return res;
     }
 
     bool Area::is_point_on(const lv_point_t & pt, lv_coord_t radius) {
-        return _lv_area_is_point_on(this->raw_ptr(), &pt, radius);
+        return lv_area_is_point_on(this->raw_ptr(), &pt, radius);
     }
 
     bool Area::is_on(const Area & ar) {
-        return _lv_area_is_on(this->raw_ptr(), ar.raw_ptr());
+        return lv_area_is_on(this->raw_ptr(), ar.raw_ptr());
     }
 
     bool Area::is_in(const Area & ar, lv_coord_t radius) {
-        return _lv_area_is_in(this->raw_ptr(), ar.raw_ptr(), radius);
+        return lv_area_is_in(this->raw_ptr(), ar.raw_ptr(), radius);
     }
 
     bool Area::is_out(const Area & ar, lv_coord_t radius) {
-        return _lv_area_is_out(this->raw_ptr(), ar.raw_ptr(), radius);
+        return lv_area_is_out(this->raw_ptr(), ar.raw_ptr(), radius);
     }
 
     bool Area::is_equal(const Area & ar) {
-        return _lv_area_is_equal(this->raw_ptr(), ar.raw_ptr());
+        return lv_area_is_equal(this->raw_ptr(), ar.raw_ptr());
     }
 
 

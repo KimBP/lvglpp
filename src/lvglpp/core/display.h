@@ -7,11 +7,11 @@
  */
 #pragma once
 #include "../lv_wrapper.h"
+#include "object.h"
 #include <vector>
 
 // we need user_data to store pointer to C++ object, otherwise we cannot
 // access callbacks defined as class members.
-#if LV_USE_USER_DATA
 
 namespace lvgl::draw { class ImageDescriptor; }
 
@@ -27,27 +27,8 @@ namespace lvgl::core {
      *  \brief Wraps a lv_disp_t object. This is a base class to connect
      *  a screen driver with LVGL.
      */
-    class Display : public PointerWrapper<lv_disp_t, lv_disp_remove> {
+    class Display : public PointerWrapper<lv_display_t, lv_display_delete> {
     protected:
-        /** \property lv_disp_draw_buf_t lv_disp_buf
-         *  \brief Display buffer descriptor.
-         */
-        lv_disp_draw_buf_t lv_disp_buf;
-
-        /** \property lv_disp_drv_t lv_disp_drv
-         *  \brief Display driver instance.
-         */
-        lv_disp_drv_t lv_disp_drv;
-
-        /** \property std::vector<lv_color_t> lv_buf_1
-         *  \brief Display buffer.
-         */
-        std::vector<lv_color_t> lv_buf_1;
-
-        /** \property uint32_t fb_size
-         *  \brief Framebuffer size.
-         */
-        uint32_t fb_size;
 
         /** \property lv_coord_t hor_res
          *  \brief Horizontal resolution.
@@ -59,17 +40,30 @@ namespace lvgl::core {
          */
         lv_coord_t ver_res;
 
+        /** \property lv_disp_draw_buf_t lv_disp_buf
+         *  \brief Display buffer descriptor.
+         */
+        lv_draw_buf_t lv_disp_buf;
+
+        /** \property std::vector<lv_color_t> lv_buf_1
+         *  \brief Display buffer.
+         */
+        std::vector<uint8_t> raw_buf;
+
+        /** \property uint32_t fb_size
+         *  \brief Framebuffer size.
+         */
+        uint32_t fb_size;
+
+
+        lv_color_format_t cf;
+
         /** \fn virtual void flush(const lv_area_t * area,  lv_color_t * color_map)
          *  \brief Callback to draw data on display.
          *  \param area: target draw area.
          *  \param color_map: data to draw.
          */
         virtual void flush(const lv_area_t * area,  lv_color_t * color_map) {}
-
-        /** \fn void update_driver()
-         *  \brief Updates driver with stored values.
-         */
-        void update_driver();
 
         /** \fn void flush_ready()
          *  \brief Tells LVGL that flush operation is over. This must be called
@@ -78,13 +72,13 @@ namespace lvgl::core {
         void flush_ready();
     
     public:
-        /** \fn Display(lv_coord_t hor_res, lv_coord_t ver_res, uint32_t fb_size)
+
+        /** \fn Display(lv_coord_t hor_res, lv_coord_t ver_res)
          *  \brief Constructor.
          *  \param hor_res: horizontal resolution.
          *  \param ver_res: vertical resolution.
-         *  \param fb_size: frame buffer size.
          */
-        Display(lv_coord_t hor_res, lv_coord_t ver_res, uint32_t fb_size);
+        Display(lv_coord_t hor_res, lv_coord_t ver_res);
 
         /** \fn void set_default()
          *  \brief Sets display as default.
@@ -149,13 +143,13 @@ namespace lvgl::core {
          *  \brief Sets display rotation.
          *  \param rotation: display rotation code.
          */
-        void set_rotation(lv_disp_rot_t rotation);
+        void set_rotation(lv_display_rotation_t rotation);
 
         /** \fn lv_disp_rot_t get_rotation() const
          *  \brief Gets display rotation.
          *  \returns display rotation code.
          */
-        lv_disp_rot_t get_rotation() const;
+        lv_display_rotation_t get_rotation() const;
 
         /** \fn Object get_scr_act() const
          *  \brief Gets active screen on this display.
@@ -193,30 +187,6 @@ namespace lvgl::core {
          */
         Theme get_theme() const;
 
-        /** \fn void set_bg_color(lv_color_t color)
-         *  \brief Sets display background color.
-         *  \param color: color to set.
-         */
-        void set_bg_color(lv_color_t color);
-
-        /** \fn void set_bg_image(const draw::ImageDescriptor & img)
-         *  \brief Sets display background image.
-         *  \param img: image buffer.
-         */
-        void set_bg_image(const draw::ImageDescriptor & img);
-
-        /** \fn void set_bg_image(const std::string & path)
-         *  \brief Sets display background image.
-         *  \param path: path to image file.
-         */
-        void set_bg_image(const std::string & path);
-
-        /** \fn void set_bg_opa(lv_opa_t value)
-         *  \brief Sets display background opacity.
-         *  \param value: opacity value.
-         */
-        void set_bg_opa(lv_opa_t value);
-
         /** \brief Set state of display invalidation.
          *  \param en: if true, invalidation is enabled; if false, disabled.
          */
@@ -235,27 +205,45 @@ namespace lvgl::core {
 
         /** \fn void trig_activity()
          *  \brief Triggers activity on the display.
+         * 
+         *   Deprecated - use trigter_activity()
          */
-        void trig_activity();
+        void trig_activity() { trigger_activity(); }
 
-        /** \fn void clean_dcache()
-         *  \brief Cleans display cache.
+        /** \fn void trigger_activity()
+         *  \brief Triggers activity on the display.
          */
-        void clean_dcache();
+        void trigger_activity();
 
     };
 
     // TODO: void lv_scr_load_anim(lv_obj_t * scr, lv_scr_load_anim_t anim_type, uint32_t time, uint32_t delay, bool auto_del);
 
-    /** \fn void load_scr(Object & scr)
+    /** \fn void screen_load(Object & scr)
      *  \brief Sets active screen.
      *  \param scr: object representing a screen.
      */
-    void load_scr(Object & scr);
+    void screen_load(Object & scr);
+
+    /** \fn void load_scr(Object & scr)
+     *  \brief Sets active screen.
+     *  \param scr: object representing a screen.
+     *
+     *   Deprecated - use screen_load()
+     */
+    inline void load_scr(Object & scr) { screen_load(scr); }
+
+    /** \fn Object screen_active()
+     *  \brief Gets the currently active screen.
+     *  \returns object representing currently active screen.
+     */
+    Object screen_active();
 
     /** \fn Object scr_act()
      *  \brief Gets the currently active screen.
      *  \returns object representing currently active screen.
+     *
+     *  Deprecated - use screen_active
      */
     Object scr_act();
 
@@ -273,4 +261,3 @@ namespace lvgl::core {
 
 }
 
-#endif // LV_USE_USER_DATA

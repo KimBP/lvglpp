@@ -11,7 +11,7 @@ namespace lvgl::examples {
     using namespace lvgl::widgets;
 
     using LabelPtr = std::unique_ptr<Label>;
-    LabelPtr label;
+    static LabelPtr label;
 
     static void sw_event_cb(Event & e) {
         auto sw = e.get_target<Switch>();

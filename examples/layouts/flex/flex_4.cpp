@@ -15,7 +15,7 @@ namespace lvgl::examples {
         cont.set_flex_flow(LV_FLEX_FLOW_COLUMN_REVERSE);
 
         for(uint32_t i = 0; i < 6; i++) {
-            auto obj = obj.create(cont);
+            auto obj = cont;
             obj.set_size(100, 50);
             auto label = Label(obj);
             label.set_text_fmt("Item: %" LV_PRIu32, i);

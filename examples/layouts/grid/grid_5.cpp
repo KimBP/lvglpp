@@ -45,16 +45,16 @@ namespace lvgl::examples {
         a1.set_var(cont);
         a1.set_values(0, 10);
         a1.set_repeat_count(LV_ANIM_REPEAT_INFINITE);
-        a1.set_exec_cb(row_gap_anim);
+        a1.set_exec_cb<Container>(row_gap_anim);
         a1.set_time(500);
-        a1.set_playback_time(500);
+        a1.set_playback_duration(500);
         a1.start();
         a2.set_var(cont);
         a2.set_values(0, 10);
         a2.set_repeat_count(LV_ANIM_REPEAT_INFINITE);
-        a2.set_exec_cb(column_gap_anim);
+        a2.set_exec_cb<Container>(column_gap_anim);
         a2.set_time(3000);
-        a2.set_playback_time(3000);
+        a2.set_playback_duration(3000);
         a2.start();
     }
 }

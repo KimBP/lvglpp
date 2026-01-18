@@ -3,8 +3,11 @@
 #include "lvglpp/core/event.h" // for Event
 #include "lvglpp/misc/style.h" // for Style
 #include "lvglpp/misc/color.h" // for colors
-#include <vector>
+#include "lvglpp/draw/desc.h" // for Draw descriptor
+#include "lvglpp/draw/image.h" // for Image
 #include <string>
+
+LV_IMG_DECLARE(img_star);
 
 namespace lvgl::examples {
     
@@ -13,65 +16,92 @@ namespace lvgl::examples {
     using namespace lvgl::misc;
 
     static void event_cb(Event & e) {
-        auto code = e.get_code();
         auto obj = e.get_target<ButtonMatrix>();
+        auto draw_task = e.get_draw_task();
+        auto base_draw_dsc = draw_task.getBaseDescriptor();
         
-        if(code == LV_EVENT_DRAW_PART_BEGIN) {
-            auto dsc = e.get_draw_part_dsc();
+        if (base_draw_dsc->part() == LV_PART_ITEMS) {
+            bool pressed{false};
 
-            /*Change the draw descriptor the 2nd button*/
-            if(dsc->id == 1) {
-                dsc->rect_dsc->radius = 0;
-                if(obj.get_selected_btn() == dsc->id)  dsc->rect_dsc->bg_color = palette::dark(Color::Blue, 3);
-                else dsc->rect_dsc->bg_color = palette::main(Color::Blue);
-
-                dsc->rect_dsc->shadow_width = 6;
-                dsc->rect_dsc->shadow_ofs_x = 3;
-                dsc->rect_dsc->shadow_ofs_y = 3;
-                dsc->label_dsc->color = palette::white();
+            if (obj.get_selected_btn() == base_draw_dsc->id1() && obj.has_state(LV_STATE_PRESSED)) {
+                    pressed = true;
             }
-            /*Change the draw descriptor the 3rd button*/
-            else if(dsc->id == 2) {
-                dsc->rect_dsc->radius = LV_RADIUS_CIRCLE;
-                if(obj.get_selected_btn() == dsc->id)  dsc->rect_dsc->bg_color = palette::dark(Color::Red, 3);
-                else dsc->rect_dsc->bg_color = palette::main(Color::Red);
+            if (base_draw_dsc->id1() == 1) {
+                // Btn2: Make it Blue, Give it a shadow, Make text white
+                auto fill_draw_dsc = draw_task.get_draw_descriptor<FillDrawDescriptor>();
+                if (fill_draw_dsc) {
+                    fill_draw_dsc->raw_ptr()->radius = 0;
+                    if (pressed) {
+                        fill_draw_dsc->raw_ptr()->color = palette::dark(Color::Blue, 3); 
+                    } else {
+                        fill_draw_dsc->raw_ptr()->color = palette::main(Color::Blue);
+                    }
+                }
 
-                dsc->label_dsc->color = palette::white();
-            }
-            else if(dsc->id == 3) {
-                dsc->label_dsc->opa = LV_OPA_TRANSP; /*Hide the text if any*/
+                auto box_shadow_draw_dsc = draw_task.get_draw_descriptor<BoxShadowDrawDescriptor>();
+                if (box_shadow_draw_dsc) {
+                    box_shadow_draw_dsc->raw_ptr()->width = 6;
+                    box_shadow_draw_dsc->raw_ptr()->ofs_x = 3;
+                    box_shadow_draw_dsc->raw_ptr()->ofs_y = 3;
+                }
 
-            }
-        }
-        if(code == LV_EVENT_DRAW_PART_END) {
-            auto dsc = e.get_draw_part_dsc();
+                auto label_draw_dsc = draw_task.get_draw_descriptor<LabelDrawDescriptor>();
+                if (label_draw_dsc) {
+                    label_draw_dsc->raw_ptr()->color = palette::white();
+                }
+            } else if (base_draw_dsc->id1() == 2) {
+                // Btn3: Make it Red, Give it rounded ends
+                auto fill_draw_dsc = draw_task.get_draw_descriptor<FillDrawDescriptor>();
+                if (fill_draw_dsc) {
+                    fill_draw_dsc->raw_ptr()->radius = LV_RADIUS_CIRCLE;
+                    if (pressed) {
+                        fill_draw_dsc->raw_ptr()->color = palette::dark(Color::Red, 3); 
+                    } else {
+                        fill_draw_dsc->raw_ptr()->color = palette::main(Color::Red);
+                    }
+                }
 
-            /*Add custom content to the 4th button when the button itself was drawn*/
-            if(dsc->id == 3) {
-                auto img = ImageDescriptor();
-                img.set_src(img_star_map, 30, 29, LV_IMG_PX_SIZE_ALPHA_BYTE);
-                auto hdr = ImageDecoder::get_info(img);
-                if(hdr.is_valid()) return;
+                auto box_shadow_draw_dsc = draw_task.get_draw_descriptor<BoxShadowDrawDescriptor>();
+                if (box_shadow_draw_dsc) {
+                    box_shadow_draw_dsc->raw_ptr()->radius = LV_RADIUS_CIRCLE;
+                }
+            } else if (base_draw_dsc->id1() == 3) {
+                // Btn4: Add a star, make text invisible
+                auto label_draw_dsc = draw_task.get_draw_descriptor<LabelDrawDescriptor>();
+                if (label_draw_dsc) {
+                    label_draw_dsc->raw_ptr()->opa = 0;
+                }
 
-                Area a;
-                a->x1 = dsc->draw_area->x1 + (Area(dsc->draw_area).get_width() - hdr->w) / 2;
-                a->x2 = a->x1 + hdr->w - 1;
-                a->y1 = dsc->draw_area->y1 + (Area(dsc->draw_area).get_height() - hdr->h) / 2;
-                a->y2 = a->y1 + hdr->h - 1;
+                if (LV_DRAW_TASK_TYPE_FILL == draw_task.get_type()) {
+                    auto img_dsc = ImageDescriptor(&img_star);
 
-                ImageDrawDescriptor img_draw_dsc;
-                img_draw_dsc->recolor = palette::black();
-                if (obj.get_selected_btn() == dsc->id)
-                    img_draw_dsc->recolor_opa = LV_OPA_30;
-                
-                img_draw_dsc.draw(dsc->draw_ctx, a, img);
+                    auto header = ImageDecoder::get_info(img_dsc);
+                    auto area = header.area();
+
+                    auto draw_task_area = draw_task.get_area();
+                    area.align_to(draw_task_area, LV_ALIGN_CENTER, 0, 0);
+
+                    auto layer = base_draw_dsc->layer();
+
+                    ImageDrawDescriptor img_draw_dsc;
+
+                    img_draw_dsc->recolor = palette::black();
+
+                    if (pressed) img_draw_dsc->recolor_opa = LV_OPA_30;
+
+                    img_draw_dsc.raw_ptr()->src = (void*)img_dsc.raw_ptr();
+                    img_draw_dsc.draw(layer, area);
+
+                    img_dsc.release_ptr();
+                }
             }
         }
     }
 
     void btnmatrix_2() {
         static auto btnm = ButtonMatrix(scr_act());
-        btnm.add_event_cb(event_cb, LV_EVENT_ALL);
+        btnm.add_event_cb(event_cb, LV_EVENT_DRAW_TASK_ADDED);
+        btnm.add_flag(LV_OBJ_FLAG_SEND_DRAW_TASK_EVENTS);
         btnm.center();
    }
 

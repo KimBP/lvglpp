@@ -52,7 +52,7 @@ namespace lvgl::widgets {
          *  \brief Sets the animation repeat count.
          *  \param count: repeat count.
          */
-        void set_repeat_count(uint16_t count);
+        void set_repeat_count(uint32_t count);
 
     };
 

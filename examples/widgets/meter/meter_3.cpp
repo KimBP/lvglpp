@@ -4,6 +4,9 @@
 #include "lvglpp/misc/color.h" // for colors
 #include "lvglpp/draw/image.h" // for ImageDescriptor
 
+// Map file coming from lvgl example assets
+LV_IMAGE_DECLARE(img_hand);
+
 namespace lvgl::examples {
     
     using namespace lvgl::core;
@@ -29,8 +32,7 @@ namespace lvgl::examples {
         meter->set_scale_major_ticks(scale_hour, 1, 2, 20, palette::black(), 10);    /*Every tick is major*/
         meter->set_scale_range(scale_hour, 1, 12, 330, 300);       /*[1..12] values in an almost full circle*/
 
-        static ImageDescriptor img_hand;
-        img_hand.set_src(img_hand_map, 100, 9, LV_IMG_CF_TRUE_COLOR_ALPHA);
+        static auto img = ImageDescriptor(&img_hand);
 
         /*Add a the hands from images*/
         auto indic_min = meter->add_needle_img(scale_min, img_hand, 5, 5);

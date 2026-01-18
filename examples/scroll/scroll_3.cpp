@@ -10,7 +10,7 @@ namespace lvgl::examples {
     using namespace lvgl::core;
     using namespace lvgl::widgets;
 
-    std::unique_ptr<List> list;
+    static std::unique_ptr<List> list;
 
     static uint32_t btn_cnt = 1;
 
@@ -22,7 +22,7 @@ namespace lvgl::examples {
             auto txt = "Track " + std::to_string(btn_cnt);
             auto list_btn = list->add_btn(LV_SYMBOL_AUDIO, txt);
             btn_cnt++;
-            float_btn.move_foreground();
+            float_btn.to_foreground();
             list_btn.scroll_to_view(LV_ANIM_ON);
             list_btn.release_ptr();
         }
@@ -30,7 +30,7 @@ namespace lvgl::examples {
 
     void scroll_3() {
         auto root = scr_act();
-        list = std::unique_ptr<List>(root);
+        list = std::make_unique<List>(root);
         list->set_size(280, 220);
         list->center();
 

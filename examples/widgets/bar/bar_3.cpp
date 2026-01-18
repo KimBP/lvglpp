@@ -30,7 +30,7 @@ namespace lvgl::examples {
         };
         a.set_exec_cb<Bar>(set_temp);
         a.set_time(3000);
-        a.set_playback_time(3000);
+        a.set_playback_duration(3000);
         a.set_var(bar);
         a.set_values(-20, 40);
         a.set_repeat_count(LV_ANIM_REPEAT_INFINITE);

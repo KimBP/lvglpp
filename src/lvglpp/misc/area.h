@@ -12,7 +12,7 @@ namespace lvgl::misc {
     /** \class Area
      *  \brief Wraps a lv_area_t object. This represents a surface area.
      */
-    class Area : public PointerWrapper<lv_area_t, lv_mem_free> {
+    class Area : public PointerWrapper<lv_area_t, lv_free> {
     public:
         using PointerWrapper::PointerWrapper;
 
@@ -20,6 +20,16 @@ namespace lvgl::misc {
          *  \brief Default constructor.
          */
         Area();
+
+        /** \fn Area(lv_coord_t x, lv_coord_t y, lv_coord_t w, lv_coord_t h)
+         *  \brief Constructor with point and height/width.
+         *  \param x: left coordinate.
+         *  \param y: top coordinate.
+         *  \param w: width
+         *  \param h: height.
+         */
+        Area(lv_coord_t x, lv_coord_t y, lv_coord_t w, lv_coord_t h);
+
 
         /** \fn Area(const lv_area_t & obj)
          *  \brief Copy constructor with lv_area_t object.

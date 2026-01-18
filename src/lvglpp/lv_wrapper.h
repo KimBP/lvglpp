@@ -7,7 +7,18 @@
 #pragma once
 #include <memory>
 #include <functional>
+#include <utility>
+#include <string>
+#include <utility>
+#include <cstring>
+#include <assert.h>
+
 #include "lvgl.h"
+#include "src/font/lv_binfont_loader.h"
+#include "src/core/lv_obj_private.h"
+#include "src/misc/lv_color.h"
+#include "src/draw/lv_draw_private.h"
+#include "src/misc/lv_types.h"
 
 /** \namespace lvgl
  *  \brief LVGL C++ wrappers.
@@ -48,11 +59,11 @@ namespace lvgl {
      *  \param arr: string vector.
      *  \returns a double char array with a copy of the content of input array.
      */
-    static RawDblArray<char> str_vector_to_char_array(const std::vector<std::string> & arr) {
+    inline RawDblArray<char> str_vector_to_char_array(const std::vector<std::string> & arr) {
         auto raw_arr = make_double_array<char>(arr.size());
         for (size_t n=0; n<arr.size(); n++) {
             raw_arr.get()[n] = static_cast<char*>(calloc(arr[n].size()+1, sizeof(char)));
-            memset(raw_arr.get()[n], 0, arr[n].size()+1);
+            std::memset(raw_arr.get()[n], 0, arr[n].size()+1);
             std::copy(arr[n].begin(), arr[n].end(), raw_arr.get()[n]);
         }
         return raw_arr;
@@ -85,7 +96,7 @@ namespace lvgl {
      *  \returns pointer to allocated memory.
      */
     template <typename LvClass> LvClass* lv_cls_alloc() {
-        return static_cast<LvClass*>(lv_mem_alloc(sizeof(LvClass)));
+        return static_cast<LvClass*>(lv_malloc(sizeof(LvClass)));
     }
 
 

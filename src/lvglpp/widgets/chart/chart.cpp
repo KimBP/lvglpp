@@ -18,8 +18,8 @@ namespace lvgl::widgets {
 
     }
 
-    void Chart::set_range(lv_chart_axis_t axis, lv_coord_t min, lv_coord_t max) {
-        lv_chart_set_range(this->raw_ptr(), axis, min, max);
+    void Chart::set_axis_range(lv_chart_axis_t axis, lv_coord_t min, lv_coord_t max) {
+        lv_chart_set_axis_range(this->raw_ptr(), axis, min, max);
     }
 
     void Chart::set_update_mode(lv_chart_update_mode_t update_mode) {
@@ -30,6 +30,7 @@ namespace lvgl::widgets {
         lv_chart_set_div_line_count(this->raw_ptr(), hdiv, vdiv);
     }
 
+#ifdef MISSING_PORT
     void Chart::set_zoom_x(uint16_t zoom_x) {
         lv_chart_set_zoom_x(this->raw_ptr(), zoom_x);
     }
@@ -51,6 +52,7 @@ namespace lvgl::widgets {
     uint16_t Chart::get_zoom_y() const {
         return lv_chart_get_zoom_y(this->raw_ptr());
     }
+#endif
 
     lv_chart_type_t Chart::get_type() const {
         return lv_chart_get_type(this->raw_ptr());
@@ -140,7 +142,7 @@ namespace lvgl::widgets {
     }
 
     void Chart::set_xy_value_by_id(lv_chart_series_t * ser, uint16_t id, lv_coord_t x_value, lv_coord_t y_value) {
-        lv_chart_set_value_by_id2(this->raw_ptr(), ser, id, x_value, y_value);
+        lv_chart_set_series_value_by_id2(this->raw_ptr(), ser, id, x_value, y_value);
     }
 
     void Chart::set_ext_y_array(lv_chart_series_t * ser, std::vector<lv_coord_t> array) {
@@ -169,6 +171,10 @@ namespace lvgl::widgets {
 
     lv_chart_series_t * Chart::get_series_next(lv_chart_series_t * ser) const {
         return lv_chart_get_series_next(this->raw_ptr(), ser);
+    }
+
+    int32_t Chart::get_first_point_center_offset() {
+        return lv_chart_get_first_point_center_offset(this->raw_ptr());
     }
 
 }

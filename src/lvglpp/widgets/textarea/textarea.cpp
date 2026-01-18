@@ -18,11 +18,11 @@ namespace lvgl::widgets {
     }
 
     void TextArea::del_char() {
-        lv_textarea_del_char(this->raw_ptr());
+        lv_textarea_delete_char(this->raw_ptr());
     }
 
     void TextArea::del_char_forward() {
-        lv_textarea_del_char_forward(this->raw_ptr());
+        lv_textarea_delete_char_forward(this->raw_ptr());
     }
 
     void TextArea::set_text(const std::string & txt) {

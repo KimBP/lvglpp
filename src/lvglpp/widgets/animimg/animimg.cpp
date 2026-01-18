@@ -16,7 +16,7 @@ namespace lvgl::widgets {
             // requires non-const
             this->dsc[n] = const_cast<lv_img_dsc_t*>(imgs[n].raw_ptr());
         }
-        lv_animimg_set_src(this->raw_ptr(), this->dsc.get(), imgs.size());
+        lv_animimg_set_src(this->raw_ptr(), (const void**)this->dsc.get(), imgs.size());
     }
 
     void AnimatedImage::start() {
@@ -27,7 +27,7 @@ namespace lvgl::widgets {
         lv_animimg_set_duration(this->raw_ptr(), duration);
     }
 
-    void AnimatedImage::set_repeat_count(uint16_t count) {
+    void AnimatedImage::set_repeat_count(uint32_t count) {
         lv_animimg_set_repeat_count(this->raw_ptr(), count);
     }
 }

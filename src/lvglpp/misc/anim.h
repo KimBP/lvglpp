@@ -15,7 +15,7 @@ namespace lvgl::misc {
     /** \class Animation
      *  \brief Wraps a lv_anim_t object.
      */
-    class Animation : public PointerWrapper<lv_anim_t, lv_mem_free> {
+    class Animation : public PointerWrapper<lv_anim_t, lv_free> {
     public:
         using PointerWrapper::PointerWrapper;
 
@@ -258,11 +258,11 @@ namespace lvgl::misc {
          */
         void set_deleted_cb(DeletedCb deleted_cb);
 
-        /** \fn void set_playback_time(uint32_t time)
+        /** \fn void set_playback_duration(uint32_t time)
          *  \brief Sets the animation playback duration.
          *  \param time: duration, in ms; 0=no playback.
          */
-        void set_playback_time(uint32_t time);
+        void set_playback_duration(uint32_t time);
 
         /** \fn void set_playback_delay(uint32_t delay)
          *  \brief Sets the animation playback delay.
@@ -270,11 +270,11 @@ namespace lvgl::misc {
          */
         void set_playback_delay(uint32_t delay);
 
-        /** \fn void set_reverse_time(uint32_t time)
+        /** \fn void set_reverse_duration(uint32_t time)
          *  \brief Sets the animation duration in reverse direction.
          *  \param time: duration, in ms; 0=no reverse.
          */
-        void set_reverse_time(uint32_t time);
+        void set_reverse_duration(uint32_t time);
 
         /** \fn void set_reverse_delay(uint32_t delay)
          *  \brief Sets the animation delay before playing in reverse direction.
@@ -286,7 +286,7 @@ namespace lvgl::misc {
          *  \brief Sets the animation repeat count.
          *  \param cnt: repeat count.
          */
-        void set_repeat_count(uint16_t cnt);
+        void set_repeat_count(uint32_t cnt);
 
         /** \fn void set_repeat_delay(uint32_t delay)
          *  \brief Sets the animation repeat delay.
@@ -300,7 +300,6 @@ namespace lvgl::misc {
          */
         void set_early_apply(bool en);
 
-#if LV_USE_USER_DATA
         /** \fn template <class T> void set_user_data(T & user_data)
          *  \brief Sets user data.
          *  \tparam T: user data type.
@@ -315,7 +314,6 @@ namespace lvgl::misc {
          *  \param user_data: pointer to user data.
          */
         void set_user_data(void * user_data);
-#endif // LV_USE_USER_DATA
 
         /** \fn void start()
          *  \brief Starts animation.
@@ -334,7 +332,6 @@ namespace lvgl::misc {
          */
         uint32_t get_playtime() const;
 
-#if LV_USE_USER_DATA
         /** \fn template <class T> T get_user_data() const
          *  \brief Gets user data.
          *  \tparam T: user data type.
@@ -348,14 +345,13 @@ namespace lvgl::misc {
          *  \returns pointer to user data.
          */
         void * get_user_data() const;
-#endif // LV_USE_USER_DATA
         
     };
 
     /** \class AnimationTimeline
      *  \brief Wraps a lv_anim_timeline_t object.
      */
-    class AnimationTimeline : public PointerWrapper<lv_anim_timeline_t, lv_anim_timeline_del> {
+    class AnimationTimeline : public PointerWrapper<lv_anim_timeline_t, lv_anim_timeline_delete> {
     public:
         /** \fn AnimationTimeline()
          *  \brief Constructor.
@@ -377,8 +373,15 @@ namespace lvgl::misc {
 
         /** \fn void stop()
          *  \brief Stops playing through timeline.
+         *
+         *  Deprecated. Use pause()
          */
         void stop();
+
+        /** \fn void pause()
+         *  \brief Stops playing through timeline.
+         */
+        void pause();
 
         /** \fn void set_reverse(bool reverse)
          *  \brief Enables/disables reverse mode.

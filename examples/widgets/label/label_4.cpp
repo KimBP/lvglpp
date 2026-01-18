@@ -1,10 +1,10 @@
 #include "lvglpp/core/display.h" // for scr_act()
-#include "lvglpp/core/event.h" // for Event
 #include "lvglpp/widgets/label/label.h" // for Label
 #include "lvglpp/widgets/canvas/canvas.h" // for Canvas
-#include "lvglpp/draw/mask.h" // for MapMask
 #include "lvglpp/draw/desc.h" // for LabelDrawDescriptor
+#include "lvglpp/draw/draw_buf.h" // For DrawMask
 #include "lvglpp/misc/color.h" // for colors
+#include "lvglpp/draw/layer.h"
 
 namespace lvgl::examples {
     
@@ -13,53 +13,58 @@ namespace lvgl::examples {
     using namespace lvgl::draw;
     using namespace lvgl::misc;
 
-    #define MASK_WIDTH 100
-    #define MASK_HEIGHT 45
+    #define MASK_WIDTH 150
+    #define MASK_HEIGHT 60
+
     /* Create the mask of a text by drawing it to a canvas*/
-    static std::vector<lv_opa_t> mask_map(MASK_WIDTH * MASK_HEIGHT);
+    static void generate_mask(DrawBuf & mask, const std::string& text)
+    {
+        Canvas canvas;
 
-    static void add_mask_event_cb(Event & e) {
-        auto code = e.get_code();
-        auto obj = e.get_target<Container>();
-        static std::unique_ptr<MapMask> mask_part;
+        canvas.set_buffer(mask);
+        canvas.fill_bg(palette::black(), LV_OPA_TRANSP);
 
-        if(code == LV_EVENT_COVER_CHECK) {
-            e.set_cover_res(LV_COVER_RES_MASKED);
-        }
-        else if(code == LV_EVENT_DRAW_MAIN_BEGIN) {
-            mask_part = std::make_unique<MapMask>(obj->coords, mask_map);
-            mask_part->add();
-        }
-        else if(code == LV_EVENT_DRAW_MAIN_END) {
-            mask_part = nullptr;
-        }
-    }
+        Layer layer;
+        canvas.init_layer(layer);
 
-    void label_4() {
-        auto root = scr_act();
-
-        /*Create a "8 bit alpha" canvas and clear it*/
-        auto canvas = std::make_unique<Canvas>(root);
-        canvas->set_buffer<lv_opa_t>(mask_map, MASK_WIDTH, MASK_HEIGHT, LV_IMG_CF_ALPHA_8BIT);
-        canvas->fill_bg(palette::black(), LV_OPA_TRANSP);
-        
-        /*Draw a label to the canvas. The result "image" will be used as mask*/
         LabelDrawDescriptor label_dsc;
+
         label_dsc->color = palette::white();
         label_dsc->align = LV_TEXT_ALIGN_CENTER;
-        canvas->draw_text(5, 5, MASK_WIDTH, label_dsc, "Text with gradient");
+        label_dsc->text = text.c_str();
+        label_dsc->font = &lv_font_montserrat_24;
 
-        /*The canvas is not required anymore*/
-        canvas = nullptr;
+        auto area = mask.get_area();
+
+        label_dsc.draw(layer, area);
+
+        label_dsc.release_ptr();
+
+        canvas.finish_layer(layer);
+
+        layer.release_ptr();
+
+    }
+    void label_4() {
+        /* Create the mask of a text by drawing it to a canvas*/
+        static std::vector<lv_opa_t> mask_map(DrawBuf::width_to_stride(MASK_WIDTH, LV_COLOR_FORMAT_L8) * MASK_HEIGHT);
+        static DrawBuf mask (MASK_WIDTH, MASK_HEIGHT, LV_COLOR_FORMAT_L8,
+                        DrawBuf::width_to_stride(MASK_WIDTH, LV_COLOR_FORMAT_L8), mask_map);
+        mask.set_flag(LV_IMAGE_FLAGS_MODIFIABLE);
+
+        generate_mask(mask, "Text with gradient");
 
         /* Create an object from where the text will be masked out.
         * Now it's a rectangle with a gradient but it could be an image too*/
-        static auto grad = Container(root);
+        Container grad(screen_active());
+
         grad.set_size(MASK_WIDTH, MASK_HEIGHT);
         grad.center();
         grad.set_style_bg_color(lv_color_hex(0xff0000), 0);
         grad.set_style_bg_grad_color(lv_color_hex(0x0000ff), 0);
         grad.set_style_bg_grad_dir(LV_GRAD_DIR_HOR, 0);
-        grad.add_event_cb(add_mask_event_cb, LV_EVENT_ALL);
+        grad.set_style_bitmap_mask_src(mask, 0);
+
+        grad.release_ptr();
     }
 }

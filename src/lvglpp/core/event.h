@@ -4,14 +4,19 @@
  *  Author: Vincent Paeder
  *  License: MIT
  */
+#pragma once
 
+#include "src/misc/lv_types.h"
 #include "../lv_wrapper.h"
 #include "../misc/anim.h"
 #include "../misc/area.h"
+#include "src/misc/lv_event_private.h"
+#include "../draw/layer.h"
 
 namespace lvgl::core {
 
     using namespace lvgl::misc;
+    using namespace lvgl::draw;
 
     class Object;
     class InputDevice;
@@ -58,12 +63,18 @@ namespace lvgl::core {
             return this->lv_obj;
         }
 
+        /** \fn lv_layer_t * get_layer() const
+         *  \brief Get current layer
+         *  \returns pointer to current layer
+         */
+        Layer get_layer() const;
+
         /** \fn template <class T> T get_target() const
          *  \brief Gets event target.
          *  \returns target object.
          */
         template <class T> T get_target() const {
-            return T(lv_event_get_target(const_cast<lv_event_t*>(this->raw_ptr())), false);
+            return T(static_cast<lv_obj_t*>(lv_event_get_target(const_cast<lv_event_t*>(this->raw_ptr()))), false);
         }
 
         /** \fn template <class T> T get_current_target() const
@@ -72,7 +83,7 @@ namespace lvgl::core {
          *  \returns current target object.
          */
         template <class T> T get_current_target() const {
-            return T(lv_event_get_current_target(const_cast<lv_event_t*>(this->raw_ptr())), false);
+            return T(static_cast<lv_obj_t*>(lv_event_get_current_target(const_cast<lv_event_t*>(this->raw_ptr()))), false);
         }
 
         /** \fn lv_event_code_t get_code() const
@@ -81,12 +92,6 @@ namespace lvgl::core {
          */
         lv_event_code_t get_code() const;
 
-        /** \fn template <class T> T & get_param() const
-         *  \brief Gets parameter passed when event was sent.
-         *  \tparam T: parameter class.
-         *  \returns pointer to the event parameter.
-         */
-        //template <class T> T* get_param() const;
         /** \brief Gets parameter passed when event was sent.
          *  \returns pointer to the event parameter.
          */
@@ -94,7 +99,12 @@ namespace lvgl::core {
             return reinterpret_cast<T*>(this->lv_obj->param);
         }
 
-#if LV_USE_USER_DATA
+        /** \fn lv_draw_task_t * get_draw_task() const
+         *  \brief Gets current draw task
+         *  \returns pointer to current draw task
+         */
+        DrawTask get_draw_task() const;
+
         /** \fn template <class T> T & get_user_data() const;
          *  \brief Gets user data passed when event was registered with the object.
          *  \tparam T: parameter class.
@@ -107,7 +117,6 @@ namespace lvgl::core {
          *  \returns pointer to user data.
          */
         void * get_user_data() const;
-#endif // LV_USE_USER_DATA
 
         /** \fn void stop_bubbling()
          *  \brief Stops event bubbling.
@@ -125,31 +134,11 @@ namespace lvgl::core {
          */
         static uint32_t register_id();
 
-#if LV_USE_USER_DATA
         /** \fn InputDevice get_indev() const
          *  \brief Gets input device associated with event, if any.
          *  \returns input device object.
          */
         InputDevice get_indev() const;
-#else
-        /** \fn lv_indev_t * get_indev() const
-         *  \brief Gets input device associated with event, if any.
-         *  \returns pointer to input device instance, or nullptr if none.
-         */
-        lv_indev_t * get_indev() const;
-#endif // LV_USE_USER_DATA
-
-        /** \fn lv_obj_draw_part_dsc_t* get_draw_part_dsc() const
-         *  \brief Gets draw part descriptor associated with event, if any.
-         *  \returns pointer to draw part descriptor instance, or nullptr if none.
-         */
-        lv_obj_draw_part_dsc_t* get_draw_part_dsc() const;
-
-        /** \fn lv_draw_ctx_t* get_draw_ctx() const
-         *  \brief Gets draw context associated with event, if any.
-         *  \returns pointer to draw context instance, or nullptr if none.
-         */
-        lv_draw_ctx_t* get_draw_ctx() const;
 
         /** \fn const Area get_old_size() const
          *  \brief Gets size of object before the event happened

@@ -16,7 +16,7 @@ namespace lvgl::examples {
         cont.set_flex_flow(LV_FLEX_FLOW_ROW_WRAP);
 
         for(uint32_t i = 0; i < 20; i++) {
-            auto obj = obj.create(cont);
+            auto obj = Container(cont);
             obj.set_size(70, LV_SIZE_CONTENT);
             auto label = Label(obj);
             label.set_text_fmt("%" LV_PRIu32, i);

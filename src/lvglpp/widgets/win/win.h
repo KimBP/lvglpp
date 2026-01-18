@@ -19,33 +19,27 @@ namespace lvgl::widgets {
      */
     class Window : public Object {
     protected:
-        /** \fn void initialize(lv_coord_t header_height)
+        /** \fn void initialize()
          *  \brief Initialize object.
-         *  \param header_height: size of window header.
          */
-        void initialize(lv_coord_t header_height);
-        /** \fn void initialize(Object & parent, lv_coord_t header_height)
+        void initialize();
+        /** \fn void initialize(Object & parent)
          *  \brief Initialize object and assign parent object.
          *  \param parent: parent LVGL object.
-         *  \param header_height: size of window header.
          */
-        void initialize(Object & parent, lv_coord_t header_height);
+        void initialize(Object & parent);
     
     public:
-        Window() = delete;
-        Window(Object & parent) = delete;
-
-        /** \fn Window(lv_coord_t header_height)
+        /** \fn Window()
          *  \brief Constructor with parameters.
-         *  \param header_height: size of window header.
          */
-        Window(lv_coord_t header_height);
-        /** \fn Window(Object & parent, lv_coord_t header_height)
+        Window();
+
+        /** \fn Window(Object & parent)
          *  \brief Constructor with parameters and parent object.
          *  \param parent: parent LVGL object.
-         *  \param header_height: size of window header.
          */
-        Window(Object & parent, lv_coord_t header_height);
+        Window(Object & parent);
 
         /** \fn Object add_title(const std::string & txt)
          *  \brief Adds window title.

@@ -2,6 +2,7 @@
 #include "lvglpp/widgets/chart/chart.h" // for Chart
 #include "lvglpp/core/event.h" // for Event
 #include "lvglpp/misc/color.h" // for colors
+#include "lvglpp/draw/desc.h" // For Draw descriptor
 
 namespace lvgl::examples {
     
@@ -30,7 +31,7 @@ namespace lvgl::examples {
             while(ser) {
                 auto p = chart.get_point_pos_by_id(ser, id);
                 auto y_array = chart.get_y_array(ser);
-                std::string txt = LV_SYMBOL_DUMMY + "$" + std::to_string(y_array[id]);
+                std::string txt = LV_SYMBOL_DUMMY + std::string("$") + std::to_string(y_array[id]);
 
                 RectangleDrawDescriptor draw_rect_dsc;
                 draw_rect_dsc->bg_color = palette::black();

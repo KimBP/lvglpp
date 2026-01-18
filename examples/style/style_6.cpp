@@ -3,6 +3,8 @@
 #include "lvglpp/misc/color.h" // for colors
 #include "lvglpp/widgets/image/image.h" // for Image
 
+LV_IMG_DECLARE(img_cogwheel_argb);
+
 namespace lvgl::examples {
     
     using namespace lvgl::core;
@@ -25,9 +27,8 @@ namespace lvgl::examples {
         /*Create an object with the new style*/
         static auto obj = Image(scr_act());
         obj.add_style(style, LV_STATE_DEFAULT);
-        static ImageDescriptor img_cogwheel_argb;
-        img_cogwheel_argb.set_src(img_cogwheel_argb_map, 100, 100, LV_IMG_CF_TRUE_COLOR_ALPHA);
-        obj.set_src(img_cogwheel_argb);
+        static auto img_cogwheel_desc = ImageDescriptor(&img_cogwheel_argb);
+        obj.set_src(img_cogwheel_desc);
         obj.center();
     }
 }

@@ -3,6 +3,8 @@
 #include "lvglpp/misc/style.h" // for Style
 #include "lvglpp/draw/image.h" // for ImageDescriptor
 
+LV_IMAGE_DECLARE(img_skew_strip);
+
 namespace lvgl::examples {
     
     using namespace lvgl::core;
@@ -10,8 +12,7 @@ namespace lvgl::examples {
     using namespace lvgl::misc;
 
     void bar_4() {
-        static auto img = ImageDescriptor();
-        img.set_src(img_skew_strip_map, 80, 20, LV_IMG_CF_TRUE_COLOR_ALPHA);
+        static auto img = ImageDescriptor(&img_skew_strip);
 
         static Style style_indic;
         style_indic.set_bg_img_src(img);

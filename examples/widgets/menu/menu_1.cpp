@@ -23,18 +23,18 @@ namespace lvgl::examples {
         /*Create a main page*/
         auto main_page = menu.page_create();
 
-        auto cont = menu.cont_create(main_page);
-        static auto label_1 = Label(cont);
+        auto cont_1 = menu.cont_create(main_page);
+        static auto label_1 = Label(cont_1);
         label_1.set_text("Item 1");
 
-        auto cont = menu.cont_create(main_page);
-        static auto label_2 = Label(cont);
+        auto cont_2 = menu.cont_create(main_page);
+        static auto label_2 = Label(cont_2);
         label_2.set_text("Item 2");
 
-        auto cont = menu.cont_create(main_page);
-        static auto label_3 = Label(cont);
+        auto cont_3 = menu.cont_create(main_page);
+        static auto label_3 = Label(cont_3);
         label_3.set_text("Item 3 (Click me!)");
-        menu.set_load_page_event(cont, sub_page);
+        menu.set_load_page_event(cont_3, sub_page);
 
         menu.set_page(main_page);
     }

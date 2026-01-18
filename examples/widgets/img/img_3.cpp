@@ -2,6 +2,9 @@
 #include "lvglpp/widgets/image/image.h" // for Image
 #include "lvglpp/core/event.h" // for Event
 #include "lvglpp/misc/anim.h" // for Animation
+#include "lvglpp/draw/image.h" // for Image descriptor
+
+LV_IMAGE_DECLARE(img_cogwheel_argb);
 
 namespace lvgl::examples {
     
@@ -10,8 +13,7 @@ namespace lvgl::examples {
     using namespace lvgl::misc;
 
     void image_3() {
-        static auto img_src = ImageDescriptor();
-        img_src.set_src(img_cogwheel_argb_map, 100, 100, LV_IMG_CF_TRUE_COLOR_ALPHA);
+        static auto img_src = ImageDescriptor(&img_cogwheel_argb);
 
         /*Now create the actual image*/
         static auto img = Image(scr_act());
@@ -37,7 +39,7 @@ namespace lvgl::examples {
         a2.set_exec_cb<Image>(set_zoom);
         a2.set_values(128, 256);
         a2.set_time(5000);
-        a2.set_playback_time(3000);
+        a2.set_playback_duration(3000);
         a2.set_repeat_count(LV_ANIM_REPEAT_INFINITE);
         a2.start();
     }

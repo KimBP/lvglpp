@@ -48,13 +48,13 @@ namespace lvgl::widgets {
         lv_menu_set_mode_header(this->raw_ptr(), mode_header);
     }
 
-    void Menu::set_mode_root_back_btn(lv_menu_mode_root_back_btn_t mode_root_back_btn) {
-        lv_menu_set_mode_root_back_btn(this->raw_ptr(), mode_root_back_btn);
+    void Menu::set_mode_root_back_btn(lv_menu_mode_root_back_button_t mode_root_back_btn) {
+        lv_menu_set_mode_root_back_button(this->raw_ptr(), mode_root_back_btn);
     }
 
     void Menu::set_load_page_event(const Object & obj, const Object & page) {
         lv_menu_set_load_page_event(this->raw_ptr(), const_cast<lv_obj_t*>(obj.raw_ptr()),
-                                    const_cast<lv_obj_t*>(page.raw_ptr())); 
+                                    const_cast<lv_obj_t*>(page.raw_ptr()));
     }
 
     Object Menu::get_cur_main_page() const {
@@ -70,7 +70,7 @@ namespace lvgl::widgets {
     }
 
     Object Menu::get_main_header_back_btn() const {
-        return Object(lv_menu_get_main_header_back_btn(const_cast<lv_obj_t*>(this->raw_ptr())), false);
+        return Object(lv_menu_get_main_header_back_button(const_cast<lv_obj_t*>(this->raw_ptr())), false);
     }
 
     Object Menu::get_sidebar_header() const {
@@ -78,12 +78,12 @@ namespace lvgl::widgets {
     }
 
     Object Menu::get_sidebar_header_back_btn() const {
-        return Object(lv_menu_get_sidebar_header_back_btn(const_cast<lv_obj_t*>(this->raw_ptr())), false);
+        return Object(lv_menu_get_sidebar_header_back_button(const_cast<lv_obj_t*>(this->raw_ptr())), false);
     }
 
-    bool Menu::back_btn_is_root(const Object & obj) const {
-        return lv_menu_back_btn_is_root(const_cast<lv_obj_t*>(this->raw_ptr()),
-                                        const_cast<lv_obj_t*>(obj.raw_ptr()));
+    bool Menu::back_btn_is_root(const Object &obj) const {
+        return lv_menu_back_button_is_root(const_cast<lv_obj_t*>(this->raw_ptr()),
+                                           const_cast<lv_obj_t*>(obj.raw_ptr()));
     }
 
     void Menu::clear_history() {

@@ -76,6 +76,12 @@ namespace lvgl::widgets {
          */
         void set_symbol(const ImageDescriptor & symbol);
 
+        /** \fn void set_symbol(const ImageDescriptor & symbol)
+         *  \brief Sets symbol to display on the side of the dropdown menu.
+         *  \param symbol: a text describing a symbol, like 'LV_SYMBOL_DOWN'.
+         */
+        void set_symbol(const char * symbol);
+
         /** \fn void set_selected_highlight(bool en)
          *  \brief Sets whether the selected option should be highlighted.
          *  \param en: if true, selected option gets highlighted.

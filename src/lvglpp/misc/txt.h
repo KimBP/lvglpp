@@ -24,11 +24,8 @@ namespace lvgl::misc::txt {
      *  \param flag: text property flag (see lv_text_flag_t).
      */
     lv_point_t get_size(const std::string & text, const lv_font_t * font, lv_coord_t letter_space,
-                        lv_coord_t line_space, lv_coord_t max_width, lv_text_flag_t flag) {
-        lv_point_t size_res;
-        lv_txt_get_size(&size_res, text.c_str(), font, letter_space, line_space, max_width, flag);
-        return size_res;
-    }
+                        lv_coord_t line_space, lv_coord_t max_width, lv_text_flag_t flag);
+
 
     /** \fn lv_point_t get_size(const std::string & text, const Font & font,
      *                          lv_coord_t letter_space, lv_coord_t line_space,
@@ -41,10 +38,8 @@ namespace lvgl::misc::txt {
      *  \param max_width: maximum width.
      *  \param flag: text property flag (see lv_text_flag_t).
      */
-    lv_point_t get_size(const std::string & text, const Font & font, lv_coord_t letter_space,
-                        lv_coord_t line_space, lv_coord_t max_width, lv_text_flag_t flag) {
-        return get_size(text, font.raw_ptr(), letter_space, line_space, max_width, flag);
-    }
+    lv_point_t get_size(const std::string & text, const font::Font & font, lv_coord_t letter_space,
+                        lv_coord_t line_space, lv_coord_t max_width, lv_text_flag_t flag);
 
     /** \fn lv_coord_t get_width(const std::string & txt, const lv_font_t * font,
      *                           lv_coord_t letter_space, lv_text_flag_t flag)
@@ -55,9 +50,7 @@ namespace lvgl::misc::txt {
      *  \param flag: text property flag (see lv_text_flag_t).
      */
     lv_coord_t get_width(const std::string & txt, const lv_font_t * font,
-                         lv_coord_t letter_space, lv_text_flag_t flag) {
-        return lv_txt_get_width(txt.c_str(), txt.size(), font, letter_space, flag);
-    }
+                         lv_coord_t letter_space, lv_text_flag_t flag);
 
     /** \fn lv_coord_t get_width(const std::string & txt, const Font & font,
      *                           lv_coord_t letter_space, lv_text_flag_t flag)
@@ -67,9 +60,7 @@ namespace lvgl::misc::txt {
      *  \param letter_space: letter spacing.
      *  \param flag: text property flag (see lv_text_flag_t).
      */
-    lv_coord_t get_width(const std::string & txt, const Font & font,
-                         lv_coord_t letter_space, lv_text_flag_t flag) {
-        return get_width(txt, font.raw_ptr(), letter_space, flag);
-    }
+    lv_coord_t get_width(const std::string & txt, const font::Font & font,
+                         lv_coord_t letter_space, lv_text_flag_t flag);
 
 }

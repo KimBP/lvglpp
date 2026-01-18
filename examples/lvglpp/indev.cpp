@@ -2,6 +2,8 @@
 #include "lvglpp/lvglpp.h"
 #include "lvglpp/core/indev.h"
 
+#ifdef CUSTOM_INPUT_DEVICE
+
 // choose the base class depending on the type of input device you want
 class CustomInputDevice : public lvgl::core::PointerInputDevice {
 
@@ -30,3 +32,5 @@ void main() {
     // assuming that you initialized a display object called 'disp':
     indev.set_display(disp);
 }
+
+#endif // CUSTOM_INPUT_DEVICE

@@ -25,7 +25,7 @@ namespace lvgl::widgets {
          *  \brief Sets line points. Points array must remain allocated.
          *  \param points: array of points.
          */
-        void set_points(const std::vector<lv_point_t> & points);
+        void set_points(const std::vector<lv_point_precise_t> & points);
 
         /** \fn void set_y_invert(bool en)
          *  \brief Sets vertical inversion.

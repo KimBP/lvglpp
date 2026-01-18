@@ -8,7 +8,8 @@ namespace lvgl::examples {
     using namespace lvgl::widgets;
 
     void tabview_1() {
-        static auto tabview = Tabview(scr_act(), LV_DIR_TOP, 50);
+        static auto root = scr_act();
+        static auto tabview = Tabview(root, LV_DIR_TOP, 50);
 
         /*Add 3 tabs (the tabs are page (lv_page) and can be scrolled*/
         auto tab1 = tabview.add_tab("Tab 1");
@@ -40,5 +41,13 @@ namespace lvgl::examples {
         label3.set_text("Third tab");
 
         label3.scroll_to_view_recursive(LV_ANIM_ON);
+
+        // label3.release_ptr();
+        // label2.release_ptr();
+        // label1.release_ptr();
+
+        tab3.release_ptr();
+        tab2.release_ptr();
+        tab1.release_ptr();
     }
 }

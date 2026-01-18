@@ -20,7 +20,7 @@ namespace lvgl::misc {
      *  \brief Wraps a lv_fs_drv_t object. This is a base class to construct
      *  file system drivers for LVGL.
      */
-    class FileSystem : public PointerWrapper<lv_fs_drv_t, lv_mem_free> {
+    class FileSystem : public PointerWrapper<lv_fs_drv_t, lv_free> {
     protected:
         /** \fn virtual bool ready_cb()
          *  \brief Tells if the file system is ready to use.
@@ -144,7 +144,7 @@ namespace lvgl::misc {
     /** \class File
      *  \brief Wraps a lv_fs_file_t object.
      */
-    class File : public PointerWrapper<lv_fs_file_t, lv_mem_free> {
+    class File : public PointerWrapper<lv_fs_file_t, lv_free> {
     public:
         using PointerWrapper::PointerWrapper;
 
@@ -196,7 +196,7 @@ namespace lvgl::misc {
     /** \class Directory
      *  \brief Wraps a lv_fs_dir_t object.
      */
-    class Directory : public PointerWrapper<lv_fs_dir_t, lv_mem_free> {
+    class Directory : public PointerWrapper<lv_fs_dir_t, lv_free> {
     public:
         using PointerWrapper::PointerWrapper;
 

@@ -18,14 +18,11 @@ namespace lvgl::misc {
     using namespace lvgl::font;
     using namespace lvgl::draw;
 
-    // we need user_data to store pointer to C++ object, otherwise we cannot
-    // access callbacks defined as class members.
-    #if LV_USE_USER_DATA
     /** \class StyleTransition
      *  \brief Wraps a lv_style_transition_dsc_t object. This is a base class
      *  to define style transition.
      */
-    class StyleTransition : public PointerWrapper<lv_style_transition_dsc_t, lv_mem_free> {
+    class StyleTransition : public PointerWrapper<lv_style_transition_dsc_t, lv_free> {
     protected:
         /** \fn void initialize(const std::vector<lv_style_prop_t> & props, uint32_t time, uint32_t delay)
          *  \brief Initializes style transition.
@@ -203,12 +200,11 @@ namespace lvgl::misc {
          */
             int32_t callback(const struct _lv_anim_t * anim) override;
     };
-    #endif // LV_USE_USER_DATA
 
     /** \class Style
      *  \brief Wraps a lv_style_t object.
      */
-    class Style : public PointerWrapper<lv_style_t, lv_mem_free> {
+    class Style : public PointerWrapper<lv_style_t, lv_free> {
     public:
         using PointerWrapper::PointerWrapper;
         
@@ -259,11 +255,13 @@ namespace lvgl::misc {
          */
         void set_prop(lv_style_prop_t prop, lv_style_value_t value);
 
+#ifdef MISSING_PORT
         /** \brief Sets the value of a meta state.
          *  \param prop: style property ID.
          *  \param meta: meta value.
          */
         void set_prop_meta(lv_style_prop_t prop, uint16_t meta);
+#endif
 
         /** \fn lv_style_value_t get_prop(lv_style_prop_t prop) const
          *  \brief Gets the value of a style property.
@@ -294,8 +292,17 @@ namespace lvgl::misc {
         /** \fn void set_size(lv_coord_t value)
          *  \brief Sets size property.
          *  \param value: size value.
+         * 
+         *  Deprecated
          */
         void set_size(lv_coord_t value);
+
+        /** \fn void set_size(int32_t width, int32_t height)
+         *  \brief Sets size property.
+         *  \param width: width value.
+         *  \param height: height value.
+         */
+        void set_size(int32_t width, int32_t height);
 
         /** \fn void set_pad_all(lv_coord_t value)
          *  \brief Sets all padding properties.
@@ -763,13 +770,11 @@ namespace lvgl::misc {
          */
         void set_opa(lv_opa_t value);
 
-#if LV_USE_USER_DATA
         /** \fn void set_color_filter_dsc(const ColorFilter & value)
          *  \brief Sets color filter property.
          *  \param value: color filter descriptor.
          */
         void set_color_filter_dsc(const ColorFilter & value);
-#endif //LV_USE_USER_DATA
 
         /** \fn void set_color_filter_dsc(const lv_color_filter_dsc_t * value)
          *  \brief Sets color filter property.
@@ -798,16 +803,18 @@ namespace lvgl::misc {
         /** \fn void set_anim_speed(uint32_t value)
          *  \brief Sets animation speed property.
          *  \param value: animation speed, in ms.
+         *
+         *  Deprecated
          */
-        void set_anim_speed(uint32_t value);
+        void set_anim_speed(uint32_t value) {
+            set_anim_time(value);
+        }
 
-#if LV_USE_USER_DATA
         /** \fn void set_transition(const StyleTransition & value)
          *  \brief Sets style transition property.
          *  \param value: style transition descriptor.
          */
         void set_transition(const StyleTransition & value);
-#endif // LV_USE_USER_DATA
 
         /** \fn void set_transition(const lv_style_transition_dsc_t * value)
          *  \brief Sets style transition property.
@@ -920,13 +927,13 @@ namespace lvgl::misc {
          *  \brief Sets grid's active cell horizontal offset.
          *  \param value: horizontal offset value.
          */
-        void set_grid_cell_x_align(lv_coord_t value);
+        void set_grid_cell_x_align(lv_grid_align_t value);
 
         /** \fn void set_grid_cell_y_align(lv_coord_t value)
          *  \brief Sets grid's active cell vertical offset.
          *  \param value: vertical offset value.
          */
-        void set_grid_cell_y_align(lv_coord_t value);
+        void set_grid_cell_y_align(lv_grid_align_t value);
 #endif // LV_USE_GRID
     };
 

@@ -22,7 +22,8 @@ namespace lvgl::examples {
     }
 
     void tabview_2() {
-        tabview = std::make_unique<Tabview>(scr_act(), LV_DIR_LEFT, 80);
+        auto root = scr_act();
+        tabview = std::make_unique<Tabview>(root, LV_DIR_LEFT, 80);
 
         tabview->get_content().add_event_cb(scroll_begin_event, LV_EVENT_SCROLL_BEGIN);
 

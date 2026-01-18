@@ -15,7 +15,7 @@ namespace lvgl {
     /** \fn void init()
      *  \brief Initializes LVGL.
      */
-    void init() {
+    inline void init() {
         lv_init();    
     }
 
@@ -23,15 +23,19 @@ namespace lvgl {
      *  \brief Tells if LVGL is initialized.
      *  \returns true if LVGL is initialized, false otherwise.
      */
-    bool is_initialized() {
+    inline bool is_initialized() {
         return lv_is_initialized();
     }
+
+#if LV_ENABLE_GC || !LV_MEM_CUSTOM
 
     /** \fn void deinit()
      *  \brief De-initializes LVGL.
      */
-    void deinit() {
+    inline void deinit() {
         lv_deinit();
     }
+
+#endif
 
 }

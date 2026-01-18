@@ -1,6 +1,7 @@
 #include "lvglpp/core/display.h" // for scr_act()
 #include "lvglpp/widgets/checkbox/checkbox.h" // for Checkbox
 #include "lvglpp/core/event.h" // for Event
+#include "lvglpp/misc/style.h" // for Style
 
 namespace lvgl::examples {
     
@@ -41,7 +42,6 @@ namespace lvgl::examples {
         auto root = scr_act();
 
         style_radio.set_radius(LV_RADIUS_CIRCLE);
-        style_radio_chk.set_bg_img_src(nullptr);
 
         uint32_t i;
 

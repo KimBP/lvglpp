@@ -46,7 +46,7 @@ namespace lvgl::widgets {
          *  \brief Sets highlighted dates.
          *  \param highlighted: highlighted dates.
          */
-        void set_highlighted_dates(std::vector<lv_calendar_date_t> highlighted);
+        void set_highlighted_dates(std::vector<lv_calendar_date_t> &highlighted);
 
         /** \fn void set_day_names(const std::vector<std::string> & day_names)
          *  \brief Sets days names.

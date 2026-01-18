@@ -44,7 +44,7 @@ namespace lvgl::widgets {
     }
 
     uint32_t Label::get_letter_on(lv_point_t & pos_in) const {
-        return lv_label_get_letter_on(this->raw_ptr(), &pos_in);
+        return lv_label_get_letter_on(this->raw_ptr(), &pos_in, false);
     }
 
     bool Label::is_char_under_pos(lv_point_t & pos) const {

@@ -10,7 +10,7 @@ namespace lvgl::examples {
     using namespace lvgl::widgets;
 
     using ListPtr = std::shared_ptr<List>;
-    ListPtr list;
+    static ListPtr list;
 
     static void event_handler(Event & e) {
         auto code = e.get_code();

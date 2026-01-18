@@ -7,9 +7,9 @@ namespace lvgl::examples {
 
     void flex_3() {
         static auto cont = Container(scr_act());
-        obj.set_size(300, 220);
-        obj.center();
-        obj.set_flex_flow(LV_FLEX_FLOW_ROW);
+        cont.set_size(300, 220);
+        cont.center();
+        cont.set_flex_flow(LV_FLEX_FLOW_ROW);
 
         static auto obj1 = Container(cont);
         obj1.set_size(40, 40);           /*Fix size*/

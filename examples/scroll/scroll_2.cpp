@@ -14,7 +14,7 @@ namespace lvgl::examples {
 
     static void sw_event_cb(Event & e) {
         auto code = e.get_code();
-        auto sw = lv_event_get_target<Switch>();
+        auto sw = e.get_target<Switch>();
 
         if(code == LV_EVENT_VALUE_CHANGED) {
             if(sw.has_state(LV_STATE_CHECKED)) panel->add_flag(LV_OBJ_FLAG_SCROLL_ONE);

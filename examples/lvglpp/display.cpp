@@ -2,6 +2,8 @@
 #include "lvglpp/lvglpp.h"
 #include "lvglpp/core/display.h"
 
+#ifdef ENABLE_CUSTOM_DISPLAY
+
 class CustomDisplay : public lvgl::core::Display {
 
     void flush(const lv_area_t * area,  lv_color_t * color_map) override {
@@ -30,3 +32,5 @@ void main() {
     // you can set it as default this way:
     disp.set_default();
 }
+
+#endif // ENABLE_CUSTOM_DISPLAY

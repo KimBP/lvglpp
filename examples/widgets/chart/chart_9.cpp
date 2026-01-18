@@ -9,6 +9,8 @@ namespace lvgl::examples {
     using namespace lvgl::widgets;
     using namespace lvgl::misc;
 
+    using ChartPtr = std::shared_ptr<Chart>;
+
     class ChartTimer : public Timer {
     private:
         ChartPtr chart;
@@ -18,7 +20,7 @@ namespace lvgl::examples {
         
         void callback(Timer & timer) override {
             auto ser = this->chart->get_series_next(nullptr);
-            this->chart->set_next_value(ser, lv_rand(10, 90));
+            this->chart->set_next_y_value(ser, lv_rand(10, 90));
 
             uint16_t p = this->chart->get_point_count();
             uint16_t s = this->chart->get_x_start_point(ser);
@@ -45,7 +47,7 @@ namespace lvgl::examples {
         /*Prefill with data*/
         uint32_t i;
         for(i = 0; i < 30; i++)
-            chart->set_next_value(ser, lv_rand(10, 90));
+            chart->set_next_y_value(ser, lv_rand(10, 90));
         
         auto timer = ChartTimer(300, chart);
     }

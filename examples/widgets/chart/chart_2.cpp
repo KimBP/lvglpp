@@ -4,6 +4,8 @@
 #include "lvglpp/misc/color.h" // for colors
 #include "lvglpp/core/event.h" // for Event
 #include "lvglpp/draw/mask.h" // for mask functions
+#include "lvglpp/draw/desc.h" // for Draw descriptor
+#include "lvglpp/widgets/scale/scale.h" // for Scale
 
 namespace lvgl::examples {
     
@@ -12,117 +14,62 @@ namespace lvgl::examples {
     using namespace lvgl::misc;
     using namespace lvgl::draw;
 
-    using ChartPtr = std::shared_ptr<Chart>;
     using SeriesPtr = lv_chart_series_t*;
 
-    static void draw_event_cb(Event & e) {
-        auto obj = e.get_target<Chart>();
-
-        /*Add the faded area before the lines are drawn*/
-        auto dsc = e.get_draw_part_dsc();
-        if(dsc->part == LV_PART_ITEMS) {
-            if(!dsc->p1 || !dsc->p2) return;
-            /*Add a line mask that keeps the area below the line*/
-            auto line_mask = LineMask(dsc->p1->x, dsc->p1->y, dsc->p2->x, dsc->p2->y, LV_DRAW_MASK_LINE_SIDE_BOTTOM);
-            line_mask.add();
-            /*Add a fade effect: transparent bottom covering top*/
-            auto fade_mask = FadeMask(obj->coords, LV_OPA_COVER, obj->coords.y1 + obj.get_height() / 8, LV_OPA_TRANSP, obj->coords.y2);
-            fade_mask.add();
-            /*Draw a rectangle that will be affected by the mask*/
-            RectangleDrawDescriptor draw_rect_dsc;
-            draw_rect_dsc->bg_opa = LV_OPA_20;
-            draw_rect_dsc->bg_color = dsc->line_dsc->color;
-
-            Area a;
-            a->x1 = dsc->p1->x;
-            a->x2 = dsc->p2->x - 1;
-            a->y1 = LV_MIN(dsc->p1->y, dsc->p2->y);
-            a->y2 = obj->coords.y2;
-            draw_rect_dsc.draw(dsc->draw_ctx, a);
-        }
-        /*Hook the division lines too*/
-        else if(dsc->part == LV_PART_MAIN) {
-            if(dsc->line_dsc == nullptr || dsc->p1 == nullptr || dsc->p2 == nullptr) return;
-
-            /*Vertical line*/
-            if(dsc->p1->x == dsc->p2->x) {
-                dsc->line_dsc->color  = palette::light(Color::Grey, 1);
-                if(dsc->id == 3) {
-                    dsc->line_dsc->width  = 2;
-                    dsc->line_dsc->dash_gap  = 0;
-                    dsc->line_dsc->dash_width  = 0;
-                }
-                else {
-                    dsc->line_dsc->width = 1;
-                    dsc->line_dsc->dash_gap  = 6;
-                    dsc->line_dsc->dash_width  = 6;
-                }
-            }
-            /*Horizontal line*/
-            else {
-                if(dsc->id == 2) {
-                    dsc->line_dsc->width  = 2;
-                    dsc->line_dsc->dash_gap  = 0;
-                    dsc->line_dsc->dash_width  = 0;
-                }
-                else {
-                    dsc->line_dsc->width = 2;
-                    dsc->line_dsc->dash_gap  = 6;
-                    dsc->line_dsc->dash_width  = 6;
-                }
-
-                if(dsc->id == 1  || dsc->id == 3) {
-                    dsc->line_dsc->color  = palette::main(Color::Green);
-                }
-                else {
-                    dsc->line_dsc->color  = palette::light(Color::Grey, 1);
-                }
-            }
-        }
-    }
-
-    class ChartTimer : public Timer {
-    private:
-        ChartPtr chart;
-        SeriesPtr ser1;
-        SeriesPtr ser2;
-
-    public:
-        ChartTimer(uint32_t period, ChartPtr chart, SeriesPtr ser1, SeriesPtr ser2) : 
-            Timer(period), chart(chart), ser1(ser1), ser2(ser2) {}
-        
-        void callback(Timer & timer) override {
-            static uint32_t cnt = 0;
-            this->chart->set_next_y_value(this->ser1, lv_rand(20, 90));
-
-            if(cnt % 4 == 0) this->chart->set_next_y_value(this->ser2, lv_rand(40, 60));
-
-            cnt++;
-        }
-    };
-
     void chart_2() {
-        static auto chart = std::make_shared<Chart>(scr_act());
+        Container main_cont{screen_active()};
+        main_cont.set_size(200,150);
+        main_cont.center();
 
-        chart->set_size(200, 150);
-        chart->center();
-        chart->set_type(LV_CHART_TYPE_LINE);   /*Show lines and points too*/
+        /* Create a transparent wrapper for the chart and the scale.
+         * Set a large width, to make it scrollable on the main container */
 
-        chart->set_div_line_count(5, 7);
+        Container wrapper{main_cont};
 
-        chart->add_event_cb(draw_event_cb, LV_EVENT_DRAW_PART_BEGIN);
-        chart->set_update_mode(LV_CHART_UPDATE_MODE_CIRCULAR);
+        wrapper.remove_style_all();
+        wrapper.set_size(lv_pct(300), lv_pct(100));
+        wrapper.set_flex_flow(LV_FLEX_FLOW_COLUMN);
 
-        /*Add two data series*/
-        auto ser1 = chart->add_series(palette::main(Color::Red), LV_CHART_AXIS_PRIMARY_Y);
-        auto ser2 = chart->add_series(palette::main(Color::Blue), LV_CHART_AXIS_SECONDARY_Y);
+        /* Create a chart on the wrapper
+         * Set it's width to 100% to fill the large wrapper */
+        Chart chart{wrapper};
 
-        uint32_t i;
-        for(i = 0; i < 10; i++) {
-            chart->set_next_y_value(ser1, lv_rand(20, 90));
-            chart->set_next_y_value(ser2, lv_rand(30, 70));
+        chart.set_width(lv_pct(100));
+        chart.set_flex_grow(1);
+        chart.set_type(LV_CHART_TYPE_BAR);
+        chart.set_axis_range(LV_CHART_AXIS_PRIMARY_Y, 0, 100);
+        chart.set_axis_range(LV_CHART_AXIS_SECONDARY_Y, 0 , 400);
+        chart.set_point_count(12);
+        chart.set_style_radius(0,0);
+
+        /* Create a scale also with 100% width*/
+        Scale scale_bottom{wrapper};
+        scale_bottom.set_mode(LV_SCALE_MODE_HORIZONTAL_BOTTOM);
+        scale_bottom.set_size(lv_pct(100), 25);
+        scale_bottom.set_total_tick_count(12);
+        scale_bottom.set_major_tick_every(1);
+        scale_bottom.set_style_pad_hor(chart.get_first_point_center_offset(), 0);
+
+        static const char * month[]  = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", 
+                                        "Jul", "Aug", "Sep", "Oct", "Nov", "Dec", 
+                                        nullptr};
+        scale_bottom.set_text_src(month);
+
+        /* Add two data series*/
+        auto ser1 = chart.add_series(palette::light(Color::Green, 2), LV_CHART_AXIS_PRIMARY_Y);
+        auto ser2 = chart.add_series(palette::dark(Color::Green, 2), LV_CHART_AXIS_PRIMARY_Y);
+
+        /*Set the next points on 'ser1' */
+        for (uint32_t i = 0; i < 12; i++) {
+            chart.set_next_y_value(ser1, static_cast<int32_t>(lv_rand(10,60)));
+            chart.set_next_y_value(ser2, static_cast<int32_t>(lv_rand(50,90)));
         }
 
-        static auto timer = ChartTimer(200, chart, ser1, ser2);
+        chart.refresh(); /* Required after direct set */
+
+        chart.release_ptr();
+        wrapper.release_ptr();
+        scale_bottom.release_ptr();
+        main_cont.release_ptr();
     }
 }

@@ -7,7 +7,8 @@ namespace lvgl::examples {
     using namespace lvgl::widgets;
 
     void colorwheel_1() {
-        static auto cw = ColorWheel(scr_act(), true);
+        static auto root = scr_act();
+        static auto cw = ColorWheel(root, true);
         cw.set_size(200, 200);
         cw.center();
     }

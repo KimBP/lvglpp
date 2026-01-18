@@ -6,7 +6,7 @@
  */
 #include "btnmatrix.h"
 
-#if LV_USE_BTNMATRIX != 0
+#if LV_USE_BUTTONMATRIX != 0
 
 namespace lvgl::widgets {
 
@@ -65,7 +65,7 @@ namespace lvgl::widgets {
     }
 
     bool ButtonMatrix::has_btn_ctrl(uint16_t btn_id, lv_btnmatrix_ctrl_t ctrl) const {
-        return lv_btnmatrix_has_btn_ctrl(const_cast<lv_cls_ptr>(this->raw_ptr()), btn_id, ctrl);
+        return lv_btnmatrix_has_button_ctrl(const_cast<lv_cls_ptr>(this->raw_ptr()), btn_id, ctrl);
     }
 
     bool ButtonMatrix::get_one_checked() const {
@@ -73,4 +73,4 @@ namespace lvgl::widgets {
     }
 
 }
-#endif // LV_USE_BTNMATRIX
+#endif // LV_USE_BUTTONMATRIX

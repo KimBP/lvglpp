@@ -31,7 +31,7 @@ namespace lvgl::examples {
     }
 
 
-    void btnmatrix_2() {
+    void btnmatrix_3() {
         static auto btnm = ButtonMatrix(scr_act());
 
         static Style style_bg;

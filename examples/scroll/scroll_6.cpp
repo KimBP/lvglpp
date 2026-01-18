@@ -3,6 +3,7 @@
 #include "lvglpp/widgets/label/label.h" // for Label
 #include "lvglpp/widgets/button/button.h" // for Button
 #include "lvglpp/misc/area.h" // for Area
+#include "lvglpp/core/event.h" // for Event
 
 namespace lvgl::examples {
     
@@ -61,12 +62,12 @@ namespace lvgl::examples {
             auto btn = Button(cont);
             btn.set_width(lv_pct(100));
             auto label = Label(btn);
-            labelset_text_fmt("Button %" LV_PRIu32, i);
+            label.set_text_fmt("Button %" LV_PRIu32, i);
             btn.release_ptr();
             label.release_ptr();
         }
         /*Update the buttons position manually for first*/
-        cont.send_event(cont, LV_EVENT_SCROLL);
+        cont.send_event(LV_EVENT_SCROLL);
         /*Be sure the fist button is in the middle*/
         cont.get_child<Object>(0).scroll_to_view(LV_ANIM_OFF);
     }
