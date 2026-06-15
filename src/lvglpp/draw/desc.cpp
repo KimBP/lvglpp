@@ -16,7 +16,7 @@ namespace lvgl::draw {
     }
 
     lv_part_t BaseDrawDescriptor::part() {
-        return this->raw_ptr()->part;
+        return static_cast<lv_part_t>(this->raw_ptr()->part);
     }
 
     uint32_t BaseDrawDescriptor::id1() {

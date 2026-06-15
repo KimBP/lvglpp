@@ -109,27 +109,27 @@ namespace lvgl::core {
         return lv_obj_is_group_def(const_cast<lv_cls_ptr>(this->raw_ptr()));
     }
     
-    void Object::init_draw_rect_dsc(uint32_t part, RectangleDrawDescriptor & draw_dsc) {
+    void Object::init_draw_rect_dsc(lv_part_t part, RectangleDrawDescriptor & draw_dsc) {
         lv_obj_init_draw_rect_dsc(this->raw_ptr(), part, draw_dsc.raw_ptr());
     }
 
-    void Object::init_draw_label_dsc(uint32_t part, LabelDrawDescriptor & draw_dsc) {
+    void Object::init_draw_label_dsc(lv_part_t part, LabelDrawDescriptor & draw_dsc) {
         lv_obj_init_draw_label_dsc(this->raw_ptr(), part, draw_dsc.raw_ptr());
     }
 
-    void Object::init_draw_img_dsc(uint32_t part, ImageDrawDescriptor & draw_dsc) {
+    void Object::init_draw_img_dsc(lv_part_t part, ImageDrawDescriptor & draw_dsc) {
         lv_obj_init_draw_image_dsc(this->raw_ptr(), part, draw_dsc.raw_ptr());
     }
 
-    void Object::init_draw_line_dsc(uint32_t part, LineDrawDescriptor & draw_dsc) {
+    void Object::init_draw_line_dsc(lv_part_t part, LineDrawDescriptor & draw_dsc) {
         lv_obj_init_draw_line_dsc(this->raw_ptr(), part, draw_dsc.raw_ptr());
     }
 
-    void Object::init_draw_arc_dsc(uint32_t part, ArcDrawDescriptor & draw_dsc) {
+    void Object::init_draw_arc_dsc(lv_part_t part, ArcDrawDescriptor & draw_dsc) {
         lv_obj_init_draw_arc_dsc(this->raw_ptr(), part, draw_dsc.raw_ptr());
     }
 
-    lv_coord_t Object::calculate_ext_draw_size(uint32_t part) const {
+    lv_coord_t Object::calculate_ext_draw_size(lv_part_t part) const {
         return lv_obj_calculate_ext_draw_size(const_cast<lv_cls_ptr>(this->raw_ptr()), part);
     }
 
@@ -895,263 +895,263 @@ namespace lvgl::core {
         lv_obj_set_style_bitmap_mask_src(this->raw_ptr(), mask.raw_ptr(), selector);
     }
 
-    lv_coord_t Object::get_style_width(uint32_t part) const {
+    lv_coord_t Object::get_style_width(lv_part_t part) const {
         return lv_obj_get_style_width(const_cast<lv_cls_ptr>(this->raw_ptr()), part);
     }
-    lv_coord_t Object::get_style_min_width(uint32_t part) const {
+    lv_coord_t Object::get_style_min_width(lv_part_t part) const {
         return lv_obj_get_style_min_width(const_cast<lv_cls_ptr>(this->raw_ptr()), part);
     }
-    lv_coord_t Object::get_style_max_width(uint32_t part) const {
+    lv_coord_t Object::get_style_max_width(lv_part_t part) const {
         return lv_obj_get_style_max_width(const_cast<lv_cls_ptr>(this->raw_ptr()), part);
     }
-    lv_coord_t Object::get_style_height(uint32_t part) const {
+    lv_coord_t Object::get_style_height(lv_part_t part) const {
         return lv_obj_get_style_height(const_cast<lv_cls_ptr>(this->raw_ptr()), part);
     }
-    lv_coord_t Object::get_style_min_height(uint32_t part) const {
+    lv_coord_t Object::get_style_min_height(lv_part_t part) const {
         return lv_obj_get_style_min_height(const_cast<lv_cls_ptr>(this->raw_ptr()), part);
     }
-    lv_coord_t Object::get_style_max_height(uint32_t part) const {
+    lv_coord_t Object::get_style_max_height(lv_part_t part) const {
         return lv_obj_get_style_max_height(const_cast<lv_cls_ptr>(this->raw_ptr()), part);
     }
-    lv_coord_t Object::get_style_x(uint32_t part) const {
+    lv_coord_t Object::get_style_x(lv_part_t part) const {
         return lv_obj_get_style_x(const_cast<lv_cls_ptr>(this->raw_ptr()), part);
     }
-    lv_coord_t Object::get_style_y(uint32_t part) const {
+    lv_coord_t Object::get_style_y(lv_part_t part) const {
         return lv_obj_get_style_y(const_cast<lv_cls_ptr>(this->raw_ptr()), part);
     }
-    lv_align_t Object::get_style_align(uint32_t part) const {
+    lv_align_t Object::get_style_align(lv_part_t part) const {
         return lv_obj_get_style_align(const_cast<lv_cls_ptr>(this->raw_ptr()), part);
     }
-    lv_coord_t Object::get_style_transform_width(uint32_t part) const {
+    lv_coord_t Object::get_style_transform_width(lv_part_t part) const {
         return lv_obj_get_style_transform_width(const_cast<lv_cls_ptr>(this->raw_ptr()), part);
     }
-    lv_coord_t Object::get_style_transform_height(uint32_t part) const {
+    lv_coord_t Object::get_style_transform_height(lv_part_t part) const {
         return lv_obj_get_style_transform_height(const_cast<lv_cls_ptr>(this->raw_ptr()), part);
     }
-    lv_coord_t Object::get_style_translate_x(uint32_t part) const {
+    lv_coord_t Object::get_style_translate_x(lv_part_t part) const {
         return lv_obj_get_style_translate_x(const_cast<lv_cls_ptr>(this->raw_ptr()), part);
     }
-    lv_coord_t Object::get_style_translate_y(uint32_t part) const {
+    lv_coord_t Object::get_style_translate_y(lv_part_t part) const {
         return lv_obj_get_style_translate_y(const_cast<lv_cls_ptr>(this->raw_ptr()), part);
     }
-    lv_coord_t Object::get_style_transform_scale_x(uint32_t part) const {
+    lv_coord_t Object::get_style_transform_scale_x(lv_part_t part) const {
         return lv_obj_get_style_transform_scale_x(const_cast<lv_cls_ptr>(this->raw_ptr()), part);
     }
-    lv_coord_t Object::get_style_transform_scale_y(uint32_t part) const {
+    lv_coord_t Object::get_style_transform_scale_y(lv_part_t part) const {
         return lv_obj_get_style_transform_scale_y(const_cast<lv_cls_ptr>(this->raw_ptr()), part);
     }
-    lv_coord_t Object::get_style_transform_angle(uint32_t part) const {
+    lv_coord_t Object::get_style_transform_angle(lv_part_t part) const {
         return lv_obj_get_style_transform_angle(const_cast<lv_cls_ptr>(this->raw_ptr()), part);
     }
-    lv_coord_t Object::get_style_transform_pivot_x(uint32_t part) const {
+    lv_coord_t Object::get_style_transform_pivot_x(lv_part_t part) const {
         return lv_obj_get_style_transform_pivot_x(const_cast<lv_cls_ptr>(this->raw_ptr()), part);
     }
-    lv_coord_t Object::get_style_transform_pivot_y(uint32_t part) const {
+    lv_coord_t Object::get_style_transform_pivot_y(lv_part_t part) const {
         return lv_obj_get_style_transform_pivot_y(const_cast<lv_cls_ptr>(this->raw_ptr()), part);
     }
-    lv_coord_t Object::get_style_pad_top(uint32_t part) const {
+    lv_coord_t Object::get_style_pad_top(lv_part_t part) const {
         return lv_obj_get_style_pad_top(const_cast<lv_cls_ptr>(this->raw_ptr()), part);
     }
-    lv_coord_t Object::get_style_pad_bottom(uint32_t part) const {
+    lv_coord_t Object::get_style_pad_bottom(lv_part_t part) const {
         return lv_obj_get_style_pad_bottom(const_cast<lv_cls_ptr>(this->raw_ptr()), part);
     }
-    lv_coord_t Object::get_style_pad_left(uint32_t part) const {
+    lv_coord_t Object::get_style_pad_left(lv_part_t part) const {
         return lv_obj_get_style_pad_left(const_cast<lv_cls_ptr>(this->raw_ptr()), part);
     }
-    lv_coord_t Object::get_style_pad_right(uint32_t part) const {
+    lv_coord_t Object::get_style_pad_right(lv_part_t part) const {
         return lv_obj_get_style_pad_right(const_cast<lv_cls_ptr>(this->raw_ptr()), part);
     }
-    lv_coord_t Object::get_style_pad_row(uint32_t part) const {
+    lv_coord_t Object::get_style_pad_row(lv_part_t part) const {
         return lv_obj_get_style_pad_row(const_cast<lv_cls_ptr>(this->raw_ptr()), part);
     }
-    lv_coord_t Object::get_style_pad_column(uint32_t part) const {
+    lv_coord_t Object::get_style_pad_column(lv_part_t part) const {
         return lv_obj_get_style_pad_column(const_cast<lv_cls_ptr>(this->raw_ptr()), part);
     }
-    lv_color_t Object::get_style_bg_color(uint32_t part) const {
+    lv_color_t Object::get_style_bg_color(lv_part_t part) const {
         return lv_obj_get_style_bg_color(const_cast<lv_cls_ptr>(this->raw_ptr()), part);
     }
-    lv_opa_t Object::get_style_bg_opa(uint32_t part) const {
+    lv_opa_t Object::get_style_bg_opa(lv_part_t part) const {
         return lv_obj_get_style_bg_opa(const_cast<lv_cls_ptr>(this->raw_ptr()), part);
     }
-    lv_color_t Object::get_style_bg_grad_color(uint32_t part) const {
+    lv_color_t Object::get_style_bg_grad_color(lv_part_t part) const {
         return lv_obj_get_style_bg_grad_color(const_cast<lv_cls_ptr>(this->raw_ptr()), part);
     }
-    lv_grad_dir_t Object::get_style_bg_grad_dir(uint32_t part) const {
+    lv_grad_dir_t Object::get_style_bg_grad_dir(lv_part_t part) const {
         return lv_obj_get_style_bg_grad_dir(const_cast<lv_cls_ptr>(this->raw_ptr()), part);
     }
-    lv_coord_t Object::get_style_bg_main_stop(uint32_t part) const {
+    lv_coord_t Object::get_style_bg_main_stop(lv_part_t part) const {
         return lv_obj_get_style_bg_main_stop(const_cast<lv_cls_ptr>(this->raw_ptr()), part);
     }
-    lv_coord_t Object::get_style_bg_grad_stop(uint32_t part) const {
+    lv_coord_t Object::get_style_bg_grad_stop(lv_part_t part) const {
         return lv_obj_get_style_bg_grad_stop(const_cast<lv_cls_ptr>(this->raw_ptr()), part);
     }
-    const lv_grad_dsc_t * Object::get_style_bg_grad(uint32_t part) const {
+    const lv_grad_dsc_t * Object::get_style_bg_grad(lv_part_t part) const {
         return lv_obj_get_style_bg_grad(const_cast<lv_cls_ptr>(this->raw_ptr()), part);
     }
 #ifdef MISSING_PORT
-    lv_dither_mode_t Object::get_style_bg_dither_mode(uint32_t part) const {
+    lv_dither_mode_t Object::get_style_bg_dither_mode(lv_part_t part) const {
         return lv_obj_get_style_bg_dither_mode(const_cast<lv_cls_ptr>(this->raw_ptr()), part);
     }
 #endif
-    const void * Object::get_style_bg_img_src(uint32_t part) const {
+    const void * Object::get_style_bg_img_src(lv_part_t part) const {
         return lv_obj_get_style_bg_img_src(const_cast<lv_cls_ptr>(this->raw_ptr()), part);
     }
-    lv_opa_t Object::get_style_bg_img_opa(uint32_t part) const {
+    lv_opa_t Object::get_style_bg_img_opa(lv_part_t part) const {
         return lv_obj_get_style_bg_image_opa(const_cast<lv_cls_ptr>(this->raw_ptr()), part);
     }
-    lv_color_t Object::get_style_bg_img_recolor(uint32_t part) const {
+    lv_color_t Object::get_style_bg_img_recolor(lv_part_t part) const {
         return lv_obj_get_style_bg_img_recolor(const_cast<lv_cls_ptr>(this->raw_ptr()), part);
     }
-    lv_opa_t Object::get_style_bg_img_recolor_opa(uint32_t part) const {
+    lv_opa_t Object::get_style_bg_img_recolor_opa(lv_part_t part) const {
         return lv_obj_get_style_bg_img_recolor_opa(const_cast<lv_cls_ptr>(this->raw_ptr()), part);
     }
-    bool Object::get_style_bg_img_tiled(uint32_t part) const {
+    bool Object::get_style_bg_img_tiled(lv_part_t part) const {
         return lv_obj_get_style_bg_image_tiled(const_cast<lv_cls_ptr>(this->raw_ptr()), part);
     }
-    lv_color_t Object::get_style_border_color(uint32_t part) const {
+    lv_color_t Object::get_style_border_color(lv_part_t part) const {
         return lv_obj_get_style_border_color(const_cast<lv_cls_ptr>(this->raw_ptr()), part);
     }
-    lv_opa_t Object::get_style_border_opa(uint32_t part) const {
+    lv_opa_t Object::get_style_border_opa(lv_part_t part) const {
         return lv_obj_get_style_border_opa(const_cast<lv_cls_ptr>(this->raw_ptr()), part);
     }
-    lv_coord_t Object::get_style_border_width(uint32_t part) const {
+    lv_coord_t Object::get_style_border_width(lv_part_t part) const {
         return lv_obj_get_style_border_width(const_cast<lv_cls_ptr>(this->raw_ptr()), part);
     }
-    lv_border_side_t Object::get_style_border_side(uint32_t part) const {
+    lv_border_side_t Object::get_style_border_side(lv_part_t part) const {
         return lv_obj_get_style_border_side(const_cast<lv_cls_ptr>(this->raw_ptr()), part);
     }
-    bool Object::get_style_border_post(uint32_t part) const {
+    bool Object::get_style_border_post(lv_part_t part) const {
         return lv_obj_get_style_border_post(const_cast<lv_cls_ptr>(this->raw_ptr()), part);
     }
-    lv_coord_t Object::get_style_outline_width(uint32_t part) const {
+    lv_coord_t Object::get_style_outline_width(lv_part_t part) const {
         return lv_obj_get_style_outline_width(const_cast<lv_cls_ptr>(this->raw_ptr()), part);
     }
-    lv_color_t Object::get_style_outline_color(uint32_t part) const {
+    lv_color_t Object::get_style_outline_color(lv_part_t part) const {
         return lv_obj_get_style_outline_color(const_cast<lv_cls_ptr>(this->raw_ptr()), part);
     }
-    lv_opa_t Object::get_style_outline_opa(uint32_t part) const {
+    lv_opa_t Object::get_style_outline_opa(lv_part_t part) const {
         return lv_obj_get_style_outline_opa(const_cast<lv_cls_ptr>(this->raw_ptr()), part);
     }
-    lv_coord_t Object::get_style_outline_pad(uint32_t part) const {
+    lv_coord_t Object::get_style_outline_pad(lv_part_t part) const {
         return lv_obj_get_style_outline_pad(const_cast<lv_cls_ptr>(this->raw_ptr()), part);
     }
-    lv_coord_t Object::get_style_shadow_width(uint32_t part) const {
+    lv_coord_t Object::get_style_shadow_width(lv_part_t part) const {
         return lv_obj_get_style_shadow_width(const_cast<lv_cls_ptr>(this->raw_ptr()), part);
     }
-    lv_coord_t Object::get_style_shadow_ofs_x(uint32_t part) const {
+    lv_coord_t Object::get_style_shadow_ofs_x(lv_part_t part) const {
         return lv_obj_get_style_shadow_ofs_x(const_cast<lv_cls_ptr>(this->raw_ptr()), part);
     }
-    lv_coord_t Object::get_style_shadow_ofs_y(uint32_t part) const {
+    lv_coord_t Object::get_style_shadow_ofs_y(lv_part_t part) const {
         return lv_obj_get_style_shadow_ofs_y(const_cast<lv_cls_ptr>(this->raw_ptr()), part);
     }
-    lv_coord_t Object::get_style_shadow_spread(uint32_t part) const {
+    lv_coord_t Object::get_style_shadow_spread(lv_part_t part) const {
         return lv_obj_get_style_shadow_spread(const_cast<lv_cls_ptr>(this->raw_ptr()), part);
     }
-    lv_color_t Object::get_style_shadow_color(uint32_t part) const {
+    lv_color_t Object::get_style_shadow_color(lv_part_t part) const {
         return lv_obj_get_style_shadow_color(const_cast<lv_cls_ptr>(this->raw_ptr()), part);
     }
-    lv_opa_t Object::get_style_shadow_opa(uint32_t part) const {
+    lv_opa_t Object::get_style_shadow_opa(lv_part_t part) const {
         return lv_obj_get_style_shadow_opa(const_cast<lv_cls_ptr>(this->raw_ptr()), part);
     }
-    lv_opa_t Object::get_style_img_opa(uint32_t part) const {
+    lv_opa_t Object::get_style_img_opa(lv_part_t part) const {
         return lv_obj_get_style_img_opa(const_cast<lv_cls_ptr>(this->raw_ptr()), part);
     }
-    lv_color_t Object::get_style_img_recolor(uint32_t part) const {
+    lv_color_t Object::get_style_img_recolor(lv_part_t part) const {
         return lv_obj_get_style_img_recolor(const_cast<lv_cls_ptr>(this->raw_ptr()), part);
     }
-    lv_opa_t Object::get_style_img_recolor_opa(uint32_t part) const {
+    lv_opa_t Object::get_style_img_recolor_opa(lv_part_t part) const {
         return lv_obj_get_style_img_recolor_opa(const_cast<lv_cls_ptr>(this->raw_ptr()), part);
     }
-    lv_coord_t Object::get_style_line_width(uint32_t part) const {
+    lv_coord_t Object::get_style_line_width(lv_part_t part) const {
         return lv_obj_get_style_line_width(const_cast<lv_cls_ptr>(this->raw_ptr()), part);
     }
-    lv_coord_t Object::get_style_line_dash_width(uint32_t part) const {
+    lv_coord_t Object::get_style_line_dash_width(lv_part_t part) const {
         return lv_obj_get_style_line_dash_width(const_cast<lv_cls_ptr>(this->raw_ptr()), part);
     }
-    lv_coord_t Object::get_style_line_dash_gap(uint32_t part) const {
+    lv_coord_t Object::get_style_line_dash_gap(lv_part_t part) const {
         return lv_obj_get_style_line_dash_gap(const_cast<lv_cls_ptr>(this->raw_ptr()), part);
     }
-    bool Object::get_style_line_rounded(uint32_t part) const {
+    bool Object::get_style_line_rounded(lv_part_t part) const {
         return lv_obj_get_style_line_rounded(const_cast<lv_cls_ptr>(this->raw_ptr()), part);
     }
-    lv_color_t Object::get_style_line_color(uint32_t part) const {
+    lv_color_t Object::get_style_line_color(lv_part_t part) const {
         return lv_obj_get_style_line_color(const_cast<lv_cls_ptr>(this->raw_ptr()), part);
     }
-    lv_opa_t Object::get_style_line_opa(uint32_t part) const {
+    lv_opa_t Object::get_style_line_opa(lv_part_t part) const {
         return lv_obj_get_style_line_opa(const_cast<lv_cls_ptr>(this->raw_ptr()), part);
     }
-    lv_coord_t Object::get_style_arc_width(uint32_t part) const {
+    lv_coord_t Object::get_style_arc_width(lv_part_t part) const {
         return lv_obj_get_style_arc_width(const_cast<lv_cls_ptr>(this->raw_ptr()), part);
     }
-    bool Object::get_style_arc_rounded(uint32_t part) const {
+    bool Object::get_style_arc_rounded(lv_part_t part) const {
         return lv_obj_get_style_arc_rounded(const_cast<lv_cls_ptr>(this->raw_ptr()), part);
     }
-    lv_color_t Object::get_style_arc_color(uint32_t part) const {
+    lv_color_t Object::get_style_arc_color(lv_part_t part) const {
         return lv_obj_get_style_arc_color(const_cast<lv_cls_ptr>(this->raw_ptr()), part);
     }
-    lv_opa_t Object::get_style_arc_opa(uint32_t part) const {
+    lv_opa_t Object::get_style_arc_opa(lv_part_t part) const {
         return lv_obj_get_style_arc_opa(const_cast<lv_cls_ptr>(this->raw_ptr()), part);
     }
-    const void * Object::get_style_arc_img_src(uint32_t part) const {
+    const void * Object::get_style_arc_img_src(lv_part_t part) const {
         return lv_obj_get_style_arc_image_src(const_cast<lv_cls_ptr>(this->raw_ptr()), part);
     }
-    lv_color_t Object::get_style_text_color(uint32_t part) const {
+    lv_color_t Object::get_style_text_color(lv_part_t part) const {
         return lv_obj_get_style_text_color(const_cast<lv_cls_ptr>(this->raw_ptr()), part);
     }
-    lv_opa_t Object::get_style_text_opa(uint32_t part) const {
+    lv_opa_t Object::get_style_text_opa(lv_part_t part) const {
         return lv_obj_get_style_text_opa(const_cast<lv_cls_ptr>(this->raw_ptr()), part);
     }
-    const lv_font_t * Object::get_style_text_font(uint32_t part) const {
+    const lv_font_t * Object::get_style_text_font(lv_part_t part) const {
         return lv_obj_get_style_text_font(const_cast<lv_cls_ptr>(this->raw_ptr()), part);
     }
-    lv_coord_t Object::get_style_text_letter_space(uint32_t part) const {
+    lv_coord_t Object::get_style_text_letter_space(lv_part_t part) const {
         return lv_obj_get_style_text_letter_space(const_cast<lv_cls_ptr>(this->raw_ptr()), part);
     }
-    lv_coord_t Object::get_style_text_line_space(uint32_t part) const {
+    lv_coord_t Object::get_style_text_line_space(lv_part_t part) const {
         return lv_obj_get_style_text_line_space(const_cast<lv_cls_ptr>(this->raw_ptr()), part);
     }
-    lv_text_decor_t Object::get_style_text_decor(uint32_t part) const {
+    lv_text_decor_t Object::get_style_text_decor(lv_part_t part) const {
         return lv_obj_get_style_text_decor(const_cast<lv_cls_ptr>(this->raw_ptr()), part);
     }
-    lv_text_align_t Object::get_style_text_align(uint32_t part) const {
+    lv_text_align_t Object::get_style_text_align(lv_part_t part) const {
         return lv_obj_get_style_text_align(const_cast<lv_cls_ptr>(this->raw_ptr()), part);
     }
-    lv_coord_t Object::get_style_radius(uint32_t part) const {
+    lv_coord_t Object::get_style_radius(lv_part_t part) const {
         return lv_obj_get_style_radius(const_cast<lv_cls_ptr>(this->raw_ptr()), part);
     }
-    bool Object::get_style_clip_corner(uint32_t part) const {
+    bool Object::get_style_clip_corner(lv_part_t part) const {
         return lv_obj_get_style_clip_corner(const_cast<lv_cls_ptr>(this->raw_ptr()), part);
     }
-    lv_opa_t Object::get_style_opa(uint32_t part) const {
+    lv_opa_t Object::get_style_opa(lv_part_t part) const {
         return lv_obj_get_style_opa(const_cast<lv_cls_ptr>(this->raw_ptr()), part);
     }
-    const lv_color_filter_dsc_t * Object::get_style_color_filter_dsc(uint32_t part) const {
+    const lv_color_filter_dsc_t * Object::get_style_color_filter_dsc(lv_part_t part) const {
         return lv_obj_get_style_color_filter_dsc(const_cast<lv_cls_ptr>(this->raw_ptr()), part);
     }
-    lv_opa_t Object::get_style_color_filter_opa(uint32_t part) const {
+    lv_opa_t Object::get_style_color_filter_opa(lv_part_t part) const {
         return lv_obj_get_style_color_filter_opa(const_cast<lv_cls_ptr>(this->raw_ptr()), part);
     }
-    const lv_anim_t * Object::get_style_anim(uint32_t part) const {
+    const lv_anim_t * Object::get_style_anim(lv_part_t part) const {
         return lv_obj_get_style_anim(const_cast<lv_cls_ptr>(this->raw_ptr()), part);
     }
-    uint32_t Object::get_style_anim_time(uint32_t part) const {
+    uint32_t Object::get_style_anim_time(lv_part_t part) const {
         return lv_obj_get_style_anim_time(const_cast<lv_cls_ptr>(this->raw_ptr()), part);
     }
 #ifdef MISSING_PORT
-    uint32_t Object::get_style_anim_speed(uint32_t part) const {
+    uint32_t Object::get_style_anim_speed(lv_part_t part) const {
         return lv_obj_get_style_anim_speed(const_cast<lv_cls_ptr>(this->raw_ptr()), part);
     }
 #endif
-    const lv_style_transition_dsc_t * Object::get_style_transition(uint32_t part) const {
+    const lv_style_transition_dsc_t * Object::get_style_transition(lv_part_t part) const {
         return lv_obj_get_style_transition(const_cast<lv_cls_ptr>(this->raw_ptr()), part);
     }
-    lv_blend_mode_t Object::get_style_blend_mode(uint32_t part) const {
+    lv_blend_mode_t Object::get_style_blend_mode(lv_part_t part) const {
         return lv_obj_get_style_blend_mode(const_cast<lv_cls_ptr>(this->raw_ptr()), part);
     }
-    uint16_t Object::get_style_layout(uint32_t part) const {
+    uint16_t Object::get_style_layout(lv_part_t part) const {
         return lv_obj_get_style_layout(const_cast<lv_cls_ptr>(this->raw_ptr()), part);
     }
-    lv_base_dir_t Object::get_style_base_dir(uint32_t part) const {
+    lv_base_dir_t Object::get_style_base_dir(lv_part_t part) const {
         return lv_obj_get_style_base_dir(const_cast<lv_cls_ptr>(this->raw_ptr()), part);
     }    
 
@@ -1181,19 +1181,19 @@ namespace lvgl::core {
     void Object::set_style_flex_grow(uint8_t value, lv_style_selector_t selector) {
         lv_obj_set_style_flex_grow(this->raw_ptr(), value, selector);
     }
-    lv_flex_flow_t Object::get_style_flex_flow(uint32_t part) const {
+    lv_flex_flow_t Object::get_style_flex_flow(lv_part_t part) const {
         return lv_obj_get_style_flex_flow(this->raw_ptr(), part);
     }
-    lv_flex_align_t Object::get_style_flex_main_place(uint32_t part) const {
+    lv_flex_align_t Object::get_style_flex_main_place(lv_part_t part) const {
         return lv_obj_get_style_flex_main_place(this->raw_ptr(), part);
     }
-    lv_flex_align_t Object::get_style_flex_cross_place(uint32_t part) const {
+    lv_flex_align_t Object::get_style_flex_cross_place(lv_part_t part) const {
         return lv_obj_get_style_flex_cross_place(this->raw_ptr(), part);
     }
-    lv_flex_align_t Object::get_style_flex_track_place(uint32_t part) const {
+    lv_flex_align_t Object::get_style_flex_track_place(lv_part_t part) const {
         return lv_obj_get_style_flex_track_place(this->raw_ptr(), part);
     }
-    uint8_t Object::get_style_flex_grow(uint32_t part) const {
+    uint8_t Object::get_style_flex_grow(lv_part_t part) const {
         return lv_obj_get_style_flex_grow(this->raw_ptr(), part);
     }
 #endif // LV_USE_FLEX
@@ -1240,34 +1240,34 @@ namespace lvgl::core {
     void Object::set_style_grid_cell_y_align(lv_grid_align_t value, lv_style_selector_t selector) {
         lv_obj_set_style_grid_cell_y_align(this->raw_ptr(), value, selector);
     }
-    const lv_coord_t * Object::get_style_grid_row_dsc_array(uint32_t part) const {
+    const lv_coord_t * Object::get_style_grid_row_dsc_array(lv_part_t part) const {
         return lv_obj_get_style_grid_row_dsc_array(this->raw_ptr(), part);
     }
-    const lv_coord_t * Object::get_style_grid_column_dsc_array(uint32_t part) const {
+    const lv_coord_t * Object::get_style_grid_column_dsc_array(lv_part_t part) const {
         return lv_obj_get_style_grid_column_dsc_array(this->raw_ptr(), part);
     }
-    lv_grid_align_t Object::get_style_grid_row_align(uint32_t part) const {
+    lv_grid_align_t Object::get_style_grid_row_align(lv_part_t part) const {
         return lv_obj_get_style_grid_row_align(this->raw_ptr(), part);
     }
-    lv_grid_align_t Object::get_style_grid_column_align(uint32_t part) const {
+    lv_grid_align_t Object::get_style_grid_column_align(lv_part_t part) const {
         return lv_obj_get_style_grid_column_align(this->raw_ptr(), part);
     }
-    lv_coord_t Object::get_style_grid_cell_column_pos(uint32_t part) const {
+    lv_coord_t Object::get_style_grid_cell_column_pos(lv_part_t part) const {
         return lv_obj_get_style_grid_cell_column_pos(this->raw_ptr(), part);
     }
-    lv_coord_t Object::get_style_grid_cell_column_span(uint32_t part) const {
+    lv_coord_t Object::get_style_grid_cell_column_span(lv_part_t part) const {
         return lv_obj_get_style_grid_cell_column_span(this->raw_ptr(), part);
     }
-    lv_coord_t Object::get_style_grid_cell_row_pos(uint32_t part) const {
+    lv_coord_t Object::get_style_grid_cell_row_pos(lv_part_t part) const {
         return lv_obj_get_style_grid_cell_row_pos(this->raw_ptr(), part);
     }
-    lv_coord_t Object::get_style_grid_cell_row_span(uint32_t part) const {
+    lv_coord_t Object::get_style_grid_cell_row_span(lv_part_t part) const {
         return lv_obj_get_style_grid_cell_row_span(this->raw_ptr(), part);
     }
-    lv_coord_t Object::get_style_grid_cell_x_align(uint32_t part) const {
+    lv_coord_t Object::get_style_grid_cell_x_align(lv_part_t part) const {
         return lv_obj_get_style_grid_cell_x_align(this->raw_ptr(), part);
     }
-    lv_coord_t Object::get_style_grid_cell_y_align(uint32_t part) const {
+    lv_coord_t Object::get_style_grid_cell_y_align(lv_part_t part) const {
         return lv_obj_get_style_grid_cell_y_align(this->raw_ptr(), part);
     }
 #endif // LV_USE_GRID
