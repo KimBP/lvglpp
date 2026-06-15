@@ -69,21 +69,23 @@ namespace lvgl::core {
          */
         Layer get_layer() const;
 
-        /** \fn template <class T> T get_target() const
+        /** \fn template <class T> T get_target(bool owns_ptr=false) const
          *  \brief Gets event target.
+         *  \param owns_ptr: if true, the returned object takes ownership and will delete the target on destruction.
          *  \returns target object.
          */
-        template <class T> T get_target() const {
-            return T(static_cast<lv_obj_t*>(lv_event_get_target(const_cast<lv_event_t*>(this->raw_ptr()))), false);
+        template <class T> T get_target(bool owns_ptr=false) const {
+            return T(static_cast<lv_obj_t*>(lv_event_get_target(const_cast<lv_event_t*>(this->raw_ptr()))), owns_ptr);
         }
 
-        /** \fn template <class T> T get_current_target() const
+        /** \fn template <class T> T get_current_target(bool owns_ptr=false) const
          *  \brief Gets event's current target (can be different from original
          *  target if event is bubbling).
+         *  \param owns_ptr: if true, the returned object takes ownership and will delete the target on destruction.
          *  \returns current target object.
          */
-        template <class T> T get_current_target() const {
-            return T(static_cast<lv_obj_t*>(lv_event_get_current_target(const_cast<lv_event_t*>(this->raw_ptr()))), false);
+        template <class T> T get_current_target(bool owns_ptr=false) const {
+            return T(static_cast<lv_obj_t*>(lv_event_get_current_target(const_cast<lv_event_t*>(this->raw_ptr()))), owns_ptr);
         }
 
         /** \fn lv_event_code_t get_code() const
