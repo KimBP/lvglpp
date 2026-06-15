@@ -6,7 +6,6 @@
  */
 #pragma once
 #include "display.h"
-#include "src/indev/lv_indev_private.h"
 #include "../misc/timer.h"
 #include "../lv_wrapper.h"
 
@@ -21,11 +20,6 @@ namespace lvgl::core {
      */
     class InputDevice : public PointerWrapper<lv_indev_t, lv_indev_delete> {
     protected:
-        /** \property lv_indev_t indev_drv
-         *  \brief Input device driver instance.
-         */
-        lv_indev_t indev_drv;
-
         /** \property virtual void read(lv_indev_data_t * data)
          *  \brief Callback to read touchpad data.
          *  \param data: a pointer to the target data structure.
@@ -38,11 +32,6 @@ namespace lvgl::core {
          */
         void set_type(lv_indev_type_t type);
 
-        /** \fn void update_driver()
-         *  \brief Updates driver with stored values.
-         */
-        void update_driver();
-
     public:
         using PointerWrapper::PointerWrapper;
 
@@ -51,11 +40,11 @@ namespace lvgl::core {
          */
         InputDevice();
 
-        /** \fn void set_display(lv_disp_t * disp)
+        /** \fn void set_display(lv_display_t * disp)
          *  \brief Sets the associated display.
-         *  \param disp: pointer to a lv_disp_t instance.
+         *  \param disp: pointer to a lv_display_t instance.
          */
-        void set_display(lv_disp_t * disp);
+        void set_display(lv_display_t * disp);
 
         /** \fn void set_display(Display & disp)
          *  \brief Sets the associated display.
@@ -106,7 +95,7 @@ namespace lvgl::core {
      *  \returns input device object.
      */
     template <class T> T indev_get_act() {
-        return T(lv_indev_get_act(), false);
+        return T(lv_indev_active(), false);
     }
 
 
