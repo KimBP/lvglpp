@@ -7,7 +7,7 @@
 #pragma once
 
 #include "../../core/object.h"
-#include "src/widgets/scale/lv_scale_private.h"
+#include "widgets/scale/lv_scale_private.h"
 
 #if LV_USE_SCALE != 0
 

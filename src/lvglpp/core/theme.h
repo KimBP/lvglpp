@@ -6,7 +6,7 @@
  */
 
 #include "../lv_wrapper.h"
-#include "src/themes/lv_theme_private.h"
+#include "themes/lv_theme_private.h"
 
 namespace lvgl::core {
 

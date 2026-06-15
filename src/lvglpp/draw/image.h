@@ -6,7 +6,7 @@
  *  License: MIT
  */
 #pragma once
-#include "src/draw/lv_image_decoder_private.h"
+#include "draw/lv_image_decoder_private.h"
 #include "../misc/color.h"
 #include "../misc/area.h"
 #include "../lv_wrapper.h"

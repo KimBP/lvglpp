@@ -14,11 +14,11 @@
 #include <assert.h>
 
 #include "lvgl.h"
-#include "src/font/lv_binfont_loader.h"
-#include "src/core/lv_obj_private.h"
-#include "src/misc/lv_color.h"
-#include "src/draw/lv_draw_private.h"
-#include "src/misc/lv_types.h"
+#include "font/binfont_loader/lv_binfont_loader.h"
+#include "core/lv_obj_private.h"
+#include "misc/lv_color.h"
+#include "draw/lv_draw_private.h"
+#include "misc/lv_types.h"
 
 /** \namespace lvgl
  *  \brief LVGL C++ wrappers.

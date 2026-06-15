@@ -5,7 +5,7 @@
  *  License: MIT
  */
 #include "span.h"
-#include "src/widgets/span/lv_span_private.h"
+#include "widgets/span/lv_span_private.h"
 #if LV_USE_SPAN != 0
 
 #include "../../misc/style.h"

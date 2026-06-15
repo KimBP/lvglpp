@@ -8,7 +8,7 @@
 #include "event.h"
 #include "theme.h"
 #include "group.h"
-#include "src/core/lv_obj_draw_private.h"
+#include "core/lv_obj_draw_private.h"
 #include "../misc/style.h"
 #include "../misc/area.h"
 #include "../misc/color.h"

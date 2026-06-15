@@ -7,7 +7,7 @@
 #pragma once
 #include "../lv_wrapper.h"
 #include <vector>
-#include "src/draw/sw/lv_draw_sw_mask_private.h"
+#include "draw/sw/lv_draw_sw_mask_private.h"
 
 namespace lvgl::misc {
     class Area;

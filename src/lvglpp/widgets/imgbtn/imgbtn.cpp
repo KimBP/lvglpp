@@ -5,7 +5,7 @@
  *  License: MIT
  */
 
- #include "src/widgets/imagebutton/lv_imagebutton_private.h"
+ #include "widgets/imagebutton/lv_imagebutton_private.h"
  #include "imgbtn.h"
 #if LV_USE_IMAGEBUTTON != 0
 

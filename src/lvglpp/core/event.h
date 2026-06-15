@@ -6,11 +6,11 @@
  */
 #pragma once
 
-#include "src/misc/lv_types.h"
+#include "misc/lv_types.h"
 #include "../lv_wrapper.h"
 #include "../misc/anim.h"
 #include "../misc/area.h"
-#include "src/misc/lv_event_private.h"
+#include "misc/lv_event_private.h"
 #include "../draw/layer.h"
 
 namespace lvgl::core {

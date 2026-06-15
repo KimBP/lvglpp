@@ -5,7 +5,7 @@
  *  License: MIT
  */
 #include "area.h"
-#include "src/misc/lv_area_private.h"
+#include "misc/lv_area_private.h"
 
 namespace lvgl::misc {
     Area::Area() {
