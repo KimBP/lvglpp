@@ -12,6 +12,8 @@
 #include <utility>
 #include <cstring>
 #include <assert.h>
+#include <algorithm>
+#include <type_traits>
 
 #include "lvgl.h"
 #include "font/binfont_loader/lv_binfont_loader.h"
@@ -19,6 +21,26 @@
 #include "misc/lv_color.h"
 #include "draw/lv_draw_private.h"
 #include "misc/lv_types.h"
+
+
+/** Bitwise OR intended for C-API enums
+ * This operator is meant to be used for LVGL enums that are used as bitmasks, such as lv_obj_flag_t and lv_style_selector_t.
+ * It allows to combine enum values with the bitwise OR operator, while ensuring type safety and
+ * preventing unintended combinations of different enum types.
+ */
+    template <typename T, typename U,
+          typename = std::enable_if_t<std::is_enum_v<T> && std::is_enum_v<U> && std::is_same_v<T, U>>>
+    constexpr T operator|(T lhs, U rhs) {
+        using V = std::underlying_type_t<T>;
+        return static_cast<T>(static_cast<V>(lhs) | static_cast<V>(rhs));
+    }
+
+    // This operator kicks in ONLY if both arguments are different enums
+    template <typename T, typename U,
+          typename = std::enable_if_t<std::is_enum_v<T> && std::is_enum_v<U> && !std::is_same_v<T, U>>>
+    constexpr auto operator|(T lhs, U rhs) noexcept {
+        return static_cast<std::underlying_type_t<T>>(lhs) | static_cast<std::underlying_type_t<U>>(rhs);
+    }
 
 /** \namespace lvgl
  *  \brief LVGL C++ wrappers.
