@@ -21,6 +21,10 @@ namespace lvgl::widgets {
     public:
         using Widget::Widget;
 
+        Slider();
+        Slider(Object & parent);
+        Slider(const Object & parent);
+
         /** \fn void set_value(int32_t value, lv_anim_enable_t anim)
          *  \brief Sets slider value.
          *  \param value: value to set.

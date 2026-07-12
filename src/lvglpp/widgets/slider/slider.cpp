@@ -7,7 +7,39 @@
 #include "slider.h"
 #if LV_USE_SLIDER != 0
 
+#include "../../core/group.h"
+
 namespace lvgl::widgets {
+
+namespace {
+
+core::Group & fallback_slider_group()
+{
+    // lvglpp currently has no dedicated group factory helper.
+    static core::Group group(lv_group_create(), false);
+    return group;
+}
+
+void ensure_slider_group(Slider & slider)
+{
+    if (slider.get_group().raw_ptr() == nullptr) {
+        fallback_slider_group().add_obj(slider);
+    }
+}
+
+}
+
+    Slider::Slider() : Widget() {
+        ensure_slider_group(*this);
+    }
+
+    Slider::Slider(Object & parent) : Widget(parent) {
+        ensure_slider_group(*this);
+    }
+
+    Slider::Slider(const Object & parent) : Widget(parent) {
+        ensure_slider_group(*this);
+    }
 
     void Slider::set_value(int32_t value, lv_anim_enable_t anim) {
         lv_slider_set_value(this->raw_ptr(), value, anim);
