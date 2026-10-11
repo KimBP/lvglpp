@@ -24,7 +24,7 @@ namespace lvgl::font {
     lv_font_glyph_dsc_t Font::get_glyph_descriptor(uint32_t letter, uint32_t letter_next) const {
         lv_font_glyph_dsc_t dsc_out;
         lv_font_get_glyph_dsc(this->raw_ptr(), &dsc_out, letter, letter_next);
-        return std::move(dsc_out);
+        return dsc_out;
     }
 
     uint16_t Font::get_glyph_width(uint32_t letter, uint32_t letter_next) const {
