@@ -6,7 +6,7 @@
  */
 #pragma once
 
-#include "misc/lv_types.h"
+#include "lvgl.h"
 #include "../lv_wrapper.h"
 #include "../misc/anim.h"
 #include "../misc/area.h"

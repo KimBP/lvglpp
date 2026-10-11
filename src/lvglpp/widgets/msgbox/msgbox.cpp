@@ -43,6 +43,21 @@ namespace lvgl::widgets {
     void MessageBox::initialize(const std::string & title, const std::string & txt,
                                 const std::vector<std::string> & btn_txts,
                                 bool add_close_btn) {
+        if(!title.empty()) {
+            add_title(title);
+        }
+
+        if(add_close_btn) {
+            add_close_button();
+        }
+
+        if(!txt.empty()) {
+            add_text(txt);
+        }
+
+        for(const auto & btn_txt : btn_txts) {
+            add_footer_button(btn_txt);
+        }
     }
 
     Object MessageBox::add_title(const std::string & title) {

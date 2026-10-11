@@ -16,11 +16,8 @@
 #include <type_traits>
 
 #include "lvgl.h"
-#include "font/binfont_loader/lv_binfont_loader.h"
 #include "core/lv_obj_private.h"
-#include "misc/lv_color.h"
 #include "draw/lv_draw_private.h"
-#include "misc/lv_types.h"
 
 
 /** Bitwise OR intended for C-API enums
